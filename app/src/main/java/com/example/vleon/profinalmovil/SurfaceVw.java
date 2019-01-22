@@ -34,8 +34,8 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         anchoPantalla = width;
         altoPantalla = height;
-        Log.i("ANCHO PANTALLA"," "+anchoPantalla/10*5);
-        Log.i("ALTO PANTALLA"," "+altoPantalla/2);
+        Log.i("ANCHO PANTALLA", " " + anchoPantalla / 10 * 5);
+        Log.i("ALTO PANTALLA", " " + altoPantalla / 2);
         escenaActual = new MenuPrincipal(contexto, 0, anchoPantalla, altoPantalla);
 
         hilo.setFuncionando(true);
@@ -49,22 +49,26 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
         synchronized (surfaceHolder) {
             int nuevaEscena = escenaActual.onTouchEvent(event);
+
             if (nuevaEscena != escenaActual.idEscena) {
                 switch (nuevaEscena) {
                     case 0:
-                        escenaActual = new MenuPrincipal(contexto,0,anchoPantalla,altoPantalla);
+                        escenaActual = new MenuPrincipal(contexto, 0, anchoPantalla, altoPantalla);
                         break;
                     case 1:
-//                        escenaActual = new Creditos(contexto, 1, anchoPantalla, altoPantalla);
+                        escenaActual = new Creditos(contexto, 1, anchoPantalla, altoPantalla);
                         break;
                     case 2:
                         escenaActual = new Ajustes(contexto, 2, anchoPantalla, altoPantalla);
                         break;
+
                     case 3:
                         escenaActual = new Juego(contexto, 3, anchoPantalla, altoPantalla);
                         break;
+
                     case 4:
                         escenaActual = new Records(contexto, 4, anchoPantalla, altoPantalla);
                         break;
@@ -114,6 +118,10 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
 
         void setFuncionando(boolean flag) {
             funcionando = flag;
+        }
+
+        public void setSurfaceSize(int width, int height) { // Función llamada si cambia el tamaño del view
+
         }
     }
 }

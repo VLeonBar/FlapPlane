@@ -15,7 +15,7 @@ public class Escena {
     int idEscena;
     int altoPantalla, anchoPantalla;
     Bitmap imgFondo;
-    Paint pincel;
+    Paint pincel,pincel2;
     Rect vueltaMenu;
 
 
@@ -28,6 +28,9 @@ public class Escena {
         pincel.setColor(Color.rgb(59, 36, 16));
         pincel.setStyle(Paint.Style.STROKE);
         pincel.setStrokeWidth((float) getDpH(20));
+        pincel2 = new Paint();
+        pincel2.setColor(Color.BLUE);
+        vueltaMenu= new Rect(0,0,anchoPantalla/15,anchoPantalla/15);
     }
 
     public int getDpH(int pixels) {
@@ -42,6 +45,7 @@ public class Escena {
     public void dibujar(Canvas c) {
         try {
             if (idEscena != 0) {
+                c.drawRect(vueltaMenu,pincel2);
             }
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
@@ -55,7 +59,7 @@ public class Escena {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
-//                if (pulsa(backMenu, event) && idEscena != 0) return 0;
+                if (pulsa(vueltaMenu, event) && idEscena != 0) return 0;
                 break;
         }
 
@@ -69,6 +73,9 @@ public class Escena {
             return false;
         }
     }
+
+
+
 
     public Context getContexto() {
         return contexto;

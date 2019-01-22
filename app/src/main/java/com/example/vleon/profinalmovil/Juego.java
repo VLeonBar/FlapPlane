@@ -4,13 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
 public class Juego extends Escena {
-    ArrayList<Ficha> fichasJuego=new ArrayList<>();
+    ArrayList<Ficha> fichasJuego = new ArrayList<>();
 
     public Juego(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
@@ -26,13 +27,14 @@ public class Juego extends Escena {
         try {
             //Fondo de pantalla del JUEGO
             c.drawBitmap(imgFondo, 0, 0, null);
-
+            super.dibujar(c);
 
 
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
         }
     }
+
     public int onTouchEvent(MotionEvent event) {
         int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();
@@ -42,7 +44,8 @@ public class Juego extends Escena {
             case MotionEvent.ACTION_POINTER_UP:
                 break;
         }
-
+        int padre = super.onTouchEvent(event);
+        if (padre != idEscena) return padre;
         return idEscena;
     }
 }

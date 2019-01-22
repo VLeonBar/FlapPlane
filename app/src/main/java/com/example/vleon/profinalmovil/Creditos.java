@@ -22,6 +22,7 @@ public class Creditos extends Escena {
         try {
             //Fondo de pantalla del creditos
             c.drawBitmap(imgFondo, 0, 0, null);
+            super.dibujar(c);
 
 
         } catch (Exception e) {
@@ -38,7 +39,8 @@ public class Creditos extends Escena {
             case MotionEvent.ACTION_POINTER_UP:
                 break;
         }
-
+        int padre = super.onTouchEvent(event);
+        if (padre != idEscena) return padre;
         return idEscena;
     }
 }

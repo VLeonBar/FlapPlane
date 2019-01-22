@@ -13,6 +13,7 @@ public class Ajustes extends Escena {
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_prov);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
     }
+
     public void actualizarFisica() {
 
     }
@@ -21,13 +22,14 @@ public class Ajustes extends Escena {
         try {
             //Fondo de pantalla de ajustes
             c.drawBitmap(imgFondo, 0, 0, null);
-
+            super.dibujar(c);
 
 
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
         }
     }
+
     public int onTouchEvent(MotionEvent event) {
         int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();
@@ -37,7 +39,8 @@ public class Ajustes extends Escena {
             case MotionEvent.ACTION_POINTER_UP:
                 break;
         }
-
+        int padre = super.onTouchEvent(event);
+        if (padre != idEscena) return padre;
         return idEscena;
     }
 }

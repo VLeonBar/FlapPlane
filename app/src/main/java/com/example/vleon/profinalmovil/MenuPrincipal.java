@@ -11,7 +11,8 @@ import android.view.MotionEvent;
 public class MenuPrincipal extends Escena {
     Rect rectJugar, rectAjustes, rectRecord, rectCreditos, rectControles;
     Bitmap imgGradaIzq, imgGradaDch, imgLogo;
-    int anchoDecimo, altoMedio, anchoTercio, altoSexto,anchoMedio;
+    int anchoDecimo, altoMedio, anchoTercio, altoSexto, anchoMedio;
+    float posCentroFichaX, posCentroFichaY;
     Ficha ficha;
 
     public MenuPrincipal(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
@@ -25,10 +26,12 @@ public class MenuPrincipal extends Escena {
         altoMedio = altoPantalla / 2;
         altoSexto = altoMedio / 3;
         //Ficha
-        ficha=new Ficha(0,0,new BitmapFactory().decodeResource(contexto.getResources(),R.drawable.bandera9));
-        ficha.setImgFicha( Bitmap.createScaledBitmap(ficha.getImgFicha(),altoSexto/2,altoSexto/2,false));
-        ficha.setPosX(anchoMedio-ficha.getImgFicha().getWidth()/2);
-        ficha.setPosY(altoSexto*(float)5.5-ficha.getImgFicha().getHeight()/2);
+        ficha = new Ficha(0, 0, new BitmapFactory().decodeResource(contexto.getResources(), R.drawable.bandera9));
+        ficha.setImgFicha(Bitmap.createScaledBitmap(ficha.getImgFicha(), altoSexto / 2, altoSexto / 2, false));
+        ficha.setPosX(anchoMedio - ficha.getImgFicha().getWidth() / 2);
+        ficha.setPosY(altoSexto * (float) 5.5 - ficha.getImgFicha().getHeight() / 2);
+        posCentroFichaX = ficha.getPosX() + ficha.getImgFicha().getWidth() / 2;
+        posCentroFichaY = ficha.getPosY() + ficha.getImgFicha().getHeight() / 2;
         //  Gradas||Laterales && Logo central
         imgLogo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.icono);
         imgLogo = Bitmap.createScaledBitmap(imgLogo, anchoDecimo * 6, altoPantalla / 3, false);
@@ -49,7 +52,6 @@ public class MenuPrincipal extends Escena {
 
     //FÍSICAS Y DIBUJO DE LA CLASE MENÚ
     public void actualizarFisica() {
-
     }
 
     public void dibujar(Canvas c) {
@@ -57,7 +59,7 @@ public class MenuPrincipal extends Escena {
             //Fondo de pantalla del menú
             c.drawBitmap(imgFondo, 0, 0, null);
             c.drawBitmap(imgLogo, anchoDecimo * 2, altoMedio, null);
-            c.drawBitmap(ficha.getImgFicha(),ficha.getPosX(),ficha.getPosY(), null);
+            c.drawBitmap(ficha.getImgFicha(), ficha.getPosX(), ficha.getPosY(), null);
             c.drawBitmap(imgGradaDch, anchoDecimo * 9, altoMedio, null);
             c.drawBitmap(imgGradaIzq, 0, altoMedio, null);
             c.drawRect(rectCreditos, pincel);
@@ -67,7 +69,7 @@ public class MenuPrincipal extends Escena {
             c.drawRect(rectControles, pincel);
             c.drawLine(0, 0, anchoPantalla, 0, pincel);
             c.drawLine(0, altoSexto * 3, anchoPantalla, altoSexto * 3, pincel);
-            c.drawCircle(anchoMedio, altoSexto*(float)5.5, altoSexto/(float)2.5, pincel);
+            c.drawCircle(anchoMedio, altoSexto * (float) 5.5, altoSexto / (float) 2.5, pincel);
 
 
         } catch (Exception e) {
@@ -83,21 +85,40 @@ public class MenuPrincipal extends Escena {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 if (pulsa(rectCreditos, event)) {
-                    //siempre va a ser mayor en el eje Y. En este caso también mayor en el eje X.
-                    while (ficha.getPosX()+ficha.getImgFicha().getWidth()/2>rectCreditos.centerX()||ficha.getPosY()+ficha.getImgFicha().getWidth()/2>rectCreditos.centerY()){
-                            if (ficha.getPosX()+ficha.getImgFicha().getWidth()/2>rectCreditos.centerX()) ficha.setPosX(ficha.getPosX()-getDpH(5));
-                            if (ficha.getPosY()+ficha.getImgFicha().getWidth()/2>rectCreditos.centerY()) ficha.setPosY(ficha.getPosY()-getDpH(30));
-                    }
-                return 1;}
-                else if (pulsa(rectAjustes, event)) return 2;
-                else if (pulsa(rectJugar, event)) return 3;
-                else if (pulsa(rectRecord, event)) return 4;
-                else if (pulsa(rectControles, event)) return 5;
+                    mueveFicha(rectCreditos);
+                    return 1;
+                } else if (pulsa(rectAjustes, event)) {
+                    mueveFicha(rectAjustes);
+                    return 2;
+                } else if (pulsa(rectJugar, event)) {
+                    mueveFicha(rectJugar);
+                    return 3;
+                } else if (pulsa(rectRecord, event)) {
+                    mueveFicha(rectRecord);
+                    return 4;
+                } else if (pulsa(rectControles, event)) {
+                    mueveFicha(rectControles);
+                    return 5;
+                }
 
                 break;
         }
 
         return idEscena;
     }
+
+    public void mueveFicha(Rect boton) {
+        while (posCentroFichaY > boton.centerY()) {
+            ficha.setPosY(ficha.getPosY() - getDpH(26));
+            if (posCentroFichaX > boton.centerX()) {
+                ficha.setPosX(ficha.getPosX() - getDpH(12));
+            } else {
+                ficha.setPosX(ficha.getPosX() + getDpH(12));
+            }
+            posCentroFichaX = ficha.getPosX() + ficha.getImgFicha().getWidth() / 2;
+            posCentroFichaY = ficha.getPosY() + ficha.getImgFicha().getHeight() / 2;
+        }
+    }
+
 
 }
