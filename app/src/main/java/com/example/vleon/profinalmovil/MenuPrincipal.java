@@ -12,6 +12,7 @@ public class MenuPrincipal extends Escena {
     Rect rectJugar, rectAjustes, rectRecord, rectCreditos, rectControles;
     Bitmap imgGradaIzq, imgGradaDch, imgLogo;
     int anchoDecimo, altoMedio, anchoTercio, altoSexto,anchoMedio;
+    Ficha ficha;
 
     public MenuPrincipal(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, altoPantalla, anchoPantalla);
@@ -23,6 +24,11 @@ public class MenuPrincipal extends Escena {
         anchoMedio = anchoPantalla / 2;
         altoMedio = altoPantalla / 2;
         altoSexto = altoMedio / 3;
+        //Ficha
+        ficha=new Ficha(0,0,new BitmapFactory().decodeResource(contexto.getResources(),R.drawable.bandera9));
+        ficha.setImgFicha( Bitmap.createScaledBitmap(ficha.getImgFicha(),altoSexto/2,altoSexto/2,false));
+        ficha.setPosX(anchoMedio-ficha.getImgFicha().getWidth()/2);
+        ficha.setPosY(altoSexto*(float)5.5-ficha.getImgFicha().getHeight()/2);
         //  Gradas||Laterales && Logo central
         imgLogo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.icono);
         imgLogo = Bitmap.createScaledBitmap(imgLogo, anchoDecimo * 6, altoPantalla / 3, false);
@@ -51,6 +57,7 @@ public class MenuPrincipal extends Escena {
             //Fondo de pantalla del menú
             c.drawBitmap(imgFondo, 0, 0, null);
             c.drawBitmap(imgLogo, anchoDecimo * 2, altoMedio, null);
+            c.drawBitmap(ficha.getImgFicha(),ficha.getPosX(),ficha.getPosY(), null);
             c.drawBitmap(imgGradaDch, anchoDecimo * 9, altoMedio, null);
             c.drawBitmap(imgGradaIzq, 0, altoMedio, null);
             c.drawRect(rectCreditos, pincel);
