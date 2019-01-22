@@ -22,6 +22,8 @@ public class Controles extends Escena {
         try {
             //Fondo de pantalla del controles
             c.drawBitmap(imgFondo, 0, 0, null);
+            //llama al dibujar de la clase padre para dibujar los elementos comunes a todas las clases hijas
+
             super.dibujar(c);
 
 
