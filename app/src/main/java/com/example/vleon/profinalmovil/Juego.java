@@ -7,10 +7,14 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+
 public class Juego extends Escena {
+    ArrayList<Ficha> fichasJuego=new ArrayList<>();
+
     public Juego(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
-        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.bandera1);
+        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_prov);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
     }
 

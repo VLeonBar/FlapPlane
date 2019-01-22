@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 public class Ajustes extends Escena {
     public Ajustes(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
-        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.bandera2);
+        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_prov);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
     }
     public void actualizarFisica() {

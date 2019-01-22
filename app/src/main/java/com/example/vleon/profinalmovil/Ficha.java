@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 public class Ficha {
     Bitmap imgFicha;
     float posX, posY;
+    //Debe tener una hitbox determinada por un circulo.
 
     public Bitmap getImgFicha() {
         return imgFicha;

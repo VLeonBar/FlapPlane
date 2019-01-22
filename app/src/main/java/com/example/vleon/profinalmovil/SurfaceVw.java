@@ -57,7 +57,7 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                         escenaActual = new MenuPrincipal(contexto,0,anchoPantalla,altoPantalla);
                         break;
                     case 1:
-                        escenaActual = new Creditos(contexto, 1, anchoPantalla, altoPantalla);
+//                        escenaActual = new Creditos(contexto, 1, anchoPantalla, altoPantalla);
                         break;
                     case 2:
                         escenaActual = new Ajustes(contexto, 2, anchoPantalla, altoPantalla);

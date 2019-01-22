@@ -16,7 +16,7 @@ public class MenuPrincipal extends Escena {
 
     public MenuPrincipal(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, altoPantalla, anchoPantalla);
-        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_prov);
+        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_mainscreen);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
         //Dimensiones de corte de pantalla
         anchoDecimo = anchoPantalla / 10;
@@ -82,7 +82,13 @@ public class MenuPrincipal extends Escena {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
-                if (pulsa(rectCreditos, event)) return 1;
+                if (pulsa(rectCreditos, event)) {
+                    //siempre va a ser mayor en el eje Y. En este caso también mayor en el eje X.
+                    while (ficha.getPosX()+ficha.getImgFicha().getWidth()/2>rectCreditos.centerX()||ficha.getPosY()+ficha.getImgFicha().getWidth()/2>rectCreditos.centerY()){
+                            if (ficha.getPosX()+ficha.getImgFicha().getWidth()/2>rectCreditos.centerX()) ficha.setPosX(ficha.getPosX()-getDpH(5));
+                            if (ficha.getPosY()+ficha.getImgFicha().getWidth()/2>rectCreditos.centerY()) ficha.setPosY(ficha.getPosY()-getDpH(30));
+                    }
+                return 1;}
                 else if (pulsa(rectAjustes, event)) return 2;
                 else if (pulsa(rectJugar, event)) return 3;
                 else if (pulsa(rectRecord, event)) return 4;
