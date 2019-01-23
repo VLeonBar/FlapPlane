@@ -52,7 +52,6 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
 
         synchronized (surfaceHolder) {
             int nuevaEscena = escenaActual.onTouchEvent(event);
-
             if (nuevaEscena != escenaActual.idEscena) {
                 switch (nuevaEscena) {
                     case 0:
@@ -77,6 +76,7 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                         break;
                 }
             }
+
         }
         return true;
     }
@@ -105,7 +105,34 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                         continue;
                     c = surfaceHolder.lockCanvas();
                     synchronized (surfaceHolder) {
-                        escenaActual.actualizarFisica();
+                        int novaEscena = escenaActual.actualizarFisica();
+                        Log.i("ESCENA ACTUAL ", escenaActual + "");
+                        Log.i("ID ESCENA ", escenaActual.idEscena + "");
+                        Log.i("NOVA ESCENA ", novaEscena + "");
+                        if (novaEscena != escenaActual.idEscena) {
+                            switch (novaEscena) {
+                                case 0:
+                                    escenaActual = new MenuPrincipal(contexto, 0, anchoPantalla, altoPantalla);
+                                    break;
+                                case 1:
+                                    escenaActual = new Creditos(contexto, 1, anchoPantalla, altoPantalla);
+                                    break;
+                                case 2:
+                                    escenaActual = new Ajustes(contexto, 2, anchoPantalla, altoPantalla);
+                                    break;
+
+                                case 3:
+                                    escenaActual = new Juego(contexto, 3, anchoPantalla, altoPantalla);
+                                    break;
+
+                                case 4:
+                                    escenaActual = new Records(contexto, 4, anchoPantalla, altoPantalla);
+                                    break;
+                                case 5:
+                                    escenaActual = new Controles(contexto, 5, anchoPantalla, altoPantalla);
+                                    break;
+                            }
+                        }
                         escenaActual.dibujar(c);
                     }
                 } finally {

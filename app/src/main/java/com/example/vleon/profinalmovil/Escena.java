@@ -38,8 +38,8 @@ public class Escena {
     }
 
     //Físicas y dibujo de elementos comunes a todas las escenas hijas.
-    public void actualizarFisica() {
-
+    public int actualizarFisica() {
+        return idEscena;
     }
 
     public void dibujar(Canvas c) {

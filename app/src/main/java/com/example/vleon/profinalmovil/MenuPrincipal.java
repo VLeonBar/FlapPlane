@@ -9,11 +9,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 public class MenuPrincipal extends Escena {
-    Rect rectJugar, rectAjustes, rectRecord, rectCreditos, rectControles;
+    Rect rectJugar, rectAjustes, rectRecord, rectCreditos, rectControles, botonPulsado = null;
     Bitmap imgGradaIzq, imgGradaDch, imgLogo;
+    boolean bandera = true;
     int anchoDecimo, altoMedio, anchoTercio, altoSexto, anchoMedio;
     float posCentroFichaX, posCentroFichaY;
     Ficha ficha;
+    int escenaDestino = idEscena;
+    boolean movFicha = false;
 
     public MenuPrincipal(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, altoPantalla, anchoPantalla);
@@ -51,7 +54,15 @@ public class MenuPrincipal extends Escena {
     }
 
     //FÍSICAS Y DIBUJO DE LA CLASE MENÚ
-    public void actualizarFisica() {
+    public int actualizarFisica() {
+        if (movFicha) {
+            mueveFicha(botonPulsado);
+            if (!bandera) {
+                return escenaDestino;
+            }
+        }
+
+        return idEscena;
     }
 
     public void dibujar(Canvas c) {
@@ -59,7 +70,6 @@ public class MenuPrincipal extends Escena {
             //Fondo de pantalla del menú
             c.drawBitmap(imgFondo, 0, 0, null);
             c.drawBitmap(imgLogo, anchoDecimo * 2, altoMedio, null);
-            c.drawBitmap(ficha.getImgFicha(), ficha.getPosX(), ficha.getPosY(), null);
             c.drawBitmap(imgGradaDch, anchoDecimo * 9, altoMedio, null);
             c.drawBitmap(imgGradaIzq, 0, altoMedio, null);
             c.drawRect(rectCreditos, pincel);
@@ -70,7 +80,8 @@ public class MenuPrincipal extends Escena {
             c.drawLine(0, 0, anchoPantalla, 0, pincel);
             c.drawLine(0, altoSexto * 3, anchoPantalla, altoSexto * 3, pincel);
             c.drawCircle(anchoMedio, altoSexto * (float) 5.5, altoSexto / (float) 2.5, pincel);
-
+            c.drawBitmap(ficha.getImgFicha(), ficha.getPosX(), ficha.getPosY(), null);
+//            Log.i("movaa", "dibujo");
 
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
@@ -85,40 +96,46 @@ public class MenuPrincipal extends Escena {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 if (pulsa(rectCreditos, event)) {
-                    mueveFicha(rectCreditos);
-                    return 1;
+                    this.botonPulsado = rectCreditos;
+                    movFicha = true;
+                    escenaDestino = 1;
                 } else if (pulsa(rectAjustes, event)) {
-                    mueveFicha(rectAjustes);
-                    return 2;
+                    this.botonPulsado = rectAjustes;
+                    movFicha = true;
+                    escenaDestino = 2;
                 } else if (pulsa(rectJugar, event)) {
-                    mueveFicha(rectJugar);
-                    return 3;
+                    this.botonPulsado = rectJugar;
+                    movFicha = true;
+                    escenaDestino = 3;
                 } else if (pulsa(rectRecord, event)) {
-                    mueveFicha(rectRecord);
-                    return 4;
+                    this.botonPulsado = rectRecord;
+                    movFicha = true;
+                    escenaDestino = 4;
                 } else if (pulsa(rectControles, event)) {
-                    mueveFicha(rectControles);
-                    return 5;
+                    this.botonPulsado = rectControles;
+                    movFicha = true;
+                    escenaDestino = 5;
                 }
 
                 break;
         }
-
         return idEscena;
     }
 
     public void mueveFicha(Rect boton) {
-        while (posCentroFichaY > boton.centerY()) {
-            ficha.setPosY(ficha.getPosY() - getDpH(26));
-            if (posCentroFichaX > boton.centerX()) {
-                ficha.setPosX(ficha.getPosX() - getDpH(12));
+        if (boton != null) {
+            if (posCentroFichaY > boton.centerY()) {
+                ficha.setPosY(ficha.getPosY() - getDpH(26));
+                if (posCentroFichaX > boton.centerX()) {
+                    ficha.setPosX(ficha.getPosX() - getDpH(12));
+                } else {
+                    ficha.setPosX(ficha.getPosX() + getDpH(12));
+                }
+                posCentroFichaX = ficha.getPosX() + ficha.getImgFicha().getWidth() / 2;
+                posCentroFichaY = ficha.getPosY() + ficha.getImgFicha().getHeight() / 2;
             } else {
-                ficha.setPosX(ficha.getPosX() + getDpH(12));
+                bandera = false;
             }
-            posCentroFichaX = ficha.getPosX() + ficha.getImgFicha().getWidth() / 2;
-            posCentroFichaY = ficha.getPosY() + ficha.getImgFicha().getHeight() / 2;
         }
     }
-
-
 }

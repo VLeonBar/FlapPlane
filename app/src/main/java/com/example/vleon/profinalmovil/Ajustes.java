@@ -14,7 +14,8 @@ public class Ajustes extends Escena {
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
     }
 
-    public void actualizarFisica() {
+    public int actualizarFisica() {
+        return idEscena;
 
     }
 
