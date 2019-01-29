@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class Juego extends Escena {
     ArrayList<Ficha> fichasJuego = new ArrayList<>();
     Bitmap imgGradaIzq, imgGradaDch, imgLogo;
-    int anchoDecimo, altoMedio, anchoQuinto, altoSexto, anchoMedio;
-    int ancho_1 = 1, ancho_2 = 2;
+    int anchoDecimo, altoMedio, anchoQuinto, altoSexto, anchoMedio,altoOctavo,altoDecimo;
+    int ancho_1 = 1, ancho_2 = 2, alto_1 = 1, alto_2 = 2;
     float posCentroFichaX, posCentroFichaY;
     Ficha ficha;
     Rect[] casillas = new Rect[9];
@@ -28,10 +28,12 @@ public class Juego extends Escena {
         anchoMedio = anchoPantalla / 2;
         altoMedio = altoPantalla / 2;
         altoSexto = altoMedio / 3;
+        altoOctavo = altoPantalla / 8;
+        altoDecimo = altoPantalla / 10;
 
         //Ficha
         ficha = new Ficha(0, 0, new BitmapFactory().decodeResource(contexto.getResources(), R.drawable.bandera9));
-        ficha.setImgFicha(Bitmap.createScaledBitmap(ficha.getImgFicha(), altoSexto / 2, altoSexto / 2, false));
+        ficha.setImgFicha(Bitmap.createScaledBitmap(ficha.getImgFicha(), altoDecimo / 2, altoDecimo / 2, false));
         ficha.setPosX(anchoMedio - ficha.getImgFicha().getWidth() / 2);
         ficha.setPosY(altoSexto * (float) 5.5 - ficha.getImgFicha().getHeight() / 2);
         posCentroFichaX = ficha.getPosX() + ficha.getImgFicha().getWidth() / 2;
@@ -46,9 +48,15 @@ public class Juego extends Escena {
         //Rectángulos - Botones
 
         for (int i = 0; i < casillas.length; i++) {
-            casillas[i] = new Rect(anchoQuinto * ancho_1, altoSexto * ancho_1, anchoQuinto * ancho_2, altoSexto * ancho_2);
+            casillas[i] = new Rect(anchoQuinto * ancho_1, altoOctavo * alto_1, anchoQuinto * ancho_2, altoOctavo * alto_2);
             ancho_1++;
             ancho_2++;
+            if ((i + 1) % 3 == 0) {
+                ancho_1 = 1;
+                ancho_2 = 2;
+                alto_1++;
+                alto_2++;
+            }
         }
     }
 
@@ -65,11 +73,11 @@ public class Juego extends Escena {
             c.drawBitmap(imgGradaDch, anchoDecimo * 9, altoMedio, null);
             c.drawBitmap(imgGradaIzq, 0, altoMedio, null);
             for (int i = 0; i < casillas.length; i++) {
-               c.drawRect(casillas[i],pincel);
+                c.drawRect(casillas[i], pincel);
             }
             c.drawLine(0, 0, anchoPantalla, 0, pincel);
-            c.drawLine(0, altoSexto * 3, anchoPantalla, altoSexto * 3, pincel);
-            c.drawCircle(anchoMedio, altoSexto * (float) 5.5, altoSexto / (float) 2.5, pincel);
+//            c.drawLine(0, altoSexto * 3, anchoPantalla, altoSexto * 3, pincel);
+            c.drawCircle(anchoMedio, altoOctavo * (float) 5.5, altoOctavo / (float) 2.5, pincel);
             c.drawBitmap(ficha.getImgFicha(), ficha.getPosX(), ficha.getPosY(), null);
             super.dibujar(c);
 
