@@ -4,23 +4,32 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MenuPrincipal extends Escena {
     Rect rectJugar, rectAjustes, rectRecord, rectCreditos, rectControles, botonPulsado = null;
     Bitmap imgGradaIzq, imgGradaDch, imgLogo;
-    boolean bandera = true;
+    boolean bandera = true, bandera2 = true;
     int anchoDecimo, altoMedio, anchoTercio, altoSexto, anchoMedio;
     float posCentroFichaX, posCentroFichaY;
     Ficha ficha;
+    int cont = 0;
     int escenaDestino = idEscena;
     boolean movFicha = false;
 
+    int movFichaX, movFichaY;
+
     public MenuPrincipal(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, altoPantalla, anchoPantalla);
-        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_mainscreen);
+        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_main_edit);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
         //Dimensiones de corte de pantalla
         anchoDecimo = anchoPantalla / 10;
@@ -81,7 +90,6 @@ public class MenuPrincipal extends Escena {
             c.drawLine(0, altoSexto * 3, anchoPantalla, altoSexto * 3, pincel);
             c.drawCircle(anchoMedio, altoSexto * (float) 5.5, altoSexto / (float) 2.5, pincel);
             c.drawBitmap(ficha.getImgFicha(), ficha.getPosX(), ficha.getPosY(), null);
-//            Log.i("movaa", "dibujo");
 
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
@@ -123,19 +131,16 @@ public class MenuPrincipal extends Escena {
     }
 
     public void mueveFicha(Rect boton) {
-        if (boton != null) {
-            if (posCentroFichaY > boton.centerY()) {
-                ficha.setPosY(ficha.getPosY() - getDpH(26));
-                if (posCentroFichaX > boton.centerX()) {
-                    ficha.setPosX(ficha.getPosX() - getDpH(12));
-                } else {
-                    ficha.setPosX(ficha.getPosX() + getDpH(12));
-                }
-                posCentroFichaX = ficha.getPosX() + ficha.getImgFicha().getWidth() / 2;
-                posCentroFichaY = ficha.getPosY() + ficha.getImgFicha().getHeight() / 2;
-            } else {
-                bandera = false;
-            }
-        }
+        posCentroFichaX = ficha.getPosX() + ficha.getImgFicha().getWidth() / 2;
+        posCentroFichaY = ficha.getPosY() + ficha.getImgFicha().getHeight() / 2;
+        Recta vector = new Recta();
+        PointF inicio = new PointF(posCentroFichaX, posCentroFichaY);
+        PointF fin = new PointF(boton.centerX(), boton.centerY());
+        ArrayList<PointF> current = vector.creaRecta(inicio, fin);
+        if (cont < current.size() - 1) {
+            cont++;
+            ficha.setPosX(current.get(cont).x - ficha.getImgFicha().getWidth() / 2);
+            ficha.setPosY(current.get(cont).y - ficha.getImgFicha().getHeight() / 2);
+        } else bandera = false;
     }
 }

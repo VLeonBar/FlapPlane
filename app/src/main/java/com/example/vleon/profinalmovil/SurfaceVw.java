@@ -3,6 +3,7 @@ package com.example.vleon.profinalmovil;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -14,7 +15,7 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
     private boolean funcionando;
     private int altoPantalla, anchoPantalla;
     private Escena escenaActual;
-
+    private GestureDetector detectorDeGestos = new GestureDetector(new DetectorDeGestos());
 
     public SurfaceVw(Context context) {
         super(context);
@@ -66,6 +67,7 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
 
                     case 3:
                         escenaActual = new Juego(contexto, 3, anchoPantalla, altoPantalla);
+                        detectorDeGestos.onTouchEvent(event);
                         break;
 
                     case 4:
@@ -106,9 +108,6 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                     c = surfaceHolder.lockCanvas();
                     synchronized (surfaceHolder) {
                         int novaEscena = escenaActual.actualizarFisica();
-                        Log.i("ESCENA ACTUAL ", escenaActual + "");
-                        Log.i("ID ESCENA ", escenaActual.idEscena + "");
-                        Log.i("NOVA ESCENA ", novaEscena + "");
                         if (novaEscena != escenaActual.idEscena) {
                             switch (novaEscena) {
                                 case 0:
