@@ -6,17 +6,19 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
 public class Juego extends Escena {
     ArrayList<Ficha> fichasJuego = new ArrayList<>();
+    Ficha ficha;
+    GestureDetector detectorDeGestos;
     Bitmap imgGradaIzq, imgGradaDch, imgLogo;
     int anchoDecimo, altoMedio, anchoQuinto, altoSexto, anchoMedio,altoOctavo,altoDecimo;
     int ancho_1 = 1, ancho_2 = 2, alto_1 = 1, alto_2 = 2;
     float posCentroFichaX, posCentroFichaY;
-    Ficha ficha;
     Rect[] casillas = new Rect[9];
 
     public Juego(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
@@ -36,6 +38,7 @@ public class Juego extends Escena {
         ficha.setImgFicha(Bitmap.createScaledBitmap(ficha.getImgFicha(), altoDecimo / 2, altoDecimo / 2, false));
         ficha.setPosX(anchoMedio - ficha.getImgFicha().getWidth() / 2);
         ficha.setPosY(altoSexto * (float) 5.5 - ficha.getImgFicha().getHeight() / 2);
+        GestureDetector detectorDeGestos = new GestureDetector(new DetectorDeGestos(ficha));
         posCentroFichaX = ficha.getPosX() + ficha.getImgFicha().getWidth() / 2;
         posCentroFichaY = ficha.getPosY() + ficha.getImgFicha().getHeight() / 2;
         //Gradas e icono central
@@ -88,14 +91,7 @@ public class Juego extends Escena {
     }
 
     public int onTouchEvent(MotionEvent event) {
-        int pointerIndex = event.getActionIndex();
-        int accion = event.getActionMasked();
-        switch (accion) {
-
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_POINTER_UP:
-                break;
-        }
+        detectorDeGestos.onTouchEvent(event);
         int padre = super.onTouchEvent(event);
         if (padre != idEscena) return padre;
         return idEscena;

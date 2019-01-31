@@ -133,7 +133,7 @@ public class MenuPrincipal extends Escena {
     public void mueveFicha(Rect boton) {
         posCentroFichaX = ficha.getPosX() + ficha.getImgFicha().getWidth() / 2;
         posCentroFichaY = ficha.getPosY() + ficha.getImgFicha().getHeight() / 2;
-        Recta vector = new Recta();
+        Ficha vector=new Ficha();
         PointF inicio = new PointF(posCentroFichaX, posCentroFichaY);
         PointF fin = new PointF(boton.centerX(), boton.centerY());
         ArrayList<PointF> current = vector.creaRecta(inicio, fin);

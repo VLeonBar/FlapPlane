@@ -64,12 +64,10 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                     case 2:
                         escenaActual = new Ajustes(contexto, 2, anchoPantalla, altoPantalla);
                         break;
-
                     case 3:
                         escenaActual = new Juego(contexto, 3, anchoPantalla, altoPantalla);
-                        detectorDeGestos.onTouchEvent(event);
+                        Log.i("patata", "asfdasdfasf");
                         break;
-
                     case 4:
                         escenaActual = new Records(contexto, 4, anchoPantalla, altoPantalla);
                         break;
@@ -77,6 +75,8 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                         escenaActual = new Controles(contexto, 5, anchoPantalla, altoPantalla);
                         break;
                 }
+            } else if (escenaActual.getClass() == Juego.class) {
+                escenaActual.onTouchEvent(event);
             }
 
         }
