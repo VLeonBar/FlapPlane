@@ -9,6 +9,7 @@ public class Ficha {
     Bitmap imgFicha;
     float posX, posY;
     int radio;
+    ArrayList<PointF> recta;
     //Debe tener una hitbox determinada por un circulo.
 
     public Bitmap getImgFicha() {
@@ -77,7 +78,8 @@ public class Ficha {
                 }
             }
         }
-        return recta;
+        this.recta = recta;
+        return this.recta;
     }
 
     public boolean colision(Ficha f1, Ficha f2) {

@@ -65,7 +65,7 @@ public class MenuPrincipal extends Escena {
     //FÍSICAS Y DIBUJO DE LA CLASE MENÚ
     public int actualizarFisica() {
         if (movFicha) {
-            mueveFicha(botonPulsado);
+            mueveFicha(botonPulsado,this.ficha);
             if (!bandera) {
                 return escenaDestino;
             }
@@ -130,13 +130,12 @@ public class MenuPrincipal extends Escena {
         return idEscena;
     }
 
-    public void mueveFicha(Rect boton) {
+    public void mueveFicha(Rect boton,Ficha ficha) {
         posCentroFichaX = ficha.getPosX() + ficha.getImgFicha().getWidth() / 2;
         posCentroFichaY = ficha.getPosY() + ficha.getImgFicha().getHeight() / 2;
-        Ficha vector=new Ficha();
         PointF inicio = new PointF(posCentroFichaX, posCentroFichaY);
         PointF fin = new PointF(boton.centerX(), boton.centerY());
-        ArrayList<PointF> current = vector.creaRecta(inicio, fin);
+        ArrayList<PointF> current = ficha.creaRecta(inicio, fin);
         if (cont < current.size() - 1) {
             cont++;
             ficha.setPosX(current.get(cont).x - ficha.getImgFicha().getWidth() / 2);

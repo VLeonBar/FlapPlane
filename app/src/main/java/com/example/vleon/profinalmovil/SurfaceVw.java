@@ -2,6 +2,7 @@ package com.example.vleon.profinalmovil;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Looper;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -15,7 +16,6 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
     private boolean funcionando;
     private int altoPantalla, anchoPantalla;
     private Escena escenaActual;
-    private GestureDetector detectorDeGestos = new GestureDetector(new DetectorDeGestos());
 
     public SurfaceVw(Context context) {
         super(context);
@@ -66,7 +66,6 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                         break;
                     case 3:
                         escenaActual = new Juego(contexto, 3, anchoPantalla, altoPantalla);
-                        Log.i("patata", "asfdasdfasf");
                         break;
                     case 4:
                         escenaActual = new Records(contexto, 4, anchoPantalla, altoPantalla);
@@ -100,6 +99,7 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
 
         @Override
         public void run() {
+            Looper.prepare();
             while (funcionando) {
                 Canvas c = null;
                 try {

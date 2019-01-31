@@ -8,9 +8,9 @@ import android.view.MotionEvent;
 public class DetectorDeGestos extends GestureDetector.SimpleOnGestureListener {
     private static final String DEBUG_TAG = "GESTO";
     Ficha ficha;
-
+//    crea un onfling en ficha y llamalo en este onfling.
     public DetectorDeGestos(Ficha ficha) {
-        this.ficha=ficha;
+        this.ficha = ficha;
     }
 
     @Override
@@ -22,7 +22,8 @@ public class DetectorDeGestos extends GestureDetector.SimpleOnGestureListener {
     @Override
     public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
         Log.i("patata", "EVENT 1 " + event1.getX() + " Y " + event1.getY() + " EVENT 2 " + event2.getX() + " Y " + event2.getY() + " VELX" + velocityX + " VELY " + velocityY);
-        ficha.creaRecta(new PointF(event1.getX(), event1.getY()), new PointF(event2.getX(), event2.getY()));
+        ficha.creaRecta(new PointF(event1.getX(), event1.getY()), new PointF(event2.getX()+velocityX, event2.getY()+velocityY));
+
         return true;
     }
 
