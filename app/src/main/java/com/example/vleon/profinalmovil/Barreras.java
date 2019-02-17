@@ -20,7 +20,7 @@ public class Barreras {
     int velMoveBarrera = 10;
     int tiempoFrame = 80;
     long tiempoFrameAux = 0;
-    int indice = 0;
+    int indice = 0, indicemoneda = 0;
     boolean pintaMoneda = false;
     Paint pincel;
 
@@ -73,20 +73,19 @@ public class Barreras {
 
         barreraBot = new Rect(anchoPantalla, randLocY, partePantalla(anchoPantalla, 10) * 12, altoPantalla);
         alBarrerasBot.add(barreraBot);
-
     }
 
     public void creaMoneda() {
         randPointY = (int) (Math.random() * ((altoPantalla - partePantalla(altoPantalla, 7)) * +1));
         randLocY = randPointY + partePantalla(altoPantalla, 10);
 
-        moneda = new Rect(anchoPantalla, randPointY, anchoPantalla + skinsMoneda[indice].getWidth(), randPointY + skinsMoneda[indice].getHeight());
+        moneda = new Rect(anchoPantalla, randPointY, anchoPantalla + skinsMoneda[indicemoneda].getWidth(), randPointY + skinsMoneda[indicemoneda].getHeight());
         alMonedas.add(moneda);
     }
 
     public void actualizarFisica() {
         cambiaImagen(skins);
-        cambiaImagen(skinsMoneda);
+        cambiaImagenMoneda(skinsMoneda);
         mueveBarrera(alBarrerasTop, alBarrerasBot);
     }
 
@@ -113,7 +112,7 @@ public class Barreras {
                 } else {
                     Log.i("MONEDA", "PINTO MONEDA");
                     c.drawRect(moneda, pincel);
-                    c.drawBitmap(skinsMoneda[indice], moneda.left, moneda.top, null);
+                    c.drawBitmap(skinsMoneda[indicemoneda], moneda.left, moneda.top, null);
                 }
             }
         }
@@ -123,6 +122,14 @@ public class Barreras {
         if (System.currentTimeMillis() - tiempoFrameAux > tiempoFrame) {
             indice++;
             if (indice >= skins.length) indice = 0;
+            tiempoFrameAux = System.currentTimeMillis();
+        }
+    }
+
+    public void cambiaImagenMoneda(Bitmap[] skins) {
+        if (System.currentTimeMillis() - tiempoFrameAux > tiempoFrame) {
+            indicemoneda++;
+            if (indicemoneda >= skins.length) indicemoneda = 5;
             tiempoFrameAux = System.currentTimeMillis();
         }
     }

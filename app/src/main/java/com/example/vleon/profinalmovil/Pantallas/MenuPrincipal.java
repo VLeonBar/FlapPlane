@@ -30,7 +30,7 @@ public class MenuPrincipal extends Escena {
         anchoMedio = anchoPantalla / 2;
         altoMedio = altoPantalla / 2;
         altoSexto = altoMedio / 3;
-        moneda = new Moneda(0, 0, new BitmapFactory().decodeResource(contexto.getResources(), R.drawable.bandera13));
+        moneda = new Moneda(0, 0, new BitmapFactory().decodeResource(contexto.getResources(), R.drawable.moneda));
         moneda.setImgFicha(Bitmap.createScaledBitmap(moneda.getImgFicha(), altoSexto / 2, altoSexto / 2, false));
         moneda.setPosX(anchoMedio - moneda.getImgFicha().getWidth() / 2);
         moneda.setPosY(altoSexto * (float) 5.5 - moneda.getImgFicha().getHeight() / 2);

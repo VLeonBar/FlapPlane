@@ -39,7 +39,7 @@ public class Juego extends Escena {
         subeNave = new Rect(0, 0, fh.partePantalla(anchoPantalla, 2), altoPantalla);
         bajaNave = new Rect(fh.partePantalla(anchoPantalla, 2), 0, anchoPantalla, altoPantalla);
         nave = new Nave(fh.partePantalla(anchoPantalla, 8), fh.partePantalla(altoPantalla, 2), fh.getFrames(2, "aviones", "vuelo", fh.partePantalla(anchoPantalla, 10)), altoPantalla);
-        barrera = new Barreras(altoPantalla, anchoPantalla, fh.getFrames(2, "barreras", "barrera", altoPantalla), fh.getFrames(3, "monedas", "moneda", fh.partePantalla(anchoPantalla, 8)));
+        barrera = new Barreras(altoPantalla, anchoPantalla, fh.getFrames(2, "barreras", "barrera", altoPantalla), fh.getFrames(9, "monedas", "moneda", fh.partePantalla(anchoPantalla, 8)));
         tiempoToque = System.currentTimeMillis();
         tiempoAntiguo = System.currentTimeMillis();
 
@@ -72,12 +72,12 @@ public class Juego extends Escena {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             sube = true;
             //SPRITES SUBIDA
-//            nave.setSkins(fh.getFrames(2, "aviones", "vuelo", fh.partePantalla(anchoPantalla, 8)));
+            nave.setSkins(fh.getFrames(2, "aviones", "vuelo", fh.partePantalla(anchoPantalla, 8)));
         }
         if (event.getAction() == MotionEvent.ACTION_UP) {
             sube = false;
             //SPRITES BAJADA
-//            nave.setSkins(fh.getFrames(1, "aviones", "baja", fh.partePantalla(anchoPantalla, 8)));
+            nave.setSkins(fh.getFrames(1, "aviones", "baja", fh.partePantalla(anchoPantalla, 8)));
         }
         int padre = super.onTouchEvent(event);
         if (padre != idEscena) return padre;

@@ -8,9 +8,6 @@ public class Objetos {
     private Bitmap[] skins;
     private int posX, posY;
     private int cont = 0;
-    int tiempoFrame = 80;
-    long tiempoFrameAux = 0;
-    int indice = 0;
     private int altoPantalla;
     Paint pincel;
 
@@ -37,11 +34,15 @@ public class Objetos {
     public void setPosY(int posY) {
         this.posY = posY;
     }
-    public void cambiaImagen() {
+
+    public int cambiaImagen(int tiempoFrame) {
+        long tiempoFrameAux = 0;
+        int indice = 0;
         if (System.currentTimeMillis() - tiempoFrameAux > tiempoFrame) {
             indice++;
             if (indice >= skins.length) indice = 0;
             tiempoFrameAux = System.currentTimeMillis();
         }
+        return indice;
     }
 }
