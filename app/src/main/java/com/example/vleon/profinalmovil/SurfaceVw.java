@@ -2,12 +2,15 @@ package com.example.vleon.profinalmovil;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Looper;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.example.vleon.profinalmovil.Pantallas.*;
 
 public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder surfaceHolder;
@@ -16,14 +19,23 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
     private boolean funcionando;
     private int altoPantalla, anchoPantalla;
     private Escena escenaActual;
+    // control de tiempo de la aplicación
+    long last, now;
+    int timeXFrame;
+    int maxFrames;
 
     public SurfaceVw(Context context) {
         super(context);
+        now = System.currentTimeMillis();
+        last = System.currentTimeMillis();
+        maxFrames = 45;                 // Número máximo de frames por segundo
+        timeXFrame = 1000 / maxFrames;    // Tasa de tiempo para dibujar un frame
         this.surfaceHolder = getHolder();
         this.surfaceHolder.addCallback(this);
         this.contexto = context;
         hilo = new Hilo();
-        setFocusable(true);
+        setFocusable(true);// control de tiempo de la aplicación
+
     }
 
     @Override
@@ -47,6 +59,7 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
             hilo.start();
         }
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -101,45 +114,57 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
         public void run() {
             Looper.prepare();
             while (funcionando) {
-                Canvas c = null;
-                try {
-                    if (!surfaceHolder.getSurface().isValid())
-                        continue;
-                    c = surfaceHolder.lockCanvas();
-                    synchronized (surfaceHolder) {
-                        int novaEscena = escenaActual.actualizarFisica();
-                        if (novaEscena != escenaActual.idEscena) {
-                            switch (novaEscena) {
-                                case 0:
-                                    escenaActual = new MenuPrincipal(contexto, 0, anchoPantalla, altoPantalla);
-                                    break;
-                                case 1:
-                                    escenaActual = new Creditos(contexto, 1, anchoPantalla, altoPantalla);
-                                    break;
-                                case 2:
-                                    escenaActual = new Ajustes(contexto, 2, anchoPantalla, altoPantalla);
-                                    break;
+                now = System.currentTimeMillis();
+                if (now - last >= timeXFrame) { // si ya paso el tiempo necesario, dibujo. Control de FramesxSegundo en funcion del tiempo
+                    last = now;
+                    Canvas c = null; //Necesario repintar _todo el lienzo
+                    try {
+                        if (!surfaceHolder.getSurface().isValid())
+                            continue;
+                        c = surfaceHolder.lockCanvas();
+                        synchronized (surfaceHolder) {
 
-                                case 3:
-                                    escenaActual = new Juego(contexto, 3, anchoPantalla, altoPantalla);
-                                    break;
+                            int novaEscena = escenaActual.actualizarFisica();
+                            if (novaEscena != escenaActual.idEscena) {
+                                switch (novaEscena) {
+                                    case 0:
+                                        escenaActual = new MenuPrincipal(contexto, 0, anchoPantalla, altoPantalla);
+                                        break;
+                                    case 1:
+                                        escenaActual = new Creditos(contexto, 1, anchoPantalla, altoPantalla);
+                                        break;
+                                    case 2:
+                                        escenaActual = new Ajustes(contexto, 2, anchoPantalla, altoPantalla);
+                                        break;
 
-                                case 4:
-                                    escenaActual = new Records(contexto, 4, anchoPantalla, altoPantalla);
-                                    break;
-                                case 5:
-                                    escenaActual = new Controles(contexto, 5, anchoPantalla, altoPantalla);
-                                    break;
+                                    case 3:
+                                        escenaActual = new Juego(contexto, 3, anchoPantalla, altoPantalla);
+                                        break;
+
+                                    case 4:
+                                        escenaActual = new Records(contexto, 4, anchoPantalla, altoPantalla);
+                                        break;
+                                    case 5:
+                                        escenaActual = new Controles(contexto, 5, anchoPantalla, altoPantalla);
+                                        break;
+                                }
                             }
+                            escenaActual.dibujar(c);
                         }
-                        escenaActual.dibujar(c);
+                    } finally {
+                        if (c != null) {
+                            surfaceHolder.unlockCanvasAndPost(c);
+                        }
                     }
-                } finally {
-                    if (c != null) {
-                        surfaceHolder.unlockCanvasAndPost(c);
+                } else {
+                    try {
+                        Thread.sleep((long) timeXFrame - (now - last)); // duermo el tiempo necesario para el siguiente frame
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             }
+            System.exit(0);
         }
 
         void setFuncionando(boolean flag) {
