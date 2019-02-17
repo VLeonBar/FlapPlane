@@ -9,8 +9,7 @@ import java.util.ArrayList;
 public class Nave {
     private Rect rect;
     private Bitmap[] skins;
-    private int posX, posY;
-    private int cont = 0;
+    private int posX, posY, puntuacion = 0;
     int tiempoFrame = 80;
     long tiempoFrameAux = 0;
     int indice = 0, velocidad;
@@ -70,15 +69,27 @@ public class Nave {
         c.drawBitmap(skins[indice], this.getPosX(), this.getPosY(), null);
     }
 
-    public boolean choqueNave(ArrayList<Rect> top, ArrayList<Rect> bot) {
-        for (Rect barrera : top) {
-            if (this.getRect().intersect(barrera)) {
-                return true;
-            }
-        }
-        for (Rect barrera : bot) {
-            if (this.getRect().intersect(barrera)) {
-                return true;
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
+    public boolean choqueNave(ArrayList<Rect> top, ArrayList<Rect> bot, ArrayList<Rect> monedas) {
+//        for (Rect barrera : top) {
+//            if (this.getRect().intersect(barrera)) {
+//                return true;
+//            }
+//        }
+//        for (Rect barrera : bot) {
+//            if (this.getRect().intersect(barrera)) {
+//                return true;
+//            }
+//        }
+        if (!monedas.isEmpty()) {
+            for (int i = 0; i < monedas.size(); i++) {
+                if (this.getRect().intersect(monedas.get(i))) {
+                    this.puntuacion++;
+                    monedas.remove(monedas.get(i));
+                }
             }
         }
         return false;

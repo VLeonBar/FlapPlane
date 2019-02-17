@@ -33,10 +33,10 @@ public class FrameHandler {
         return bitmapAux.createScaledBitmap(bitmapAux, (bitmapAux.getWidth() * nuevoAlto) / bitmapAux.getHeight(), nuevoAlto, true);
     }
 
-    public Bitmap[] getFrames(int numImg, String dir, String tag, int width) {
+    public Bitmap[] getFrames(int numImg, String dir, String tag, int heigth) {
         Bitmap[] aux = new Bitmap[numImg];
         for (int i = 0; i < numImg; i++)
-            aux[i] = escalaAltura(dir + "/" + tag + (i + 1) + ".png", width);
+            aux[i] = escalaAltura(dir + "/" + tag + (i + 1) + ".png", heigth);
         return aux;
     }
 

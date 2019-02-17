@@ -39,15 +39,16 @@ public class Juego extends Escena {
         subeNave = new Rect(0, 0, fh.partePantalla(anchoPantalla, 2), altoPantalla);
         bajaNave = new Rect(fh.partePantalla(anchoPantalla, 2), 0, anchoPantalla, altoPantalla);
         nave = new Nave(fh.partePantalla(anchoPantalla, 8), fh.partePantalla(altoPantalla, 2), fh.getFrames(2, "aviones", "vuelo", fh.partePantalla(anchoPantalla, 10)), altoPantalla);
-        barrera = new Barreras(altoPantalla, anchoPantalla,fh.getFrames(2,"barreras","barrera",altoPantalla));
+        barrera = new Barreras(altoPantalla, anchoPantalla, fh.getFrames(2, "barreras", "barrera", altoPantalla), fh.getFrames(3, "monedas", "moneda", fh.partePantalla(anchoPantalla, 8)));
         tiempoToque = System.currentTimeMillis();
         tiempoAntiguo = System.currentTimeMillis();
 
     }
 
     public int actualizarFisica() {
-//        if (nave.choqueNave(barrera.getAlBarrerasTop(), barrera.getAlBarrerasBot()))
-//            return 0;
+        if (nave.choqueNave(barrera.getAlBarrerasTop(), barrera.getAlBarrerasBot(), barrera.getAlMonedas()))
+            return 0;
+        Log.i("puntuacion", "" + nave.getPuntuacion());
         parallax.actualizarFisica();
         barrera.actualizarFisica();
         nave.actualizarFisica(sube, fh.partePantalla(altoPantalla, velocidad));
