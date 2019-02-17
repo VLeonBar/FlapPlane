@@ -11,10 +11,10 @@ public class Nave {
     private Bitmap[] skins;
     private int posX, posY;
     private int cont = 0;
-    int tiempoFrame=80;
-    long tiempoFrameAux =0;
-    int indice=0,velocidad;
-    private int altoPantalla,partePantalla;
+    int tiempoFrame = 80;
+    long tiempoFrameAux = 0;
+    int indice = 0, velocidad;
+    private int altoPantalla, partePantalla;
 
     public Bitmap[] getSkins() {
         return skins;
@@ -47,15 +47,15 @@ public class Nave {
         this.rect.top = posY;
     }
 
-    public Nave(int posX, int posY, Bitmap[] skins,int altoPantalla) {
-        this.altoPantalla=altoPantalla;
+    public Nave(int posX, int posY, Bitmap[] skins, int altoPantalla) {
+        this.altoPantalla = altoPantalla;
         this.posX = posX;
         this.posY = posY;
         this.rect = new Rect(posX, posY, posX + skins[indice].getWidth(), posY + skins[0].getHeight());
         this.skins = skins;
     }
 
-    public void actualizarFisica(boolean sube,int velocidad) {
+    public void actualizarFisica(boolean sube, int velocidad) {
         cambiaImagen();
         if (sube) {
             this.mueveNave(this.getPosY() - velocidad);
@@ -67,8 +67,9 @@ public class Nave {
     }
 
     public void dibujar(Canvas c) {
-        c.drawBitmap(skins[indice],this.getPosX(),this.getPosY(),null);
+        c.drawBitmap(skins[indice], this.getPosX(), this.getPosY(), null);
     }
+
     public boolean choqueNave(ArrayList<Rect> top, ArrayList<Rect> bot) {
         for (Rect barrera : top) {
             if (this.getRect().intersect(barrera)) {
@@ -82,6 +83,7 @@ public class Nave {
         }
         return false;
     }
+
     public void mueveNave(int posY) {
         if (posY >= altoPantalla - this.getSkins()[indice].getHeight()) {
             posY = altoPantalla - this.getSkins()[indice].getHeight();
@@ -91,11 +93,12 @@ public class Nave {
         this.setPosY(posY);
         this.getRect().bottom = posY + this.getSkins()[indice].getHeight();
     }
-    public void cambiaImagen(){
-        if (System.currentTimeMillis()- tiempoFrameAux >tiempoFrame) {
+
+    public void cambiaImagen() {
+        if (System.currentTimeMillis() - tiempoFrameAux > tiempoFrame) {
             indice++;
-            if (indice>= skins.length)indice=0;
-            tiempoFrameAux =System.currentTimeMillis();
+            if (indice >= skins.length) indice = 0;
+            tiempoFrameAux = System.currentTimeMillis();
         }
     }
 }

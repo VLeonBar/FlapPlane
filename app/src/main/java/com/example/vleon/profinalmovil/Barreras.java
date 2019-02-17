@@ -1,21 +1,28 @@
 package com.example.vleon.profinalmovil;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.graphics.Rect;
 
 import java.util.ArrayList;
 
 public class Barreras {
-    ArrayList<Rect> alBarrerasTop=new ArrayList<>();
-    ArrayList<Rect> alBarrerasBot=new ArrayList<>();
-    Rect barreraTop,barreraBot;
-    int altoPantalla,anchoPantalla;
+    ArrayList<Rect> alBarrerasTop = new ArrayList<>();
+    ArrayList<Rect> alBarrerasBot = new ArrayList<>();
+    Bitmap[] skins;
+    Rect barreraTop, barreraBot;
+    int altoPantalla, anchoPantalla;
     int randPointY, randLocY, contCreacion = 0;
     int velMoveBarrera = 10;
+    int tiempoFrame = 80;
+    long tiempoFrameAux = 0;
+    int indice = 0, velocidad;
     Paint pincel;
+
     public ArrayList<Rect> getAlBarrerasTop() {
         return alBarrerasTop;
     }
@@ -25,9 +32,10 @@ public class Barreras {
     }
 
 
-    public Barreras(int altoPantalla, int anchoPantalla) {
-        this.altoPantalla=altoPantalla;
-        this.anchoPantalla=anchoPantalla;
+    public Barreras(int altoPantalla, int anchoPantalla, Bitmap[] skins) {
+        this.altoPantalla = altoPantalla;
+        this.anchoPantalla = anchoPantalla;
+        this.skins = skins;
         pincel = new Paint();
         pincel.setColor(Color.rgb(59, 36, 16));
     }
@@ -50,6 +58,7 @@ public class Barreras {
 
         }
     }
+
     public void creaBarrera() {
         randPointY = (int) (Math.random() * ((altoPantalla - partePantalla(altoPantalla, 7)) * +1));
         randLocY = randPointY + partePantalla(altoPantalla, 5);
@@ -60,22 +69,36 @@ public class Barreras {
         barreraBot = new Rect(anchoPantalla, randLocY, partePantalla(anchoPantalla, 10) * 12, altoPantalla);
         alBarrerasBot.add(barreraBot);
     }
-    public void actualizarFisica(){
-        mueveBarrera(alBarrerasTop,alBarrerasBot);
+
+    public void actualizarFisica() {
+        cambiaImagen();
+        mueveBarrera(alBarrerasTop, alBarrerasBot);
     }
-    public void dibujar(Canvas c){
+
+    public void dibujar(Canvas c) {
         if (contCreacion == 0 || (contCreacion % 80 == 0)) {
             creaBarrera();
         }
         contCreacion++;
         for (Rect barrera : alBarrerasTop) {
-            c.drawRect(barrera, pincel);
+//            c.drawRect(barrera, pincel);
+            c.drawBitmap(skins[indice], barrera.left, barrera.bottom - skins[indice].getHeight(), null);
         }
         for (Rect barrera : alBarrerasBot) {
-            c.drawRect(barrera, pincel);
+//            c.drawRect(barrera, pincel);
+            c.drawBitmap(skins[indice], barrera.left, barrera.top, null);
         }
 
     }
+
+    public void cambiaImagen() {
+        if (System.currentTimeMillis() - tiempoFrameAux > tiempoFrame) {
+            indice++;
+            if (indice >= skins.length) indice = 0;
+            tiempoFrameAux = System.currentTimeMillis();
+        }
+    }
+
     public int partePantalla(int regionpantalla, int fraccion) {
         return regionpantalla / fraccion;
     }
