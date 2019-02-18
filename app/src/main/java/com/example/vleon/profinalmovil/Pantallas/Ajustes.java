@@ -13,12 +13,10 @@ import com.example.vleon.profinalmovil.R;
 
 public class Ajustes extends Escena {
     Rect sound, vibration;
-    FrameHandler fh;
     boolean soundOn = true, vibraOn;
 
     public Ajustes(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
-        fh = new FrameHandler(contexto);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_prov);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
         sound = new Rect(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 2, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 3);

@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
+import com.example.vleon.profinalmovil.Manejadores.Parallax;
 import com.example.vleon.profinalmovil.ObjetosJuego.Barreras;
 import com.example.vleon.profinalmovil.ObjetosJuego.Moneda;
 import com.example.vleon.profinalmovil.ObjetosJuego.Nave;
-import com.example.vleon.profinalmovil.Manejadores.Parallax;
+
+import java.util.Timer;
 
 public class Juego extends Escena {
 
@@ -19,8 +21,6 @@ public class Juego extends Escena {
     Barreras barrera;
     Moneda moneda;
     Parallax parallax;
-    FrameHandler fh;
-    int velocidad = 100;
     private boolean sube = false;
     private int record = 0;
 
@@ -28,7 +28,6 @@ public class Juego extends Escena {
     public Juego(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         //Parallax
-        fh = new FrameHandler(contexto);
         parallax = new Parallax(contexto, anchoPantalla, altoPantalla, 3);
         subeNave = new Rect(0, 0, fh.partePantalla(anchoPantalla, 2), altoPantalla);
         bajaNave = new Rect(fh.partePantalla(anchoPantalla, 2), 0, anchoPantalla, altoPantalla);

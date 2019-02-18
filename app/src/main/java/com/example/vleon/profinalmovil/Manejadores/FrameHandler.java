@@ -48,5 +48,9 @@ public class FrameHandler {
             return null;
         }
     }
+
+    public int getDpH(int pixels, int altoPantalla) {
+        return (int) ((pixels / 19.2) * altoPantalla) / 100;
+    }
 }
 

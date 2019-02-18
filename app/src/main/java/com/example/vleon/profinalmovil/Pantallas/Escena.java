@@ -2,6 +2,7 @@ package com.example.vleon.profinalmovil.Pantallas;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,15 +11,18 @@ import android.media.AudioManager;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
 import com.example.vleon.profinalmovil.Manejadores.Sonidos;
+import com.example.vleon.profinalmovil.R;
 
 public class Escena {
 
     Context contexto;
     public int idEscena;
     int altoPantalla, anchoPantalla;
-    Bitmap imgFondo;
+    Bitmap imgFondo, vueltaAtras;
     Paint pincel, pincel2, pincel3;
+    FrameHandler fh;
     Rect vueltaMenu;
     Sonidos sonidos;
     AudioManager audioManager;
@@ -31,21 +35,20 @@ public class Escena {
         this.idEscena = idEscena;
         this.altoPantalla = altoPantalla;
         this.anchoPantalla = anchoPantalla;
+        fh = new FrameHandler(contexto);
         sonidos = new Sonidos(contexto, 10);
         pincel = new Paint();
         pincel.setColor(Color.rgb(59, 36, 16));
         pincel.setStyle(Paint.Style.STROKE);
-        pincel.setStrokeWidth((float) getDpH(20));
+        pincel.setStrokeWidth((float) fh.getDpH(20, altoPantalla));
         pincel2 = new Paint();
-        pincel2.setTextSize(getDpH(150));
+        pincel2.setTextSize(fh.getDpH(150, altoPantalla));
         pincel2.setColor(Color.BLUE);
         pincel3 = new Paint();
         pincel3.setColor(Color.GREEN);
         vueltaMenu = new Rect(0, 0, anchoPantalla / 15, anchoPantalla / 15);
-    }
-
-    public int getDpH(int pixels) {
-        return (int) ((pixels / 19.2) * altoPantalla) / 100;
+        vueltaAtras = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.moneda);
+        vueltaAtras = Bitmap.createScaledBitmap(vueltaAtras, vueltaMenu.width(), vueltaMenu.height(), false);
     }
 
     public int actualizarFisica() {
@@ -56,6 +59,7 @@ public class Escena {
         try {
             if (idEscena != 0) {
                 c.drawRect(vueltaMenu, pincel2);
+                c.drawBitmap(vueltaAtras, vueltaMenu.left, vueltaMenu.top, null);
             }
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
@@ -83,7 +87,6 @@ public class Escena {
             return false;
         }
     }
-
 
     public Context getContexto() {
         return contexto;
