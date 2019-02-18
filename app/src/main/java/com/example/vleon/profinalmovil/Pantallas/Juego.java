@@ -85,7 +85,7 @@ public class Juego extends Escena {
         int padre = super.onTouchEvent(event);
         if (padre != idEscena) {
             sonidos.getEfectos().stop(sonidos.sonidoMotor);
-            sonidos.getEfectos().release();
+//            sonidos.getEfectos().release();
             return padre;
         }
         return idEscena;

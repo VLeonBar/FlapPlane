@@ -10,6 +10,10 @@ public class Sonidos {
     SoundPool efectos;
     public MediaPlayer mediaPlayer;
     int v;
+    AudioManager audioManager;
+    int maxSonidosSimultaneos = 10;
+    boolean soundOn;
+    public int sonidoToque, sonidoInsertCoin, sonidoExplosion, sonidoMotor;
 
     public SoundPool getEfectos() {
         return efectos;
@@ -30,10 +34,6 @@ public class Sonidos {
     public int getMaxSonidosSimultaneos() {
         return maxSonidosSimultaneos;
     }
-
-    AudioManager audioManager;
-    int maxSonidosSimultaneos = 10;
-    public int sonidoToque, sonidoInsertCoin, sonidoExplosion, sonidoMotor;
 
     public Sonidos(Context contexto, int maxSonidosSimultaneos) {
         this.maxSonidosSimultaneos = maxSonidosSimultaneos;
@@ -57,5 +57,18 @@ public class Sonidos {
         sonidoMotor = efectos.load(contexto, R.raw.motoravion, 1);
     }
 
+    public void suenaMusica(boolean soundOn) {
+        if (soundOn) {
+            mediaPlayer.pause();
+            this.soundOn = false;
+        } else {
+            mediaPlayer.start();
+            this.soundOn = true;
+        }
+    }
+
+    public void terminaMusica() {
+        mediaPlayer.release();
+    }
 
 }

@@ -89,7 +89,6 @@ public class MenuPrincipal extends Escena {
                 } else if (pulsa(rectAjustes, event)) {
                     this.botonPulsado = rectAjustes;
                     movMoneda = true;
-                    sonidos.mediaPlayer.stop();
                     escenaDestino = 2;
                 } else if (pulsa(rectJugar, event)) {
                     sonidos.getEfectos().play(sonidos.sonidoInsertCoin, 1, 1, 1, 0, 1);

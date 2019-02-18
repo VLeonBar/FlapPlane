@@ -34,12 +34,13 @@ public class Escena {
         this.idEscena = idEscena;
         this.altoPantalla = altoPantalla;
         this.anchoPantalla = anchoPantalla;
-        sonidos=new Sonidos(contexto,10);
+        sonidos = new Sonidos(contexto, 10);
         pincel = new Paint();
         pincel.setColor(Color.rgb(59, 36, 16));
         pincel.setStyle(Paint.Style.STROKE);
         pincel.setStrokeWidth((float) getDpH(20));
         pincel2 = new Paint();
+        pincel2.setTextSize(getDpH(150));
         pincel2.setColor(Color.BLUE);
         pincel3 = new Paint();
         pincel3.setColor(Color.GREEN);
