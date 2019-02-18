@@ -1,10 +1,12 @@
-package com.example.vleon.profinalmovil;
+package com.example.vleon.profinalmovil.Manejadores;
 
 import android.content.Context;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
+
+import com.example.vleon.profinalmovil.R;
 
 public class Sonidos {
     SoundPool efectos;
@@ -38,9 +40,11 @@ public class Sonidos {
     public Sonidos(Context contexto, int maxSonidosSimultaneos) {
         this.maxSonidosSimultaneos = maxSonidosSimultaneos;
         audioManager = (AudioManager) contexto.getSystemService(Context.AUDIO_SERVICE);
-        mediaPlayer = MediaPlayer.create(contexto, R.raw.dreamingaltitude);
+        //cancion
+        mediaPlayer = MediaPlayer.create(contexto, R.raw.gameoverson);
         int v = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         mediaPlayer.setVolume(v / 2, v / 2);
+        mediaPlayer.setLooping(true);
 
         if ((android.os.Build.VERSION.SDK_INT) >= 21) {
             SoundPool.Builder spb = new SoundPool.Builder();
@@ -56,19 +60,4 @@ public class Sonidos {
         sonidoExplosion = efectos.load(contexto, R.raw.ohnoyoudied, 1);
         sonidoMotor = efectos.load(contexto, R.raw.motoravion, 1);
     }
-
-    public void suenaMusica(boolean soundOn) {
-        if (soundOn) {
-            mediaPlayer.pause();
-            this.soundOn = false;
-        } else {
-            mediaPlayer.start();
-            this.soundOn = true;
-        }
-    }
-
-    public void terminaMusica() {
-        mediaPlayer.release();
-    }
-
 }

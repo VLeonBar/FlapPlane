@@ -1,16 +1,14 @@
-package com.example.vleon.profinalmovil;
+package com.example.vleon.profinalmovil.Pantallas;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Looper;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.example.vleon.profinalmovil.Pantallas.*;
+import com.example.vleon.profinalmovil.Manejadores.Sonidos;
 
 public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder surfaceHolder;

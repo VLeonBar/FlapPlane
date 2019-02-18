@@ -1,4 +1,4 @@
-package com.example.vleon.profinalmovil;
+package com.example.vleon.profinalmovil.Objetos;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,7 +8,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class Moneda {
+public class MonedaMenu {
     Bitmap imgFicha;
     float posX, posY;
     int cont;
@@ -108,10 +108,10 @@ public class Moneda {
         }
     }
 
-    public Moneda() {
+    public MonedaMenu() {
     }
 
-    public Moneda(int posX, int posY, Bitmap imgFicha) {
+    public MonedaMenu(int posX, int posY, Bitmap imgFicha) {
         this.imgFicha = imgFicha;
         this.posX = posX;
         this.posY = posY;

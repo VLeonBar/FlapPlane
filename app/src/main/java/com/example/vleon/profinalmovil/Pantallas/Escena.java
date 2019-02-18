@@ -6,14 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.media.AudioAttributes;
 import android.media.AudioManager;
-import android.media.SoundPool;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.vleon.profinalmovil.R;
-import com.example.vleon.profinalmovil.Sonidos;
+import com.example.vleon.profinalmovil.Manejadores.Sonidos;
 
 public class Escena {
 

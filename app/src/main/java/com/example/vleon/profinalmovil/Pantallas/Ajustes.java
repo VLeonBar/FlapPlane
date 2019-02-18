@@ -8,7 +8,7 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.vleon.profinalmovil.FrameHandler;
+import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
 import com.example.vleon.profinalmovil.R;
 
 public class Ajustes extends Escena {
@@ -55,7 +55,10 @@ public class Ajustes extends Escena {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 if (pulsa(sound, event)) {
-
+                    Log.i("pepito", "AAAAAAAAAAAAA");
+                    if (sonidos.mediaPlayer.isPlaying())
+                        sonidos.mediaPlayer.pause();
+                    else sonidos.mediaPlayer.start();
                 } else if (pulsa(vibration, event)) {
                     vibraOn = false;
                 }

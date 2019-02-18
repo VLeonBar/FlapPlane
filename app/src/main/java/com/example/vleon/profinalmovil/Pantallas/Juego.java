@@ -1,31 +1,25 @@
 package com.example.vleon.profinalmovil.Pantallas;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.vleon.profinalmovil.Barreras;
-import com.example.vleon.profinalmovil.Fondo;
-import com.example.vleon.profinalmovil.FrameHandler;
-import com.example.vleon.profinalmovil.Nave;
-import com.example.vleon.profinalmovil.Parallax;
-import com.example.vleon.profinalmovil.R;
-import com.example.vleon.profinalmovil.Sonidos;
-
-import java.util.ArrayList;
+import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
+import com.example.vleon.profinalmovil.Objetos.Barreras;
+import com.example.vleon.profinalmovil.Objetos.Moneda;
+import com.example.vleon.profinalmovil.Objetos.Nave;
+import com.example.vleon.profinalmovil.Manejadores.Parallax;
 
 public class Juego extends Escena {
 
     Rect bajaNave, subeNave;
     Nave nave;
     Barreras barrera;
+    Moneda moneda;
     Parallax parallax;
     FrameHandler fh;
-    long tiempoAntiguo, tiempoToque;
     int velocidad = 100;
     private boolean sube = false;
     private int record = 0;
@@ -38,22 +32,21 @@ public class Juego extends Escena {
         parallax = new Parallax(contexto, anchoPantalla, altoPantalla, 3);
         subeNave = new Rect(0, 0, fh.partePantalla(anchoPantalla, 2), altoPantalla);
         bajaNave = new Rect(fh.partePantalla(anchoPantalla, 2), 0, anchoPantalla, altoPantalla);
-        nave = new Nave(fh.partePantalla(anchoPantalla, 8), fh.partePantalla(altoPantalla, 2), fh.getFrames(2, "aviones", "vuelo", fh.partePantalla(anchoPantalla, 10)), altoPantalla, contexto);
-        barrera = new Barreras(altoPantalla, anchoPantalla, fh.getFrames(2, "barreras", "barrera", altoPantalla), fh.getFrames(9, "monedas", "moneda", fh.partePantalla(anchoPantalla, 8)));
-        tiempoToque = System.currentTimeMillis();
-        tiempoAntiguo = System.currentTimeMillis();
-
+        moneda = new Moneda(contexto, anchoPantalla, altoPantalla, fh.getFrames(10, "monedas", "moneda", fh.partePantalla(anchoPantalla, 10)));
+        nave = new Nave(contexto, anchoPantalla, altoPantalla, fh.getFrames(2, "aviones", "vuelo", fh.partePantalla(anchoPantalla, 10)), fh.partePantalla(anchoPantalla, 8), fh.partePantalla(altoPantalla, 2));
+        barrera = new Barreras(contexto, altoPantalla, anchoPantalla, fh.getFrames(2, "barreras", "barrera", altoPantalla));
     }
 
     public int actualizarFisica() {
-        if (nave.choqueNave(barrera.getAlBarrerasTop(), barrera.getAlBarrerasBot(), barrera.getAlMonedas())) {
+        if (nave.choqueNave(barrera.getAlBarrerasTop(), barrera.getAlBarrerasBot(), moneda.getAlMonedas())) {
             sonidos.getEfectos().release();
             return 0;
         }
         Log.i("puntuacion", "" + nave.getPuntuacion());
         parallax.actualizarFisica();
         barrera.actualizarFisica();
-        nave.actualizarFisica(sube, fh.partePantalla(altoPantalla, velocidad));
+        nave.actualizarFisica(sube);
+        moneda.actualizarFisica(barrera.getAlBarrerasTop());
         return idEscena;
     }
 

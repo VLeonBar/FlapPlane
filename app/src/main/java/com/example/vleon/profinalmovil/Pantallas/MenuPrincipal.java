@@ -5,20 +5,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.media.AudioManager;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.vleon.profinalmovil.Moneda;
+import com.example.vleon.profinalmovil.Objetos.MonedaMenu;
 import com.example.vleon.profinalmovil.R;
-import com.example.vleon.profinalmovil.Sonidos;
 
 public class MenuPrincipal extends Escena {
     Rect rectJugar, rectAjustes, rectRecord, rectCreditos, rectControles, botonPulsado = null;
     Bitmap imgLogo;
     boolean bandera = true;
     int anchoDecimo, altoMedio, anchoTercio, altoSexto, anchoMedio;
-    Moneda moneda;
+    MonedaMenu monedaMenu;
     int cont = 0;
     int escenaDestino = idEscena;
     boolean movMoneda = false;
@@ -33,23 +31,26 @@ public class MenuPrincipal extends Escena {
         anchoMedio = anchoPantalla / 2;
         altoMedio = altoPantalla / 2;
         altoSexto = altoMedio / 3;
-        moneda = new Moneda(0, 0, new BitmapFactory().decodeResource(contexto.getResources(), R.drawable.moneda));
-        moneda.setImgFicha(Bitmap.createScaledBitmap(moneda.getImgFicha(), altoSexto / 2, altoSexto / 2, false));
-        moneda.setPosX(anchoMedio - moneda.getImgFicha().getWidth() / 2);
-        moneda.setPosY(altoSexto * (float) 5.5 - moneda.getImgFicha().getHeight() / 2);
+        monedaMenu = new MonedaMenu(0, 0, new BitmapFactory().decodeResource(contexto.getResources(), R.drawable.moneda));
+        monedaMenu.setImgFicha(Bitmap.createScaledBitmap(monedaMenu.getImgFicha(), altoSexto / 2, altoSexto / 2, false));
+        monedaMenu.setPosX(anchoMedio - monedaMenu.getImgFicha().getWidth() / 2);
+        monedaMenu.setPosY(altoSexto * (float) 5.5 - monedaMenu.getImgFicha().getHeight() / 2);
         rectCreditos = new Rect(0, 0, anchoTercio, altoSexto);
         rectAjustes = new Rect(anchoTercio * 2, 0, anchoTercio * 3, altoSexto);
         rectJugar = new Rect(0, altoSexto, anchoPantalla, altoSexto * 2);
         rectRecord = new Rect(0, altoSexto * 2, anchoTercio, altoSexto * 3);
         rectControles = new Rect(anchoTercio * 2, altoSexto * 2, anchoPantalla, altoSexto * 3);
-        sonidos.mediaPlayer.start();
+        if (!sonidos.mediaPlayer.isPlaying()) {
+            sonidos.mediaPlayer.start();
+        }
 
     }
 
     //FÍSICAS Y DIBUJO DE LA CLASE MENÚ
     public int actualizarFisica() {
+        Log.i("MUSICA", "SUENA?" + sonidos.mediaPlayer.isPlaying());
         if (movMoneda) {
-            bandera = moneda.mueveMoneda(botonPulsado);
+            bandera = monedaMenu.mueveMoneda(botonPulsado);
             if (!bandera) {
                 return escenaDestino;
             }
@@ -66,7 +67,7 @@ public class MenuPrincipal extends Escena {
             c.drawRect(rectJugar, pincel);
             c.drawRect(rectRecord, pincel);
             c.drawRect(rectControles, pincel);
-            moneda.dibujar(c);
+            monedaMenu.dibujar(c);
 
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());

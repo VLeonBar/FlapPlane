@@ -1,11 +1,10 @@
-package com.example.vleon.profinalmovil;
+package com.example.vleon.profinalmovil.Manejadores;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.provider.CallLog;
-import android.util.Log;
+
+import com.example.vleon.profinalmovil.Objetos.Fondo;
 
 import java.util.ArrayList;
 

@@ -1,12 +1,10 @@
-package com.example.vleon.profinalmovil;
+package com.example.vleon.profinalmovil.Pantallas;
 
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-
-import com.example.vleon.profinalmovil.Pantallas.Escena;
 
 public class MainActivity extends AppCompatActivity {
     private SurfaceVw pantallaPrincipal;
