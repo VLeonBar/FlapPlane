@@ -6,9 +6,12 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
+import com.example.vleon.profinalmovil.Manejadores.Sonidos;
 
 public class Objetos {
     Bitmap[] skins;
+    Rect rect;
+    Sonidos sonidos;
     int posX, posY;
     int cont, indice;
     int velocidad;
@@ -109,6 +112,8 @@ public class Objetos {
 
     public void setSkins(Bitmap[] skins) {
         this.skins = skins;
+        this.rect.top = posY;
+        this.rect.bottom = posY + skins[indice].getHeight();
     }
 
     public int getPosX() {

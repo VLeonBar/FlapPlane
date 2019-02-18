@@ -4,17 +4,18 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 public class Moneda extends Objetos {
-    ArrayList<Rect> alMonedas;
+    ArrayList<Rect> alMonedas = new ArrayList<>();
     Rect rect;
     private int randPointY;
+    private boolean flag;
 
     public Moneda(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins) {
         super(contexto, anchoPantalla, altoPantalla, skins);
-        alMonedas = new ArrayList<>();
     }
 
     public ArrayList<Rect> getAlMonedas() {
@@ -25,30 +26,42 @@ public class Moneda extends Objetos {
         this.alMonedas = alMonedas;
     }
 
-    public void creaMoneda(ArrayList<Rect> alBarreras) {
+    public boolean creaMoneda(ArrayList<Rect> alBarreras) {
         randPointY = (int) (Math.random() * ((altoPantalla - fh.partePantalla(altoPantalla, 7)) * +1));
         posY = randPointY + fh.partePantalla(altoPantalla, 10);
         for (Rect barrera : alBarreras) {
             if (barrera.left < fh.partePantalla(anchoPantalla, 2)) {
                 if ((int) (Math.random() * 6 + 1) == 1) {
-                    rect = new Rect(anchoPantalla, randPointY, anchoPantalla + skins[indice].getWidth(), randPointY + skins[indice].getHeight());
+                    return true;
                 }
             }
         }
-        alMonedas.add(rect);
+        return false;
     }
 
     public void mueveMoneda() {
-        for (Rect moneda : alMonedas) {
-            moneda.left -= velocidad;
-            moneda.right -= velocidad;
+        if (!alMonedas.isEmpty()) {
+            for (Rect moneda : alMonedas) {
+                moneda.left -= velocidad;
+                moneda.right -= velocidad;
+            }
         }
-
     }
 
     public void actualizarFisica(ArrayList<Rect> alBarreras) {
-        creaMoneda(alBarreras);
-        mueveMoneda();
+        cambiaImagen();
+        Log.i("moneda", "creaMoneda" + creaMoneda(alBarreras));
+        flag = creaMoneda(alBarreras);
+        if (flag) {
+            rect = new Rect(anchoPantalla, randPointY, anchoPantalla + skins[indice].getWidth(), randPointY + skins[indice].getHeight());
+            Log.i("dimensiones", "left" + rect.left + "top" + rect.top + "right" + rect.right + "bot" + rect.bottom);
+            alMonedas.add(rect);
+            Log.i("tamaño", "" + alMonedas.size());
+            flag = false;
+        }
+        if (!alMonedas.isEmpty()) {
+            mueveMoneda();
+        }
     }
 
     public void dibujar(Canvas c) {

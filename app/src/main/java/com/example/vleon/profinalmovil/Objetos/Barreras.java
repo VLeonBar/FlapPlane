@@ -43,7 +43,7 @@ public class Barreras extends Objetos {
 
     public void creaBarrera() {
         randPointY = (int) (Math.random() * ((altoPantalla - fh.partePantalla(altoPantalla, 7)) * +1));
-        randLocY = randPointY + fh.partePantalla(altoPantalla, 5);
+        randLocY = randPointY + fh.partePantalla(altoPantalla, 4);
 
         barreraTop = new Rect(anchoPantalla, 0, fh.partePantalla(anchoPantalla, 10) * 12, randPointY);
         alBarrerasTop.add(barreraTop);

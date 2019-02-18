@@ -56,6 +56,7 @@ public class Juego extends Escena {
             parallax.dibuja(c);
             nave.dibujar(c);
             barrera.dibujar(c);
+            moneda.dibujar(c);
             super.dibujar(c);
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
