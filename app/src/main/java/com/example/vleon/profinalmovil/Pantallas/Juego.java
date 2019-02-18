@@ -7,9 +7,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
-import com.example.vleon.profinalmovil.Objetos.Barreras;
-import com.example.vleon.profinalmovil.Objetos.Moneda;
-import com.example.vleon.profinalmovil.Objetos.Nave;
+import com.example.vleon.profinalmovil.ObjetosJuego.Barreras;
+import com.example.vleon.profinalmovil.ObjetosJuego.Moneda;
+import com.example.vleon.profinalmovil.ObjetosJuego.Nave;
 import com.example.vleon.profinalmovil.Manejadores.Parallax;
 
 public class Juego extends Escena {
@@ -34,7 +34,7 @@ public class Juego extends Escena {
         bajaNave = new Rect(fh.partePantalla(anchoPantalla, 2), 0, anchoPantalla, altoPantalla);
         moneda = new Moneda(contexto, anchoPantalla, altoPantalla, fh.getFrames(10, "monedas", "moneda", fh.partePantalla(anchoPantalla, 10)));
         nave = new Nave(contexto, anchoPantalla, altoPantalla, fh.getFrames(2, "aviones", "vuelo", fh.partePantalla(anchoPantalla, 10)), fh.partePantalla(anchoPantalla, 8), fh.partePantalla(altoPantalla, 2));
-        barrera = new Barreras(contexto, altoPantalla, anchoPantalla, fh.getFrames(2, "barreras", "barrera", altoPantalla));
+        barrera = new Barreras(contexto, anchoPantalla, altoPantalla, fh.getFrames(2, "barreras", "barrera", altoPantalla));
     }
 
     public int actualizarFisica() {
@@ -46,17 +46,16 @@ public class Juego extends Escena {
         parallax.actualizarFisica();
         barrera.actualizarFisica();
         nave.actualizarFisica(sube);
-        moneda.actualizarFisica(barrera.getAlBarrerasTop());
+        moneda.actualizarFisica();
         return idEscena;
     }
 
     public void dibujar(Canvas c) {
         try {
-            //TODO
             parallax.dibuja(c);
-            nave.dibujar(c);
             barrera.dibujar(c);
             moneda.dibujar(c);
+            nave.dibujar(c, sube);
             super.dibujar(c);
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
@@ -68,18 +67,13 @@ public class Juego extends Escena {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             sonidos.getEfectos().play(sonidos.sonidoMotor, 1, 1, 1, 0, 1);
             sube = true;
-            //SPRITES SUBIDA
-//            nave.setSkins(fh.getFrames(2, "aviones", "vuelo", fh.partePantalla(anchoPantalla, 8)));
         }
         if (event.getAction() == MotionEvent.ACTION_UP) {
             sube = false;
-            //SPRITES BAJADA
-//            nave.setSkins(fh.getFrames(1, "aviones", "baja", fh.partePantalla(anchoPantalla, 8)));
         }
         int padre = super.onTouchEvent(event);
         if (padre != idEscena) {
-            sonidos.getEfectos().stop(sonidos.sonidoMotor);
-//            sonidos.getEfectos().release();
+            sonidos.getEfectos().release();
             return padre;
         }
         return idEscena;

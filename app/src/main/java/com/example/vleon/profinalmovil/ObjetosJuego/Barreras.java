@@ -1,4 +1,4 @@
-package com.example.vleon.profinalmovil.Objetos;
+package com.example.vleon.profinalmovil.ObjetosJuego;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -43,7 +43,7 @@ public class Barreras extends Objetos {
 
     public void creaBarrera() {
         randPointY = (int) (Math.random() * ((altoPantalla - fh.partePantalla(altoPantalla, 7)) * +1));
-        randLocY = randPointY + fh.partePantalla(altoPantalla, 4);
+        randLocY = randPointY + fh.partePantalla(altoPantalla, 5);
 
         barreraTop = new Rect(anchoPantalla, 0, fh.partePantalla(anchoPantalla, 10) * 12, randPointY);
         alBarrerasTop.add(barreraTop);
@@ -64,14 +64,13 @@ public class Barreras extends Objetos {
     public void dibujar(Canvas c) {
 
         for (int i = 0; i < alBarrerasTop.size(); i++) {
-            c.drawBitmap(skins[indice], alBarrerasTop.get(i).left, alBarrerasTop.get(i).bottom - skins[indice].getHeight(), null);
-            c.drawBitmap(skins[indice], alBarrerasBot.get(i).left, alBarrerasBot.get(i).top, null);
-            //todo
-
-            if (alBarrerasTop.get(i).right < 0) {
+            if (alBarrerasTop.get(i).right < -20) {
                 alBarrerasTop.remove(i);
                 alBarrerasBot.remove(i);
             }
+            c.drawBitmap(skins[indice], alBarrerasTop.get(i).left, alBarrerasTop.get(i).bottom - skins[indice].getHeight(), null);
+            c.drawBitmap(skins[indice], alBarrerasBot.get(i).left, alBarrerasBot.get(i).top, null);
+            //todo
         }
     }
 }

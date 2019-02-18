@@ -1,4 +1,4 @@
-package com.example.vleon.profinalmovil.Objetos;
+package com.example.vleon.profinalmovil.ObjetosJuego;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

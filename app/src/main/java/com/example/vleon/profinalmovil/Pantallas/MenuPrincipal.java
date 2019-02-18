@@ -8,7 +8,7 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.vleon.profinalmovil.Objetos.MonedaMenu;
+import com.example.vleon.profinalmovil.ObjetosJuego.MonedaMenu;
 import com.example.vleon.profinalmovil.R;
 
 public class MenuPrincipal extends Escena {

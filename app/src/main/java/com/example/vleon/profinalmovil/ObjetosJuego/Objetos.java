@@ -1,4 +1,4 @@
-package com.example.vleon.profinalmovil.Objetos;
+package com.example.vleon.profinalmovil.ObjetosJuego;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -46,7 +46,7 @@ public class Objetos {
             tiempoFrameAux = System.currentTimeMillis();
         }
     }
-
+@Deprecated
     public int cambiaIndice(int tiempoFrame) {
         long tiempoFrameAux = 0;
         int indice = 0;

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import com.example.vleon.profinalmovil.Objetos.Fondo;
+import com.example.vleon.profinalmovil.ObjetosJuego.Fondo;
 
 import java.util.ArrayList;
 
