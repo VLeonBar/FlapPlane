@@ -16,6 +16,7 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder surfaceHolder;
     private Context contexto;
     private Hilo hilo;
+    public Sonidos sonidos;
     private boolean funcionando;
     private int altoPantalla, anchoPantalla;
     private Escena escenaActual;
@@ -33,8 +34,10 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
         this.surfaceHolder = getHolder();
         this.surfaceHolder.addCallback(this);
         this.contexto = context;
+        sonidos = new Sonidos(contexto, 10);
         hilo = new Hilo();
         setFocusable(true);// control de tiempo de la aplicación
+
 
     }
 
@@ -63,7 +66,6 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         synchronized (surfaceHolder) {
             int nuevaEscena = escenaActual.onTouchEvent(event);
             if (nuevaEscena != escenaActual.idEscena) {

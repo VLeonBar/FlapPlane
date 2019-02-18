@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 
+import com.example.vleon.profinalmovil.Pantallas.Escena;
+
 public class MainActivity extends AppCompatActivity {
+    private SurfaceVw pantallaPrincipal;
+    private boolean pausa = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        SurfaceVw pantallaPrincipal = new SurfaceVw(this);
+        pantallaPrincipal = new SurfaceVw(this);
         pantallaPrincipal.setKeepScreenOn(true);
 
         setContentView(pantallaPrincipal);
@@ -31,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (pausa) {
+            pantallaPrincipal.sonidos.mediaPlayer.start();
+        }
         View decorView = getWindow().getDecorView();
         int opciones = View.SYSTEM_UI_FLAG_FULLSCREEN        // pone la pantalla en modo pantalla completa ocultando elementos no criticos como la barra de estado.
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION  // oculta la barra de navegación
@@ -40,5 +47,13 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         decorView.setSystemUiVisibility(opciones);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pausa = true;
+        pantallaPrincipal.sonidos.mediaPlayer.stop();
     }
 }

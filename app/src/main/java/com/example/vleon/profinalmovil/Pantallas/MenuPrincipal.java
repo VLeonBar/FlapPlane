@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.media.AudioManager;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.vleon.profinalmovil.Moneda;
 import com.example.vleon.profinalmovil.R;
+import com.example.vleon.profinalmovil.Sonidos;
 
 public class MenuPrincipal extends Escena {
     Rect rectJugar, rectAjustes, rectRecord, rectCreditos, rectControles, botonPulsado = null;
@@ -20,6 +22,7 @@ public class MenuPrincipal extends Escena {
     int cont = 0;
     int escenaDestino = idEscena;
     boolean movMoneda = false;
+
 
     public MenuPrincipal(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, altoPantalla, anchoPantalla);
@@ -39,13 +42,14 @@ public class MenuPrincipal extends Escena {
         rectJugar = new Rect(0, altoSexto, anchoPantalla, altoSexto * 2);
         rectRecord = new Rect(0, altoSexto * 2, anchoTercio, altoSexto * 3);
         rectControles = new Rect(anchoTercio * 2, altoSexto * 2, anchoPantalla, altoSexto * 3);
+        sonidos.mediaPlayer.start();
 
     }
 
     //FÍSICAS Y DIBUJO DE LA CLASE MENÚ
     public int actualizarFisica() {
         if (movMoneda) {
-            bandera=moneda.mueveMoneda(botonPulsado);
+            bandera = moneda.mueveMoneda(botonPulsado);
             if (!bandera) {
                 return escenaDestino;
             }
@@ -75,6 +79,8 @@ public class MenuPrincipal extends Escena {
         int accion = event.getActionMasked();
         switch (accion) {
             case MotionEvent.ACTION_UP:
+//                audioManager.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR);
+                sonidos.getEfectos().play(sonidos.sonidoToque, 1, 1, 1, 0, 1);
             case MotionEvent.ACTION_POINTER_UP:
                 if (pulsa(rectCreditos, event)) {
                     this.botonPulsado = rectCreditos;
@@ -83,8 +89,10 @@ public class MenuPrincipal extends Escena {
                 } else if (pulsa(rectAjustes, event)) {
                     this.botonPulsado = rectAjustes;
                     movMoneda = true;
+                    sonidos.mediaPlayer.stop();
                     escenaDestino = 2;
                 } else if (pulsa(rectJugar, event)) {
+                    sonidos.getEfectos().play(sonidos.sonidoInsertCoin, 1, 1, 1, 0, 1);
                     this.botonPulsado = rectJugar;
                     movMoneda = true;
                     escenaDestino = 3;

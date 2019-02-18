@@ -6,8 +6,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.util.Log;
 import android.view.MotionEvent;
+
+import com.example.vleon.profinalmovil.R;
+import com.example.vleon.profinalmovil.Sonidos;
 
 public class Escena {
 
@@ -17,6 +23,10 @@ public class Escena {
     Bitmap imgFondo;
     Paint pincel, pincel2, pincel3;
     Rect vueltaMenu;
+    Sonidos sonidos;
+    AudioManager audioManager;
+
+    final private int maxSonidosSimultaneos = 10;
 
 
     public Escena(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
@@ -24,6 +34,7 @@ public class Escena {
         this.idEscena = idEscena;
         this.altoPantalla = altoPantalla;
         this.anchoPantalla = anchoPantalla;
+        sonidos=new Sonidos(contexto,10);
         pincel = new Paint();
         pincel.setColor(Color.rgb(59, 36, 16));
         pincel.setStyle(Paint.Style.STROKE);
@@ -32,7 +43,6 @@ public class Escena {
         pincel2.setColor(Color.BLUE);
         pincel3 = new Paint();
         pincel3.setColor(Color.GREEN);
-
         vueltaMenu = new Rect(0, 0, anchoPantalla / 15, anchoPantalla / 15);
     }
 
@@ -75,7 +85,6 @@ public class Escena {
             return false;
         }
     }
-
 
 
     public Context getContexto() {
