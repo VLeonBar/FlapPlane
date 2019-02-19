@@ -28,29 +28,30 @@ public class Nave extends Objetos {
     }
 
     public void actualizarFisica(boolean sube) {
-        cambiaImagen();
         if (sube) {
+            this.cambiaImagen();
             this.mueveNave(this.getPosY() - velocidad);
-            this.cambiaImagen();
         } else {
+            indice = 0;
             this.mueveNave(this.getPosY() + velocidad);
-            this.cambiaImagen();
         }
     }
 
     public void dibujar(Canvas c, boolean sube) {
         if (sube) {
+            setSkins(fh.getFrames(2, "aviones", "sube", fh.partePantalla(anchoPantalla, 10)));
 //            c.save(Canvas.MATRIX_SAVE_FLAG); //Saving the canvas and later restoring it so only this image will be rotated.
 //            c.rotate(-40);
 //            c.drawBitmap(skins[indice], this.getPosX(), this.getPosY(), null);
 //            c.restore();
         } else {
+            setSkins(fh.getFrames(1, "aviones", "baja", fh.partePantalla(anchoPantalla, 10)));
 //            c.save(Canvas.MATRIX_SAVE_FLAG); //Saving the canvas and later restoring it so only this image will be rotated.
 //            c.rotate(40);
 //            c.drawBitmap(skins[indice], posX, posY, null);
 //            c.restore();
         }
-        c.drawRect(rect, pincel);
+//        c.drawRect(rect, pincel);
         c.drawBitmap(skins[indice], this.getPosX(), this.getPosY(), null);
         c.drawText("" + puntuacion, fh.partePantalla(anchoPantalla, 2), fh.partePantalla(altoPantalla, 10), pincel);
     }

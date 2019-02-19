@@ -56,7 +56,7 @@ public class Moneda extends Objetos {
 
     public void dibujar(Canvas c) {
         for (Rect moneda : alMonedas) {
-            c.drawRect(moneda, pincel);
+//            c.drawRect(moneda, pincel);
             c.drawBitmap(skins[indice], moneda.left, moneda.top, null);
         }
         Log.i("indice", "" + indice);

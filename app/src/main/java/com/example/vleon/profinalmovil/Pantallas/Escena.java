@@ -44,8 +44,6 @@ public class Escena {
         pincel2 = new Paint();
         pincel2.setTextSize(fh.getDpH(150, altoPantalla));
         pincel2.setColor(Color.BLUE);
-        pincel3 = new Paint();
-        pincel3.setColor(Color.GREEN);
         vueltaMenu = new Rect(0, 0, anchoPantalla / 15, anchoPantalla / 15);
         vueltaAtras = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.moneda);
         vueltaAtras = Bitmap.createScaledBitmap(vueltaAtras, vueltaMenu.width(), vueltaMenu.height(), false);
@@ -58,7 +56,6 @@ public class Escena {
     public void dibujar(Canvas c) {
         try {
             if (idEscena != 0) {
-                c.drawRect(vueltaMenu, pincel2);
                 c.drawBitmap(vueltaAtras, vueltaMenu.left, vueltaMenu.top, null);
             }
         } catch (Exception e) {

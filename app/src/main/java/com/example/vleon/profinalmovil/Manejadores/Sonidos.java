@@ -41,7 +41,7 @@ public class Sonidos {
         this.maxSonidosSimultaneos = maxSonidosSimultaneos;
         audioManager = (AudioManager) contexto.getSystemService(Context.AUDIO_SERVICE);
         //cancion
-        mediaPlayer = MediaPlayer.create(contexto, R.raw.gameoverson);
+        mediaPlayer = MediaPlayer.create(contexto, R.raw.dreamingaltitude);
         int v = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         mediaPlayer.setVolume(v / 2, v / 2);
         mediaPlayer.setLooping(true);

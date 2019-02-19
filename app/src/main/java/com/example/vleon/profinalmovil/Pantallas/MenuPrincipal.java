@@ -40,7 +40,9 @@ public class MenuPrincipal extends Escena {
         rectJugar = new Rect(0, altoSexto, anchoPantalla, altoSexto * 2);
         rectRecord = new Rect(0, altoSexto * 2, anchoTercio, altoSexto * 3);
         rectControles = new Rect(anchoTercio * 2, altoSexto * 2, anchoPantalla, altoSexto * 3);
-        if (!sonidos.mediaPlayer.isPlaying()) {
+        if (sonidos.mediaPlayer.isPlaying()) {
+            sonidos.mediaPlayer.pause();
+        }else{
             sonidos.mediaPlayer.start();
         }
 
