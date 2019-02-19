@@ -12,7 +12,6 @@ public class Moneda extends Objetos {
     ArrayList<Rect> alMonedas = new ArrayList<>();
     Rect rect;
     private int randPointY;
-    private boolean flag;
 
     public Moneda(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins) {
         super(contexto, anchoPantalla, altoPantalla, skins);
@@ -59,6 +58,5 @@ public class Moneda extends Objetos {
 //            c.drawRect(moneda, pincel);
             c.drawBitmap(skins[indice], moneda.left, moneda.top, null);
         }
-        Log.i("indice", "" + indice);
     }
 }
