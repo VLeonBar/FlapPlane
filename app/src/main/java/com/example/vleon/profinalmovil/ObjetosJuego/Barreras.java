@@ -14,6 +14,7 @@ public class Barreras extends Objetos {
     Rect barreraTop, barreraBot;
     Moneda moneda;
     int randPointY, randLocY;
+    int puntuacion = 0;
 
     public ArrayList<Rect> getAlBarrerasTop() {
         return alBarrerasTop;
@@ -27,7 +28,6 @@ public class Barreras extends Objetos {
     public Barreras(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins) {
         super(contexto, anchoPantalla, altoPantalla, skins);
         velocidad = 10;
-        pincel.setColor(Color.rgb(59, 36, 16));
     }
 
     public void mueveBarrera(ArrayList<Rect> alTop, ArrayList<Rect> alBot) {

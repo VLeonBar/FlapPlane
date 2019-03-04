@@ -2,21 +2,26 @@ package com.example.vleon.profinalmovil.ObjetosJuego;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 
 import com.example.vleon.profinalmovil.Manejadores.Sonidos;
+import com.example.vleon.profinalmovil.R;
 
 import java.util.ArrayList;
 
 public class Nave extends Objetos {
     int puntuacion;
     Matrix matrix = new Matrix();
+    Bitmap vueltaAtras;
 
     public Nave(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins, int posX, int posY) {
         super(contexto, anchoPantalla, altoPantalla, skins);
+        vueltaAtras = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.moneda);
+        vueltaAtras = Bitmap.createScaledBitmap(vueltaAtras, fh.partePantalla(anchoPantalla, 10), fh.partePantalla(anchoPantalla, 10), false);
         this.setPosX(posX);
         this.setPosY(posY);
         puntuacion = 0;
@@ -53,7 +58,8 @@ public class Nave extends Objetos {
         }
 //        c.drawRect(rect, pincel);
         c.drawBitmap(skins[indice], this.getPosX(), this.getPosY(), null);
-        c.drawText("" + puntuacion, fh.partePantalla(anchoPantalla, 2), fh.partePantalla(altoPantalla, 10), pincel);
+        c.drawBitmap(vueltaAtras, fh.partePantalla(anchoPantalla, 8) * 3, fh.partePantalla(altoPantalla, 15), null);
+        c.drawText("" + puntuacion, fh.partePantalla(anchoPantalla, 8) * 4, fh.partePantalla(altoPantalla, 15) + vueltaAtras.getHeight(), pincel);
     }
 
     public int getPuntuacion() {

@@ -7,13 +7,22 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.AudioManager;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
 import com.example.vleon.profinalmovil.Manejadores.Sonidos;
 import com.example.vleon.profinalmovil.R;
+
+import static android.content.Context.SENSOR_SERVICE;
 
 public class Escena {
 
@@ -24,9 +33,12 @@ public class Escena {
     Paint pincel, pincel2, pincel3;
     FrameHandler fh;
     Rect vueltaMenu;
-    Sonidos sonidos;
+    static Sonidos sonidos;
     AudioManager audioManager;
-
+    Vibrator vibrator;
+    static SensorManager sm;
+    static Sensor proxSensor;
+    static Boolean isSensorOn = false;
     final private int maxSonidosSimultaneos = 10;
 
 
@@ -35,8 +47,12 @@ public class Escena {
         this.idEscena = idEscena;
         this.altoPantalla = altoPantalla;
         this.anchoPantalla = anchoPantalla;
+        sm = (SensorManager) contexto.getSystemService(SENSOR_SERVICE);
+        proxSensor = sm.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         fh = new FrameHandler(contexto);
-        sonidos = new Sonidos(contexto, 10);
+        vibrator = (Vibrator) contexto.getSystemService(Context.VIBRATOR_SERVICE);
+        if (sonidos == null)
+            sonidos = new Sonidos(contexto, 10);
         pincel = new Paint();
         pincel.setColor(Color.rgb(59, 36, 16));
         pincel.setStyle(Paint.Style.STROKE);
@@ -49,6 +65,22 @@ public class Escena {
         vueltaAtras = Bitmap.createScaledBitmap(vueltaAtras, vueltaMenu.width(), vueltaMenu.height(), false);
     }
 
+    SensorEventListener proximitySensorListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent sensorEvent) {
+            Log.i("VALUE", proxSensor.getMaximumRange() + "");
+            if (sensorEvent.values[0] < proxSensor.getMaximumRange()) {
+                isSensorOn = true;
+            } else {
+                isSensorOn = false;
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+        }
+    };
+
     public int actualizarFisica() {
         return idEscena;
     }
@@ -60,6 +92,14 @@ public class Escena {
             }
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
+        }
+    }
+
+    public void vibrar(int duraVibra) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(3000, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            vibrator.vibrate(duraVibra);
         }
     }
 

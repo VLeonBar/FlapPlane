@@ -13,7 +13,6 @@ import com.example.vleon.profinalmovil.R;
 
 public class MenuPrincipal extends Escena {
     Rect rectJugar, rectAjustes, rectRecord, rectCreditos, rectControles, botonPulsado = null;
-    Bitmap imgLogo;
     boolean bandera = true;
     int anchoDecimo, altoMedio, anchoTercio, altoSexto, anchoMedio;
     MonedaMenu monedaMenu;
@@ -24,8 +23,10 @@ public class MenuPrincipal extends Escena {
 
     public MenuPrincipal(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, altoPantalla, anchoPantalla);
-        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_main_edit);
-        imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
+        if (imgFondo == null) {
+            imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_main_menu);
+            imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
+        }
         anchoDecimo = anchoPantalla / 10;
         anchoTercio = anchoPantalla / 3;
         anchoMedio = anchoPantalla / 2;
@@ -40,17 +41,14 @@ public class MenuPrincipal extends Escena {
         rectJugar = new Rect(0, altoSexto, anchoPantalla, altoSexto * 2);
         rectRecord = new Rect(0, altoSexto * 2, anchoTercio, altoSexto * 3);
         rectControles = new Rect(anchoTercio * 2, altoSexto * 2, anchoPantalla, altoSexto * 3);
-        if (sonidos.mediaPlayer.isPlaying()) {
-            sonidos.mediaPlayer.pause();
-        }else{
-            sonidos.mediaPlayer.start();
-        }
-
+//       TODO
+//        CREAR VARIABLE BOOLEANA PARA CONTROLAR ESTO
+        sonidos.mediaPlayer.start();
     }
 
     //FÍSICAS Y DIBUJO DE LA CLASE MENÚ
     public int actualizarFisica() {
-        Log.i("MUSICA", "SUENA?" + sonidos.mediaPlayer.isPlaying());
+        sm.registerListener(proximitySensorListener, proxSensor, 1000 * 500);
         if (movMoneda) {
             bandera = monedaMenu.mueveMoneda(botonPulsado);
             if (!bandera) {
@@ -83,6 +81,7 @@ public class MenuPrincipal extends Escena {
         switch (accion) {
             case MotionEvent.ACTION_UP:
 //                audioManager.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR);
+                vibrar(100);
                 sonidos.getEfectos().play(sonidos.sonidoToque, 1, 1, 1, 0, 1);
             case MotionEvent.ACTION_POINTER_UP:
                 if (pulsa(rectCreditos, event)) {
