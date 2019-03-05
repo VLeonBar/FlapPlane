@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 
 import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
 import com.example.vleon.profinalmovil.Manejadores.Sonidos;
+import com.example.vleon.profinalmovil.ObjetosJuego.Boton;
 import com.example.vleon.profinalmovil.R;
 
 import static android.content.Context.SENSOR_SERVICE;
@@ -32,9 +33,9 @@ public class Escena {
     public int idEscena;
     int altoPantalla, anchoPantalla;
     Bitmap imgFondo, vueltaAtras;
-    Paint pincel, pincel2, pincel3;
+    Boton btnAtras;
+    Paint pincel;
     FrameHandler fh;
-    Rect vueltaMenu;
     static Sonidos sonidos;
     AudioManager audioManager;
     Vibrator vibrator;
@@ -48,8 +49,8 @@ public class Escena {
     public Escena(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         preferencias = contexto.getSharedPreferences("preferencias", Context.MODE_PRIVATE);
         editorPreferencias = preferencias.edit();
-        isSoundOn = preferencias.getBoolean("sonido", true);
-        isVibrationOn = preferencias.getBoolean("vibracion", true);
+        isSoundOn = preferencias.getBoolean("btnActivaSonido", true);
+        isVibrationOn = preferencias.getBoolean("btnActivaVibra", true);
         this.contexto = contexto;
         this.idEscena = idEscena;
         this.altoPantalla = altoPantalla;
@@ -65,12 +66,10 @@ public class Escena {
         pincel.setColor(Color.rgb(59, 36, 16));
         pincel.setStyle(Paint.Style.STROKE);
         pincel.setStrokeWidth((float) fh.getDpH(20, altoPantalla));
-        pincel2 = new Paint();
-        pincel2.setTextSize(fh.getDpH(150, altoPantalla));
-        pincel2.setColor(Color.BLUE);
-        vueltaMenu = new Rect(0, 0, anchoPantalla / 15, anchoPantalla / 15);
-        vueltaAtras = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.moneda);
-        vueltaAtras = Bitmap.createScaledBitmap(vueltaAtras, vueltaMenu.width(), vueltaMenu.height(), false);
+        btnAtras = new Boton(0, 0, anchoPantalla / 15, anchoPantalla / 15, Color.TRANSPARENT);
+        vueltaAtras = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.flecha_atras);
+        vueltaAtras = Bitmap.createScaledBitmap(vueltaAtras, btnAtras.getRect().width(), btnAtras.getRect().height(), false);
+        btnAtras.setImg(vueltaAtras);
     }
 
     SensorEventListener proximitySensorListener = new SensorEventListener() {
@@ -96,7 +95,7 @@ public class Escena {
     public void dibujar(Canvas c) {
         try {
             if (idEscena != 0) {
-                c.drawBitmap(vueltaAtras, vueltaMenu.left, vueltaMenu.top, null);
+                c.drawBitmap(vueltaAtras, btnAtras.getRect().left, btnAtras.getRect().top, null);
             }
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
@@ -123,7 +122,7 @@ public class Escena {
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
-                if (pulsa(vueltaMenu, event) && idEscena != 0) return 0;
+                if (pulsa(btnAtras.getRect(), event) && idEscena != 0) return 0;
                 break;
         }
 
@@ -184,13 +183,5 @@ public class Escena {
 
     public void setPincel(Paint pincel) {
         this.pincel = pincel;
-    }
-
-    public Rect getVueltaMenu() {
-        return vueltaMenu;
-    }
-
-    public void setVueltaMenu(Rect vueltaMenu) {
-        this.vueltaMenu = vueltaMenu;
     }
 }

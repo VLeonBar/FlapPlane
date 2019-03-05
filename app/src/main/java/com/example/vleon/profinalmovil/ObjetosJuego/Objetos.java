@@ -21,7 +21,7 @@ public class Objetos {
     Context contexto;
     FrameHandler fh;
     Paint pincel;
-    static int puntuacion;
+    public static int puntuacion;
 
     public Objetos(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins) {
         this.fh = new FrameHandler(contexto);

@@ -4,24 +4,56 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Rect;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.example.vleon.profinalmovil.ObjetosJuego.Boton;
 import com.example.vleon.profinalmovil.R;
 
+import java.util.ArrayList;
+
 public class Ajustes extends Escena {
-    Rect sound, vibration;
+    Boton btnActivaSonido, btnActivaVibra, textoSonido, textoVibracion;
+    ArrayList<Boton> botones = new ArrayList<>();
+    Bitmap imgSonidoOn, imgSonidoOff, imgVibraOn, imgVibraOff;
 
     public Ajustes(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
-        sound = new Rect(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 2, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 3);
-        vibration = new Rect(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 4, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 5);
+
+        //todo
+        //Dar imagen a estos botones.
+        textoSonido = new Boton(0, fh.partePantalla(altoPantalla, 10) * 2, fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 3, Color.TRANSPARENT);
+        textoSonido.setTexto("Sonido", fh.getDpH(120, altoPantalla), Color.BLACK);
+        botones.add(textoSonido);
+        textoVibracion = new Boton(0, fh.partePantalla(altoPantalla, 10) * 4, fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 5, Color.TRANSPARENT);
+        textoVibracion.setTexto("Vibración", fh.getDpH(120, altoPantalla), Color.BLACK);
+        botones.add(textoVibracion);
+        btnActivaSonido = new Boton(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 2, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 3, Color.TRANSPARENT);
+        imgSonidoOn = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.musica_on);
+        imgSonidoOn = Bitmap.createScaledBitmap(imgSonidoOn, btnActivaSonido.getRect().width(), btnActivaSonido.getRect().height(), false);
+        imgSonidoOff = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.musica_off);
+        imgSonidoOff = Bitmap.createScaledBitmap(imgSonidoOff, btnActivaSonido.getRect().width(), btnActivaSonido.getRect().height(), false);
+        botones.add(btnActivaSonido);
+        btnActivaVibra = new Boton(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 4, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 5, Color.TRANSPARENT);
+        imgVibraOn = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.vibra_on);
+        imgVibraOn = Bitmap.createScaledBitmap(imgVibraOn, btnActivaSonido.getRect().width(), btnActivaSonido.getRect().height(), false);
+        imgVibraOff = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.vibra_off);
+        imgVibraOff = Bitmap.createScaledBitmap(imgVibraOff, btnActivaSonido.getRect().width(), btnActivaSonido.getRect().height(), false);
+        botones.add(btnActivaVibra);
     }
 
     public int actualizarFisica() {
+        if (isSoundOn)
+            btnActivaSonido.setImg(imgSonidoOff);
+        else
+            btnActivaSonido.setImg(imgSonidoOn);
+        if (isVibrationOn)
+            btnActivaVibra.setImg(imgVibraOff);
+        else
+            btnActivaVibra.setImg(imgVibraOn);
         return idEscena;
     }
 
@@ -29,10 +61,9 @@ public class Ajustes extends Escena {
         try {
             //Fondo de pantalla de ajustes
             c.drawBitmap(imgFondo, 0, 0, null);
-            c.drawText("Sonido", fh.partePantalla(anchoPantalla, 10), fh.partePantalla(altoPantalla, 10) * 3, pincel2);
-            c.drawText("Vibración", fh.partePantalla(anchoPantalla, 10), fh.partePantalla(altoPantalla, 10) * 5, pincel2);
-            c.drawRect(sound, pincel2);
-            c.drawRect(vibration, pincel2);
+            for (Boton b : botones) {
+                b.dibujar(c);
+            }
             //llama al dibujar de la clase padre para dibujar los elementos comunes a todas las clases hijas
             super.dibujar(c);
 
@@ -55,7 +86,7 @@ public class Ajustes extends Escena {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
-                if (pulsa(sound, event)) {
+                if (pulsa(btnActivaSonido.getRect(), event)) {
                     Log.i("pepito", "AAAAAAAAAAAAA");
                     if (isSoundOn) {
                         sonidos.mediaPlayer.pause();
@@ -64,14 +95,14 @@ public class Ajustes extends Escena {
                         sonidos.mediaPlayer.start();
                         isSoundOn = true;
                     }
-                    editorPreferencias.putBoolean("sonido", isSoundOn);
-                } else if (pulsa(vibration, event)) {
+                    editorPreferencias.putBoolean("btnActivaSonido", isSoundOn);
+                } else if (pulsa(btnActivaVibra.getRect(), event)) {
                     if (isVibrationOn) {
                         isVibrationOn = false;
                     } else {
                         isVibrationOn = true;
                     }
-                    editorPreferencias.putBoolean("vibracion", isVibrationOn);
+                    editorPreferencias.putBoolean("btnActivaVibra", isVibrationOn);
                 }
                 editorPreferencias.commit();
                 break;

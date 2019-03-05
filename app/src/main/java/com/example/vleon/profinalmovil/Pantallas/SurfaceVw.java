@@ -147,6 +147,8 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                                     case 5:
                                         escenaActual = new Controles(contexto, 5, anchoPantalla, altoPantalla);
                                         break;
+                                    case 6:
+                                        escenaActual = new FinDeJuego(contexto, 6, anchoPantalla, altoPantalla);
                                 }
                             }
                             escenaActual.dibujar(c);
