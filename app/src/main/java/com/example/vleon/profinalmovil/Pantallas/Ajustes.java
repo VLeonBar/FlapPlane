@@ -4,14 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
-import com.example.vleon.profinalmovil.ObjetosJuego.Nave;
-import com.example.vleon.profinalmovil.ObjetosJuego.Objetos;
 import com.example.vleon.profinalmovil.R;
 
 public class Ajustes extends Escena {
@@ -32,7 +28,7 @@ public class Ajustes extends Escena {
     public void dibujar(Canvas c) {
         try {
             //Fondo de pantalla de ajustes
-            c.drawBitmap(imgFondo,0,0,null);
+            c.drawBitmap(imgFondo, 0, 0, null);
             c.drawText("Sonido", fh.partePantalla(anchoPantalla, 10), fh.partePantalla(altoPantalla, 10) * 3, pincel2);
             c.drawText("Vibración", fh.partePantalla(anchoPantalla, 10), fh.partePantalla(altoPantalla, 10) * 5, pincel2);
             c.drawRect(sound, pincel2);
@@ -68,13 +64,16 @@ public class Ajustes extends Escena {
                         sonidos.mediaPlayer.start();
                         isSoundOn = true;
                     }
+                    editorPreferencias.putBoolean("sonido", isSoundOn);
                 } else if (pulsa(vibration, event)) {
                     if (isVibrationOn) {
                         isVibrationOn = false;
                     } else {
                         isVibrationOn = true;
                     }
+                    editorPreferencias.putBoolean("vibracion", isVibrationOn);
                 }
+                editorPreferencias.commit();
                 break;
         }
         int padre = super.onTouchEvent(event);

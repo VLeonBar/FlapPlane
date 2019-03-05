@@ -1,6 +1,7 @@
 package com.example.vleon.profinalmovil.Pantallas;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,6 +16,7 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.preference.Preference;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -38,10 +40,16 @@ public class Escena {
     Vibrator vibrator;
     static SensorManager sm;
     static Sensor proxSensor;
+    SharedPreferences preferencias;
+    SharedPreferences.Editor editorPreferencias;
     static boolean isSensorOn = false, isSoundOn, isVibrationOn = true;
 
 
     public Escena(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
+        preferencias = contexto.getSharedPreferences("preferencias", Context.MODE_PRIVATE);
+        editorPreferencias = preferencias.edit();
+        isSoundOn = preferencias.getBoolean("sonido", true);
+        isVibrationOn = preferencias.getBoolean("vibracion", true);
         this.contexto = contexto;
         this.idEscena = idEscena;
         this.altoPantalla = altoPantalla;
@@ -52,7 +60,6 @@ public class Escena {
         vibrator = (Vibrator) contexto.getSystemService(Context.VIBRATOR_SERVICE);
         if (sonidos == null) {
             sonidos = new Sonidos(contexto, 10);
-            isSoundOn = true;
         }
         pincel = new Paint();
         pincel.setColor(Color.rgb(59, 36, 16));
