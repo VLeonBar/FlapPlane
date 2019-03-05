@@ -21,7 +21,7 @@ public class Objetos {
     Context contexto;
     FrameHandler fh;
     Paint pincel;
-
+    static int puntuacion;
 
     public Objetos(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins) {
         this.fh = new FrameHandler(contexto);
@@ -33,6 +33,7 @@ public class Objetos {
         this.velocidad = 0;
         this.tiempoFrame = 80;
         this.tiempoFrameAux = 0;
+        this.puntuacion = 0;
         this.altoPantalla = altoPantalla;
         this.anchoPantalla = anchoPantalla;
         this.contexto = contexto;
@@ -46,7 +47,8 @@ public class Objetos {
             tiempoFrameAux = System.currentTimeMillis();
         }
     }
-@Deprecated
+
+    @Deprecated
     public int cambiaIndice(int tiempoFrame) {
         long tiempoFrameAux = 0;
         int indice = 0;

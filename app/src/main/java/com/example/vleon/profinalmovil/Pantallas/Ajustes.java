@@ -4,20 +4,22 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
+import com.example.vleon.profinalmovil.ObjetosJuego.Nave;
+import com.example.vleon.profinalmovil.ObjetosJuego.Objetos;
 import com.example.vleon.profinalmovil.R;
 
 public class Ajustes extends Escena {
     Rect sound, vibration;
-    boolean soundOn = true, vibraOn;
 
     public Ajustes(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
-        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_prov);
+        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
         sound = new Rect(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 2, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 3);
         vibration = new Rect(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 4, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 5);
@@ -25,13 +27,12 @@ public class Ajustes extends Escena {
 
     public int actualizarFisica() {
         return idEscena;
-
     }
 
     public void dibujar(Canvas c) {
         try {
             //Fondo de pantalla de ajustes
-            c.drawBitmap(imgFondo, 0, 0, null);
+            c.drawBitmap(imgFondo,0,0,null);
             c.drawText("Sonido", fh.partePantalla(anchoPantalla, 10), fh.partePantalla(altoPantalla, 10) * 3, pincel2);
             c.drawText("Vibración", fh.partePantalla(anchoPantalla, 10), fh.partePantalla(altoPantalla, 10) * 5, pincel2);
             c.drawRect(sound, pincel2);
@@ -49,16 +50,30 @@ public class Ajustes extends Escena {
         int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();
         switch (accion) {
+            case MotionEvent.ACTION_DOWN:
+                if (isVibrationOn)
+                    vibrar(100);
+                if (isSoundOn)
+                    sonidos.getEfectos().play(sonidos.sonidoToque, 1, 1, 1, 0, 1);
+                break;
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 if (pulsa(sound, event)) {
                     Log.i("pepito", "AAAAAAAAAAAAA");
-                    if (sonidos.mediaPlayer.isPlaying())
+                    if (isSoundOn) {
                         sonidos.mediaPlayer.pause();
-                    else sonidos.mediaPlayer.start();
+                        isSoundOn = false;
+                    } else {
+                        sonidos.mediaPlayer.start();
+                        isSoundOn = true;
+                    }
                 } else if (pulsa(vibration, event)) {
-                    vibraOn = false;
+                    if (isVibrationOn) {
+                        isVibrationOn = false;
+                    } else {
+                        isVibrationOn = true;
+                    }
                 }
                 break;
         }

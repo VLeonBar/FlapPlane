@@ -9,14 +9,16 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 
 import com.example.vleon.profinalmovil.Manejadores.Sonidos;
+import com.example.vleon.profinalmovil.Pantallas.Escena;
 import com.example.vleon.profinalmovil.R;
 
 import java.util.ArrayList;
 
 public class Nave extends Objetos {
-    int puntuacion;
     Matrix matrix = new Matrix();
+    boolean isSoundOn;
     Bitmap vueltaAtras;
+
 
     public Nave(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins, int posX, int posY) {
         super(contexto, anchoPantalla, altoPantalla, skins);
@@ -24,7 +26,6 @@ public class Nave extends Objetos {
         vueltaAtras = Bitmap.createScaledBitmap(vueltaAtras, fh.partePantalla(anchoPantalla, 10), fh.partePantalla(anchoPantalla, 10), false);
         this.setPosX(posX);
         this.setPosY(posY);
-        puntuacion = 0;
         velocidad = fh.partePantalla(altoPantalla, 100);
         sonidos = new Sonidos(contexto, 10);
         rect = new Rect(posX, posY, posX + skins[indice].getWidth(), posY + skins[0].getHeight());
@@ -58,32 +59,24 @@ public class Nave extends Objetos {
         }
 //        c.drawRect(rect, pincel);
         c.drawBitmap(skins[indice], this.getPosX(), this.getPosY(), null);
-        c.drawBitmap(vueltaAtras, fh.partePantalla(anchoPantalla, 8) * 3, fh.partePantalla(altoPantalla, 15), null);
         c.drawText("" + puntuacion, fh.partePantalla(anchoPantalla, 8) * 4, fh.partePantalla(altoPantalla, 15) + vueltaAtras.getHeight(), pincel);
-    }
-
-    public int getPuntuacion() {
-        return puntuacion;
     }
 
     public boolean choqueNave(ArrayList<Rect> top, ArrayList<Rect> bot, ArrayList<Rect> monedas) {
         for (Rect barrera : top) {
             if (rect.intersect(barrera)) {
-                sonidos.getEfectos().play(sonidos.sonidoExplosion, 1, 1, 1, 0, 1);
                 return true;
             }
         }
         for (Rect barrera : bot) {
             if (rect.intersect(barrera)) {
-                sonidos.getEfectos().play(sonidos.sonidoExplosion, 1, 1, 1, 0, 1);
                 return true;
             }
         }
         for (int i = 0; i < monedas.size(); i++) {
             if (rect.intersect(monedas.get(i))) {
-                puntuacion++;
+                puntuacion += 10;
                 monedas.remove(monedas.get(i));
-                sonidos.getEfectos().play(sonidos.sonidoInsertCoin, 1, 1, 1, 0, 1);
             }
         }
         return false;

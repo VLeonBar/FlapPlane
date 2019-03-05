@@ -37,9 +37,18 @@ public class Juego extends Escena {
     }
 
     public int actualizarFisica() {
+        //NO FUNCIONAAAAAAA!!!!!! ME CRASHEA OUTOFMEMORY
+        //TODO
+        sm.registerListener(proximitySensorListener, proxSensor, 1000 * 500);
         if (isSensorOn) isPlaying = false;
         if (nave.choqueNave(barrera.getAlBarrerasTop(), barrera.getAlBarrerasBot(), moneda.getAlMonedas())) {
-            sonidos.getEfectos().release();
+            if (isVibrationOn)
+                vibrar(500);
+            if (isSoundOn) {
+                sonidos.getEfectos().play(sonidos.sonidoExplosion, 1, 1, 1, 0, 1);
+                sonidos.getEfectos().release();
+            }
+            sm.unregisterListener(proximitySensorListener);
             return 0;
         }
         if (isPlaying) {
@@ -75,13 +84,13 @@ public class Juego extends Escena {
         Log.i("pepe", "" + event);
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (isPlaying) {
-                sonidos.getEfectos().play(sonidos.sonidoMotor, 1, 1, 1, 0, 1);
                 sube = true;
             } else {
                 if (pulsa(rectReanudar, event)) {
                     isPlaying = true;
                 }
                 if (pulsa(rectSalir, event)) {
+                    sm.unregisterListener(proximitySensorListener);
                     return 0;
                 }
             }
@@ -93,7 +102,10 @@ public class Juego extends Escena {
         }
         int padre = super.onTouchEvent(event);
         if (padre != idEscena) {
-            sonidos.getEfectos().release();
+            if (isSoundOn) {
+                sonidos.getEfectos().release();
+                sm.unregisterListener(proximitySensorListener);
+            }
             return padre;
         }
         return idEscena;

@@ -14,8 +14,6 @@ public class Barreras extends Objetos {
     Rect barreraTop, barreraBot;
     Moneda moneda;
     int randPointY, randLocY;
-    int puntuacion = 0;
-
     public ArrayList<Rect> getAlBarrerasTop() {
         return alBarrerasTop;
     }
@@ -67,6 +65,7 @@ public class Barreras extends Objetos {
             if (alBarrerasTop.get(i).right < -20) {
                 alBarrerasTop.remove(i);
                 alBarrerasBot.remove(i);
+                puntuacion++;
             }
             c.drawBitmap(skins[indice], alBarrerasTop.get(i).left, alBarrerasTop.get(i).bottom - skins[indice].getHeight(), null);
             c.drawBitmap(skins[indice], alBarrerasBot.get(i).left, alBarrerasBot.get(i).top, null);

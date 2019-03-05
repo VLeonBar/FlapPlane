@@ -38,8 +38,7 @@ public class Escena {
     Vibrator vibrator;
     static SensorManager sm;
     static Sensor proxSensor;
-    static Boolean isSensorOn = false;
-    final private int maxSonidosSimultaneos = 10;
+    static boolean isSensorOn = false, isSoundOn, isVibrationOn = true;
 
 
     public Escena(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
@@ -51,8 +50,10 @@ public class Escena {
         proxSensor = sm.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         fh = new FrameHandler(contexto);
         vibrator = (Vibrator) contexto.getSystemService(Context.VIBRATOR_SERVICE);
-        if (sonidos == null)
+        if (sonidos == null) {
             sonidos = new Sonidos(contexto, 10);
+            isSoundOn = true;
+        }
         pincel = new Paint();
         pincel.setColor(Color.rgb(59, 36, 16));
         pincel.setStyle(Paint.Style.STROKE);
@@ -107,7 +108,12 @@ public class Escena {
         int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();
         switch (accion) {
-
+            case MotionEvent.ACTION_DOWN:
+                if (isVibrationOn)
+                    vibrar(100);
+                if (isSoundOn)
+                    sonidos.getEfectos().play(sonidos.sonidoToque, 1, 1, 1, 0, 1);
+                break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 if (pulsa(vueltaMenu, event) && idEscena != 0) return 0;

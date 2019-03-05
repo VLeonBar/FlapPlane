@@ -23,10 +23,8 @@ public class MenuPrincipal extends Escena {
 
     public MenuPrincipal(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, altoPantalla, anchoPantalla);
-        if (imgFondo == null) {
-            imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_main_menu);
-            imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
-        }
+        imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_main_menu);
+        imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
         anchoDecimo = anchoPantalla / 10;
         anchoTercio = anchoPantalla / 3;
         anchoMedio = anchoPantalla / 2;
@@ -43,12 +41,12 @@ public class MenuPrincipal extends Escena {
         rectControles = new Rect(anchoTercio * 2, altoSexto * 2, anchoPantalla, altoSexto * 3);
 //       TODO
 //        CREAR VARIABLE BOOLEANA PARA CONTROLAR ESTO
-        sonidos.mediaPlayer.start();
+        if (isSoundOn)
+            sonidos.mediaPlayer.start();
     }
 
     //FÍSICAS Y DIBUJO DE LA CLASE MENÚ
     public int actualizarFisica() {
-        sm.registerListener(proximitySensorListener, proxSensor, 1000 * 500);
         if (movMoneda) {
             bandera = monedaMenu.mueveMoneda(botonPulsado);
             if (!bandera) {
@@ -80,9 +78,6 @@ public class MenuPrincipal extends Escena {
         int accion = event.getActionMasked();
         switch (accion) {
             case MotionEvent.ACTION_UP:
-//                audioManager.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR);
-                vibrar(100);
-                sonidos.getEfectos().play(sonidos.sonidoToque, 1, 1, 1, 0, 1);
             case MotionEvent.ACTION_POINTER_UP:
                 if (pulsa(rectCreditos, event)) {
                     this.botonPulsado = rectCreditos;
@@ -93,7 +88,8 @@ public class MenuPrincipal extends Escena {
                     movMoneda = true;
                     escenaDestino = 2;
                 } else if (pulsa(rectJugar, event)) {
-                    sonidos.getEfectos().play(sonidos.sonidoInsertCoin, 1, 1, 1, 0, 1);
+                    if (isSoundOn)
+                        sonidos.getEfectos().play(sonidos.sonidoInsertCoin, 1, 1, 1, 0, 1);
                     this.botonPulsado = rectJugar;
                     movMoneda = true;
                     escenaDestino = 3;
@@ -109,6 +105,7 @@ public class MenuPrincipal extends Escena {
 
                 break;
         }
+        super.onTouchEvent(event);
         return idEscena;
     }
 }
