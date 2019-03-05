@@ -26,20 +26,20 @@ public class Nave extends Objetos {
         vueltaAtras = Bitmap.createScaledBitmap(vueltaAtras, fh.partePantalla(anchoPantalla, 10), fh.partePantalla(anchoPantalla, 10), false);
         this.setPosX(posX);
         this.setPosY(posY);
-        velocidad = fh.partePantalla(altoPantalla, 100);
         sonidos = new Sonidos(contexto, 10);
         rect = new Rect(posX, posY, posX + skins[indice].getWidth(), posY + skins[0].getHeight());
         pincel.setColor(Color.BLACK);
         pincel.setTextSize(fh.partePantalla(anchoPantalla, 10));
     }
 
-    public void actualizarFisica(boolean sube) {
+    public void actualizarFisica(boolean sube, int velocidad) {
+
         if (sube) {
             this.cambiaImagen();
-            this.mueveNave(this.getPosY() - velocidad);
+            this.mueveNave(this.getPosY() - fh.getDpH(velocidad, altoPantalla));
         } else {
             indice = 0;
-            this.mueveNave(this.getPosY() + velocidad);
+            this.mueveNave(this.getPosY() + fh.getDpH(velocidad, altoPantalla));
         }
     }
 

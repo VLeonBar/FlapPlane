@@ -12,7 +12,7 @@ import com.example.vleon.profinalmovil.ObjetosJuego.MonedaMenu;
 import com.example.vleon.profinalmovil.R;
 
 public class MenuPrincipal extends Escena {
-    Rect rectJugar, rectAjustes, rectRecord, rectCreditos, rectControles, botonPulsado = null;
+    Rect rectJugar, rectAjustes, rectCreditos, rectRecords, rectAyuda, botonPulsado = null;
     boolean bandera = true;
     int anchoDecimo, altoMedio, anchoTercio, altoSexto, anchoMedio;
     MonedaMenu monedaMenu;
@@ -34,11 +34,11 @@ public class MenuPrincipal extends Escena {
         monedaMenu.setImgFicha(Bitmap.createScaledBitmap(monedaMenu.getImgFicha(), altoSexto / 2, altoSexto / 2, false));
         monedaMenu.setPosX(anchoMedio - monedaMenu.getImgFicha().getWidth() / 2);
         monedaMenu.setPosY(altoSexto * (float) 5.5 - monedaMenu.getImgFicha().getHeight() / 2);
-        rectCreditos = new Rect(0, 0, anchoTercio, altoSexto);
+        rectRecords = new Rect(0, 0, anchoTercio, altoSexto);
         rectAjustes = new Rect(anchoTercio * 2, 0, anchoTercio * 3, altoSexto);
         rectJugar = new Rect(0, altoSexto, anchoPantalla, altoSexto * 2);
-        rectRecord = new Rect(0, altoSexto * 2, anchoTercio, altoSexto * 3);
-        rectControles = new Rect(anchoTercio * 2, altoSexto * 2, anchoPantalla, altoSexto * 3);
+        rectCreditos = new Rect(0, altoSexto * 2, anchoTercio, altoSexto * 3);
+        rectAyuda = new Rect(anchoTercio * 2, altoSexto * 2, anchoPantalla, altoSexto * 3);
 //       TODO
 //        CREAR VARIABLE BOOLEANA PARA CONTROLAR ESTO
         if (isSoundOn)
@@ -60,11 +60,11 @@ public class MenuPrincipal extends Escena {
         try {
             //Fondo de pantalla del menú
             c.drawBitmap(imgFondo, 0, 0, null);
-            c.drawRect(rectCreditos, pincel);
+            c.drawRect(rectRecords, pincel);
             c.drawRect(rectAjustes, pincel);
             c.drawRect(rectJugar, pincel);
-            c.drawRect(rectRecord, pincel);
-            c.drawRect(rectControles, pincel);
+            c.drawRect(rectCreditos, pincel);
+            c.drawRect(rectAyuda, pincel);
             monedaMenu.dibujar(c);
 
         } catch (Exception e) {
@@ -79,10 +79,10 @@ public class MenuPrincipal extends Escena {
         switch (accion) {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
-                if (pulsa(rectCreditos, event)) {
-                    this.botonPulsado = rectCreditos;
+                if (pulsa(rectRecords, event)) {
+                    this.botonPulsado = rectRecords;
                     movMoneda = true;
-                    escenaDestino = 1;
+                    escenaDestino = 4;
                 } else if (pulsa(rectAjustes, event)) {
                     this.botonPulsado = rectAjustes;
                     movMoneda = true;
@@ -93,12 +93,12 @@ public class MenuPrincipal extends Escena {
                     this.botonPulsado = rectJugar;
                     movMoneda = true;
                     escenaDestino = 3;
-                } else if (pulsa(rectRecord, event)) {
-                    this.botonPulsado = rectRecord;
+                } else if (pulsa(rectCreditos, event)) {
+                    this.botonPulsado = rectCreditos;
                     movMoneda = true;
-                    escenaDestino = 4;
-                } else if (pulsa(rectControles, event)) {
-                    this.botonPulsado = rectControles;
+                    escenaDestino = 1;
+                } else if (pulsa(rectAyuda, event)) {
+                    this.botonPulsado = rectAyuda;
                     movMoneda = true;
                     escenaDestino = 5;
                 }

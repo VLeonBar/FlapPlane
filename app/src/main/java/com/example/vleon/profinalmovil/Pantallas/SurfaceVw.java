@@ -84,7 +84,7 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                         escenaActual = new Records(contexto, 4, anchoPantalla, altoPantalla);
                         break;
                     case 5:
-                        escenaActual = new Controles(contexto, 5, anchoPantalla, altoPantalla);
+                        escenaActual = new Ayuda(contexto, 5, anchoPantalla, altoPantalla);
                         break;
                 }
             } else if (escenaActual.getClass() == Juego.class) {
@@ -145,7 +145,7 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                                         escenaActual = new Records(contexto, 4, anchoPantalla, altoPantalla);
                                         break;
                                     case 5:
-                                        escenaActual = new Controles(contexto, 5, anchoPantalla, altoPantalla);
+                                        escenaActual = new Ayuda(contexto, 5, anchoPantalla, altoPantalla);
                                         break;
                                     case 6:
                                         escenaActual = new FinDeJuego(contexto, 6, anchoPantalla, altoPantalla);

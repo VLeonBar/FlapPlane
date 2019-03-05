@@ -36,6 +36,10 @@ public class Boton {
         this.img = img;
     }
 
+    public String getTexto() {
+        return texto;
+    }
+
     public Bitmap getImg() {
         return img;
     }

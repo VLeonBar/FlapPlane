@@ -1,6 +1,11 @@
 package com.example.vleon.profinalmovil.Pantallas;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +13,7 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.example.vleon.profinalmovil.Datos.BaseDeDatos;
 import com.example.vleon.profinalmovil.Manejadores.Parallax;
 import com.example.vleon.profinalmovil.ObjetosJuego.Barreras;
 import com.example.vleon.profinalmovil.ObjetosJuego.Boton;
@@ -15,39 +21,57 @@ import com.example.vleon.profinalmovil.ObjetosJuego.Moneda;
 import com.example.vleon.profinalmovil.ObjetosJuego.Nave;
 import com.example.vleon.profinalmovil.R;
 
+import java.util.ArrayList;
+
 public class Juego extends Escena {
 
-    Boton btnReanudar, btnSalir;
+    Boton btnReanudar, btnSalir, textoCabecera;
+    ArrayList<Boton> botones = new ArrayList<>();
     Nave nave;
     Barreras barrera;
     Moneda moneda;
     Parallax parallax;
-    private boolean sube = false;
-    private int record = 0;
+    boolean sube = false;
+    int record = 0;
     Boolean isPlaying = true;
+    long last, now;
+    int velocidad;
 
     public Juego(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
+        //Manejo Movimiento Nave
+        now = System.currentTimeMillis();
+        last = System.currentTimeMillis();
+        velocidad = 15;
         //Parallax
         parallax = new Parallax(contexto, anchoPantalla, altoPantalla, 3);
-        btnReanudar = new Boton(fh.partePantalla(anchoPantalla, 6), fh.partePantalla(altoPantalla, 6), fh.partePantalla(anchoPantalla, 6) * 5, fh.partePantalla(altoPantalla, 6) * 2, Color.BLUE);
-        btnSalir = new Boton(fh.partePantalla(anchoPantalla, 6), fh.partePantalla(altoPantalla, 6) * 3, fh.partePantalla(anchoPantalla, 6) * 5, fh.partePantalla(altoPantalla, 6) * 4, Color.BLUE);
-        btnReanudar.setTexto("Reanudar", fh.getDpH(150, altoPantalla), Color.BLACK);
-        btnSalir.setTexto("Salir", fh.getDpH(150, altoPantalla), Color.BLACK);
+        textoCabecera = new Boton(0, fh.partePantalla(altoPantalla, 6), anchoPantalla, fh.partePantalla(altoPantalla, 6) * 2, Color.TRANSPARENT);
+        textoCabecera.setTexto("PAUSA", 150, Color.BLACK);
+        botones.add(textoCabecera);
+        btnReanudar = new Boton(fh.partePantalla(anchoPantalla, 6) * 2, fh.partePantalla(altoPantalla, 6) * 2, fh.partePantalla(anchoPantalla, 6) * 4, fh.partePantalla(altoPantalla, 6) * 3, Color.TRANSPARENT);
+        btnSalir = new Boton(fh.partePantalla(anchoPantalla, 6) * 2, fh.partePantalla(altoPantalla, 6) * 4, fh.partePantalla(anchoPantalla, 6) * 4, fh.partePantalla(altoPantalla, 6) * 5, Color.TRANSPARENT);
+        btnReanudar.setImg(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(contexto.getResources(), R.drawable.boton_play), btnReanudar.getRect().width(), btnReanudar.getRect().height(), false));
+        btnSalir.setImg(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(contexto.getResources(), R.drawable.boton_exit), btnSalir.getRect().width(), btnSalir.getRect().height(), false));
+        botones.add(btnReanudar);
+        botones.add(btnSalir);
         moneda = new Moneda(contexto, anchoPantalla, altoPantalla, fh.getFrames(10, "monedas", "moneda", fh.partePantalla(anchoPantalla, 10)));
         nave = new Nave(contexto, anchoPantalla, altoPantalla, fh.getFrames(2, "aviones", "sube", fh.partePantalla(anchoPantalla, 10)), fh.partePantalla(anchoPantalla, 8), fh.partePantalla(altoPantalla, 2));
         barrera = new Barreras(contexto, anchoPantalla, altoPantalla, fh.getFrames(2, "barreras", "barrera", altoPantalla));
     }
 
     public int actualizarFisica() {
+        now = System.currentTimeMillis();
+        if (now - last > 500) {
+            velocidad += 5;
+        }
         sm.registerListener(proximitySensorListener, proxSensor, 1000 * 500);
         if (isSensorOn) isPlaying = false;
         if (nave.choqueNave(barrera.getAlBarrerasTop(), barrera.getAlBarrerasBot(), moneda.getAlMonedas())) {
             if (isVibrationOn)
                 vibrar(500);
             if (isSoundOn) {
+                sonidos.getEfectos().autoPause();
                 sonidos.getEfectos().play(sonidos.sonidoExplosion, 1, 1, 1, 0, 1);
-                sonidos.getEfectos().release();
             }
             sm.unregisterListener(proximitySensorListener);
             return 6;
@@ -55,7 +79,7 @@ public class Juego extends Escena {
         if (isPlaying) {
             parallax.actualizarFisica();
             barrera.actualizarFisica();
-            nave.actualizarFisica(sube);
+            nave.actualizarFisica(sube, velocidad);
             moneda.actualizarFisica();
         }
         return idEscena;
@@ -72,8 +96,9 @@ public class Juego extends Escena {
             nave.dibujar(c, sube);
             if (!isPlaying) {
                 c.drawRect(0, 0, anchoPantalla, altoPantalla, pincel);
-                btnReanudar.dibujar(c);
-                btnSalir.dibujar(c);
+                for (Boton b : botones) {
+                    b.dibujar(c);
+                }
             }
             super.dibujar(c);
         } catch (Exception e) {
@@ -85,7 +110,12 @@ public class Juego extends Escena {
         Log.i("pepe", "" + event);
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (isPlaying) {
+                if (isSoundOn) {
+                    sonidos.getEfectos().play(sonidos.sonidoMotor, 1, 1, 1, 0, 1);
+                }
                 sube = true;
+                velocidad = 10;
+                last = System.currentTimeMillis();
             } else {
                 if (pulsa(btnReanudar.getRect(), event)) {
                     isPlaying = true;
@@ -99,12 +129,14 @@ public class Juego extends Escena {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (isPlaying) {
                 sube = false;
+                velocidad = 20;
+                last = System.currentTimeMillis();
             }
         }
         int padre = super.onTouchEvent(event);
         if (padre != idEscena) {
             if (isSoundOn) {
-                sonidos.getEfectos().release();
+                sonidos.getEfectos().autoPause();
                 sm.unregisterListener(proximitySensorListener);
             }
             return padre;
@@ -112,58 +144,3 @@ public class Juego extends Escena {
         return idEscena;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*for (JLabel barrera : alBarreras) {
-            barrera.setLocation(barrera.getX() - 5, 100);
-            if (barrera.getX() < 50) {
-                record++;
-                lblContador.setText("Puntuación : " + Integer.toString(record));
-            }
-            if (lblAvion.getBounds().intersects(barrera.getBounds())) {
-                creaRecord(record);
-                flagColision = false;
-            }
-
-        }
-        for (JLabel barrera : alBarreras2) {
-            barrera.setLocation(barrera.getX() - 5, barrera.getY());
-            if (barrera.getX() < 50) {
-                record++;
-                lblContador.setText("Puntuación : " + Integer.toString(record));
-            }
-            if (lblAvion.getBounds().intersects(barrera.getBounds())) {
-                creaRecord(record);
-                flagColision = false;
-            }
-        }*/

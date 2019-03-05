@@ -9,8 +9,8 @@ import android.view.MotionEvent;
 
 import com.example.vleon.profinalmovil.R;
 
-public class Controles extends Escena {
-    public Controles(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
+public class Ayuda extends Escena {
+    public Ayuda(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);

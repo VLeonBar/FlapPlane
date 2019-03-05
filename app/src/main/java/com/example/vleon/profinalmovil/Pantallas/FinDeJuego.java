@@ -1,6 +1,9 @@
 package com.example.vleon.profinalmovil.Pantallas;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,6 +11,7 @@ import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.example.vleon.profinalmovil.Datos.BaseDeDatos;
 import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
 import com.example.vleon.profinalmovil.ObjetosJuego.Boton;
 import com.example.vleon.profinalmovil.ObjetosJuego.Nave;
@@ -24,6 +28,10 @@ public class FinDeJuego extends Escena {
     private Bitmap btnAbajo, btnArriba;
     private FrameHandler fh;
     Nave n;
+    BaseDeDatos bd;
+    SQLiteDatabase db;
+    Cursor c;
+    String query;
 
     public FinDeJuego(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
@@ -45,6 +53,7 @@ public class FinDeJuego extends Escena {
         textoPuntuacion = new Boton(0, fh.partePantalla(altoPantalla, 5), anchoPantalla, fh.partePantalla(altoPantalla, 5) * 2, Color.TRANSPARENT);
         textoPuntuacion.setTexto("PUNTUACIÓN: " + n.puntuacion, 100, Color.BLACK);
         botones.add(textoPuntuacion);
+
         //CAMBIAR TODOS POR FH.PARTEPANTALLA!!!!!!!!!!
         btnAceptar = new Boton(fh.partePantalla(anchoPantalla, 2) - fh.partePantalla(anchoPantalla, 10),
                 fh.partePantalla(altoPantalla, 3) * 2 + fh.partePantalla(altoPantalla, 20),
@@ -53,7 +62,8 @@ public class FinDeJuego extends Escena {
 
         btnAceptar.setTexto("Aceptar", fh.getDpH(40, altoPantalla), Color.BLACK);
         botones.add(btnAceptar);
-        // BOTONES PARA LAS FLECHAS DE ELECCION DE LETRAS
+
+
         btnAbajo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.flecha_abajo);
         btnAbajo = Bitmap.createScaledBitmap(btnAbajo, anchoPantalla / 10, anchoPantalla / 10, true);
 
@@ -66,8 +76,6 @@ public class FinDeJuego extends Escena {
                 altoPantalla / 2 - altoPantalla / 50 + btnArriba.getHeight() / 2, Color.TRANSPARENT);
         btn1Arriba.setImg(btnArriba);
         botones.add(btn1Arriba);
-
-        //LETRA
 
         btn1Abajo = new Boton(anchoPantalla / 20 + btnArriba.getWidth() / 2,
                 altoPantalla / 3 * 2 - altoPantalla / 100 - btnArriba.getHeight(),
@@ -126,12 +134,10 @@ public class FinDeJuego extends Escena {
 
     public void dibujar(Canvas c) {
         try {
-            //Fondo de pantalla del creditos
             c.drawBitmap(imgFondo, 0, 0, null);
             for (Boton b : botones) {
                 b.dibujar(c);
             }
-            //llama al dibujar de la clase padre para dibujar los elementos comunes a todas las clases hijas
             super.dibujar(c);
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
@@ -167,6 +173,8 @@ public class FinDeJuego extends Escena {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 if (pulsa(btnAceptar.getRect(), event)) {
+                    if (mejoraPuntuacion())
+                        insertPuntuacion();
                     return 0;
                 }
                 if (pulsa(btn1Arriba.getRect(), event)) {
@@ -179,18 +187,56 @@ public class FinDeJuego extends Escena {
                     letras[1] = atrasLetra(letras[1]);
                 }
                 if (pulsa(btn2Abajo.getRect(), event)) {
-                    letras[1] = atrasLetra(letras[1]);
+                    letras[1] = adelanteLetra(letras[1]);
                 }
                 if (pulsa(btn3Arriba.getRect(), event)) {
                     letras[2] = atrasLetra(letras[2]);
                 }
                 if (pulsa(btn3Abajo.getRect(), event)) {
-                    letras[2] = atrasLetra(letras[2]);
+                    letras[2] = adelanteLetra(letras[2]);
                 }
 
         }
         int padre = super.onTouchEvent(event);
         if (padre != idEscena) return padre;
         return idEscena;
+    }
+
+    public boolean mejoraPuntuacion() {
+        int lowerScore = 0;
+        bd = new BaseDeDatos(contexto, "basededatos", null, 1);
+        db = bd.getWritableDatabase();
+        query = "SELECT min(score) FROM scores";
+        c = db.rawQuery(query, null);
+        if (c.moveToFirst()) {
+            do {
+                lowerScore = c.getInt(0);
+            } while (c.moveToNext());
+        }
+        c.close();
+        if (n.puntuacion > lowerScore) {
+            return true;
+        }
+        return false;
+    }
+
+    public void insertPuntuacion() {
+        int maxId = 0;
+        bd = new BaseDeDatos(contexto, "basededatos", null, 1);
+        db = bd.getWritableDatabase();
+        query = "SELECT max(id )FROM scores";
+        c = db.rawQuery(query, null);
+        if (c.moveToFirst()) {
+            do {
+                maxId = c.getInt(0);
+            } while (c.moveToNext());
+        }
+        ContentValues fila = new ContentValues();
+        fila.put("nick", Character.toString(letras[0]) + "  " + Character.toString(letras[1]) + "  " + Character.toString(letras[2]) + " >");
+        fila.put("id", maxId + 1);
+        fila.put("score", n.puntuacion);
+        db.insert("scores", null, fila);
+        c.close();
+        db.close();
     }
 }
