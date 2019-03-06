@@ -25,19 +25,19 @@ public class Ajustes extends Escena {
 
         //todo
         //Dar imagen a estos botones.
-        textoSonido = new Boton(0, fh.partePantalla(altoPantalla, 10) * 2, fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 3, Color.TRANSPARENT);
+        textoSonido = new Boton(0, fh.partePantalla(altoPantalla, 10) * 2, fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 3, Color.TRANSPARENT, typeface2);
         textoSonido.setTexto("Sonido", fh.getDpH(120, altoPantalla), Color.BLACK);
         botones.add(textoSonido);
-        textoVibracion = new Boton(0, fh.partePantalla(altoPantalla, 10) * 4, fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 5, Color.TRANSPARENT);
+        textoVibracion = new Boton(0, fh.partePantalla(altoPantalla, 10) * 4, fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 5, Color.TRANSPARENT, typeface2);
         textoVibracion.setTexto("Vibración", fh.getDpH(120, altoPantalla), Color.BLACK);
         botones.add(textoVibracion);
-        btnActivaSonido = new Boton(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 2, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 3, Color.TRANSPARENT);
+        btnActivaSonido = new Boton(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 2, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 3, Color.TRANSPARENT, typeface1);
         imgSonidoOn = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.musica_on);
         imgSonidoOn = Bitmap.createScaledBitmap(imgSonidoOn, btnActivaSonido.getRect().width(), btnActivaSonido.getRect().height(), false);
         imgSonidoOff = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.musica_off);
         imgSonidoOff = Bitmap.createScaledBitmap(imgSonidoOff, btnActivaSonido.getRect().width(), btnActivaSonido.getRect().height(), false);
         botones.add(btnActivaSonido);
-        btnActivaVibra = new Boton(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 4, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 5, Color.TRANSPARENT);
+        btnActivaVibra = new Boton(fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 4, fh.partePantalla(anchoPantalla, 10) * 9, fh.partePantalla(altoPantalla, 10) * 5, Color.TRANSPARENT, typeface1);
         imgVibraOn = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.vibra_on);
         imgVibraOn = Bitmap.createScaledBitmap(imgVibraOn, btnActivaSonido.getRect().width(), btnActivaSonido.getRect().height(), false);
         imgVibraOff = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.vibra_off);

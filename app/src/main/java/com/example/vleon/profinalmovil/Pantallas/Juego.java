@@ -1,19 +1,14 @@
 package com.example.vleon.profinalmovil.Pantallas;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.example.vleon.profinalmovil.Datos.BaseDeDatos;
 import com.example.vleon.profinalmovil.Manejadores.Parallax;
 import com.example.vleon.profinalmovil.ObjetosJuego.Barreras;
 import com.example.vleon.profinalmovil.ObjetosJuego.Boton;
@@ -45,11 +40,11 @@ public class Juego extends Escena {
         velocidad = 15;
         //Parallax
         parallax = new Parallax(contexto, anchoPantalla, altoPantalla, 3);
-        textoCabecera = new Boton(0, fh.partePantalla(altoPantalla, 6), anchoPantalla, fh.partePantalla(altoPantalla, 6) * 2, Color.TRANSPARENT);
+        textoCabecera = new Boton(0, fh.partePantalla(altoPantalla, 6), anchoPantalla, fh.partePantalla(altoPantalla, 6) * 2, Color.TRANSPARENT, typeface2);
         textoCabecera.setTexto("PAUSA", 150, Color.BLACK);
         botones.add(textoCabecera);
-        btnReanudar = new Boton(fh.partePantalla(anchoPantalla, 6) * 2, fh.partePantalla(altoPantalla, 6) * 2, fh.partePantalla(anchoPantalla, 6) * 4, fh.partePantalla(altoPantalla, 6) * 3, Color.TRANSPARENT);
-        btnSalir = new Boton(fh.partePantalla(anchoPantalla, 6) * 2, fh.partePantalla(altoPantalla, 6) * 4, fh.partePantalla(anchoPantalla, 6) * 4, fh.partePantalla(altoPantalla, 6) * 5, Color.TRANSPARENT);
+        btnReanudar = new Boton(fh.partePantalla(anchoPantalla, 6) * 2, fh.partePantalla(altoPantalla, 6) * 2, fh.partePantalla(anchoPantalla, 6) * 4, fh.partePantalla(altoPantalla, 6) * 3, Color.TRANSPARENT, typeface1);
+        btnSalir = new Boton(fh.partePantalla(anchoPantalla, 6) * 2, fh.partePantalla(altoPantalla, 6) * 4, fh.partePantalla(anchoPantalla, 6) * 4, fh.partePantalla(altoPantalla, 6) * 5, Color.TRANSPARENT, typeface1);
         btnReanudar.setImg(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(contexto.getResources(), R.drawable.boton_play), btnReanudar.getRect().width(), btnReanudar.getRect().height(), false));
         btnSalir.setImg(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(contexto.getResources(), R.drawable.boton_exit), btnSalir.getRect().width(), btnSalir.getRect().height(), false));
         botones.add(btnReanudar);

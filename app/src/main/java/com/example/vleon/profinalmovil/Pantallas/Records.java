@@ -18,7 +18,7 @@ import com.example.vleon.profinalmovil.R;
 import java.util.ArrayList;
 
 public class Records extends Escena {
-    Boton bRecords, bBorrado;
+    Boton bRecords, bBorrado, textHeader;
     ArrayList<Boton> botones = new ArrayList<>();
     Paint pPuntuaciones;
     String txtRecords;
@@ -32,10 +32,12 @@ public class Records extends Escena {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
-        bBorrado = new Boton(0, fh.partePantalla(altoPantalla, 12) * 11, anchoPantalla, altoPantalla, Color.TRANSPARENT);
+        bBorrado = new Boton(0, fh.partePantalla(altoPantalla, 12) * 11, anchoPantalla, altoPantalla, Color.TRANSPARENT, typeface2);
         bBorrado.setTexto("BORRAR RÉCORDS", fh.getDpH(120, altoPantalla), Color.BLACK);
-        for (int i = 0; i < 11; i++) {
-            bRecords = new Boton(0, fh.partePantalla(altoPantalla, 12) * i, anchoPantalla, fh.partePantalla(altoPantalla, 12) * (i + 1), Color.TRANSPARENT);
+        textHeader = new Boton(0, 0, anchoPantalla, fh.partePantalla(altoPantalla, 12) * 1, Color.TRANSPARENT, typeface2);
+        textHeader.setTexto("RÉCORDS", fh.getDpH(120, altoPantalla), Color.BLACK);
+        for (int i = 1; i < 11; i++) {
+            bRecords = new Boton(0, fh.partePantalla(altoPantalla, 12) * i, anchoPantalla, fh.partePantalla(altoPantalla, 12) * (i + 1), Color.TRANSPARENT, typeface1);
             botones.add(bRecords);
         }
         actualizaScores();
@@ -49,15 +51,13 @@ public class Records extends Escena {
         try {
             try {
                 c.drawBitmap(imgFondo, 0, 0, null);
-                int cont = 0;
+                int cont = 1;
                 for (Boton b : botones) {
-                    if (cont == 0)
-                        b.setTexto("RECORDS", fh.getDpH(120, altoPantalla), Color.BLACK);
-                    else
-                        b.setTexto(cont + " -> " + infoBD.get(cont - 1), fh.getDpH(100, altoPantalla), Color.BLACK);
+                    b.setTexto(cont + " -> " + infoBD.get(cont - 1), fh.getDpH(100, altoPantalla), Color.BLACK);
                     b.dibujar(c);
                     cont++;
                 }
+                textHeader.dibujar(c);
                 bBorrado.dibujar(c);
             } catch (Exception e) {
             }

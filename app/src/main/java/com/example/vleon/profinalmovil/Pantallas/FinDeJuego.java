@@ -47,10 +47,10 @@ public class FinDeJuego extends Escena {
             letras[i] = 'A';
         }
         //Textos de información de pantalla
-        textoCabecera = new Boton(0, 0, anchoPantalla, fh.partePantalla(altoPantalla, 5), Color.TRANSPARENT);
+        textoCabecera = new Boton(0, 0, anchoPantalla, fh.partePantalla(altoPantalla, 5), Color.TRANSPARENT, typeface2);
         textoCabecera.setTexto("¡HAS PERDIDO!", 150, Color.BLACK);
         botones.add(textoCabecera);
-        textoPuntuacion = new Boton(0, fh.partePantalla(altoPantalla, 5), anchoPantalla, fh.partePantalla(altoPantalla, 5) * 2, Color.TRANSPARENT);
+        textoPuntuacion = new Boton(0, fh.partePantalla(altoPantalla, 5), anchoPantalla, fh.partePantalla(altoPantalla, 5) * 2, Color.TRANSPARENT, typeface1);
         textoPuntuacion.setTexto("PUNTUACIÓN: " + n.puntuacion, 100, Color.BLACK);
         botones.add(textoPuntuacion);
 
@@ -58,7 +58,7 @@ public class FinDeJuego extends Escena {
         btnAceptar = new Boton(fh.partePantalla(anchoPantalla, 2) - fh.partePantalla(anchoPantalla, 10),
                 fh.partePantalla(altoPantalla, 3) * 2 + fh.partePantalla(altoPantalla, 20),
                 fh.partePantalla(anchoPantalla, 2) + fh.partePantalla(anchoPantalla, 10),
-                fh.partePantalla(altoPantalla, 3) * 2 + fh.partePantalla(altoPantalla, 20) * 2, Color.CYAN);
+                fh.partePantalla(altoPantalla, 3) * 2 + fh.partePantalla(altoPantalla, 20) * 2, Color.CYAN, typeface2);
 
         btnAceptar.setTexto("Aceptar", fh.getDpH(40, altoPantalla), Color.BLACK);
         botones.add(btnAceptar);
@@ -73,53 +73,53 @@ public class FinDeJuego extends Escena {
         btn1Arriba = new Boton(anchoPantalla / 20 + btnArriba.getWidth() / 2,
                 altoPantalla / 2 - altoPantalla / 50 - btnArriba.getHeight() / 2,
                 anchoPantalla / 20 + btnArriba.getWidth() + btnArriba.getWidth() / 2,
-                altoPantalla / 2 - altoPantalla / 50 + btnArriba.getHeight() / 2, Color.TRANSPARENT);
+                altoPantalla / 2 - altoPantalla / 50 + btnArriba.getHeight() / 2, Color.TRANSPARENT, typeface2);
         btn1Arriba.setImg(btnArriba);
         botones.add(btn1Arriba);
 
         btn1Abajo = new Boton(anchoPantalla / 20 + btnArriba.getWidth() / 2,
                 altoPantalla / 3 * 2 - altoPantalla / 100 - btnArriba.getHeight(),
                 anchoPantalla / 20 + btnArriba.getWidth() + btnArriba.getWidth() / 2,
-                altoPantalla / 3 * 2 - altoPantalla / 100, Color.TRANSPARENT);
+                altoPantalla / 3 * 2 - altoPantalla / 100, Color.TRANSPARENT, typeface2);
         btn1Abajo.setImg(btnAbajo);
         botones.add(btn1Abajo);
 
         btn2Arriba = new Boton(anchoPantalla / 2 - btnArriba.getWidth() / 2,
                 altoPantalla / 2 - altoPantalla / 50 - btnArriba.getHeight() / 2,
                 anchoPantalla / 2 + btnArriba.getWidth() / 2,
-                altoPantalla / 2 - altoPantalla / 50 + btnArriba.getHeight() / 2, Color.TRANSPARENT);
+                altoPantalla / 2 - altoPantalla / 50 + btnArriba.getHeight() / 2, Color.TRANSPARENT, typeface2);
         btn2Arriba.setImg(btnArriba);
         botones.add(btn2Arriba);
 
         btn2Abajo = new Boton(anchoPantalla / 2 - btnArriba.getWidth() / 2,
                 altoPantalla / 3 * 2 - altoPantalla / 100 - btnArriba.getHeight(),
                 anchoPantalla / 2 + btnArriba.getWidth() / 2,
-                altoPantalla / 3 * 2 - altoPantalla / 100, Color.TRANSPARENT);
+                altoPantalla / 3 * 2 - altoPantalla / 100, Color.TRANSPARENT, typeface2);
         btn2Abajo.setImg(btnAbajo);
         botones.add(btn2Abajo);
 
         btn3Arriba = new Boton(anchoPantalla - btnArriba.getWidth() * 2,
                 altoPantalla / 2 - altoPantalla / 50 - btnArriba.getHeight() / 2,
                 anchoPantalla - btnArriba.getWidth(),
-                altoPantalla / 2 - altoPantalla / 50 + btnArriba.getHeight() / 2, Color.TRANSPARENT);
+                altoPantalla / 2 - altoPantalla / 50 + btnArriba.getHeight() / 2, Color.TRANSPARENT, typeface2);
         btn3Arriba.setImg(btnArriba);
         botones.add(btn3Arriba);
 
         btn3Abajo = new Boton(anchoPantalla - btnArriba.getWidth() * 2,
                 altoPantalla / 3 * 2 - altoPantalla / 100 - btnArriba.getHeight(),
                 anchoPantalla - btnArriba.getWidth(),
-                altoPantalla / 3 * 2 - altoPantalla / 100, Color.TRANSPARENT);
+                altoPantalla / 3 * 2 - altoPantalla / 100, Color.TRANSPARENT, typeface2);
         btn3Abajo.setImg(btnAbajo);
         botones.add(btn3Abajo);
 
         btnLetra1 = new Boton(btn1Arriba.getRect().left,
-                btn1Arriba.getRect().bottom + fh.partePantalla(altoPantalla, 25), btn1Arriba.getRect().right, btn1Abajo.getRect().top - fh.partePantalla(altoPantalla, 20), Color.TRANSPARENT);
+                btn1Arriba.getRect().bottom + fh.partePantalla(altoPantalla, 25), btn1Arriba.getRect().right, btn1Abajo.getRect().top - fh.partePantalla(altoPantalla, 20), Color.TRANSPARENT, typeface1);
         botones.add(btnLetra1);
         btnLetra2 = new Boton(btn2Arriba.getRect().left,
-                btn2Arriba.getRect().bottom + fh.partePantalla(altoPantalla, 25), btn2Arriba.getRect().right, btn2Abajo.getRect().top - fh.partePantalla(altoPantalla, 20), Color.TRANSPARENT);
+                btn2Arriba.getRect().bottom + fh.partePantalla(altoPantalla, 25), btn2Arriba.getRect().right, btn2Abajo.getRect().top - fh.partePantalla(altoPantalla, 20), Color.TRANSPARENT, typeface1);
         botones.add(btnLetra2);
         btnLetra3 = new Boton(btn3Arriba.getRect().left,
-                btn3Arriba.getRect().bottom + fh.partePantalla(altoPantalla, 25), btn3Arriba.getRect().right, btn3Abajo.getRect().top - fh.partePantalla(altoPantalla, 20), Color.TRANSPARENT);
+                btn3Arriba.getRect().bottom + fh.partePantalla(altoPantalla, 25), btn3Arriba.getRect().right, btn3Abajo.getRect().top - fh.partePantalla(altoPantalla, 20), Color.TRANSPARENT, typeface1);
         botones.add(btnLetra3);
 
     }

@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -16,7 +17,6 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.preference.Preference;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -39,6 +39,7 @@ public class Escena {
     static Sonidos sonidos;
     AudioManager audioManager;
     Vibrator vibrator;
+    Typeface typeface1, typeface2;
     static SensorManager sm;
     static Sensor proxSensor;
     SharedPreferences preferencias;
@@ -49,6 +50,9 @@ public class Escena {
     public Escena(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         preferencias = contexto.getSharedPreferences("preferencias", Context.MODE_PRIVATE);
         editorPreferencias = preferencias.edit();
+        String font1 = "fonts/font1.TTF", font2 = "fonts/font2.ttf";
+        typeface1 = Typeface.createFromAsset(contexto.getAssets(), font1);
+        typeface2 = Typeface.createFromAsset(contexto.getAssets(), font2);
         isSoundOn = preferencias.getBoolean("btnActivaSonido", true);
         isVibrationOn = preferencias.getBoolean("btnActivaVibra", true);
         this.contexto = contexto;
@@ -63,10 +67,11 @@ public class Escena {
             sonidos = new Sonidos(contexto, 10);
         }
         pincel = new Paint();
+        pincel.setTypeface(typeface1);
         pincel.setColor(Color.rgb(59, 36, 16));
         pincel.setStyle(Paint.Style.STROKE);
         pincel.setStrokeWidth((float) fh.getDpH(20, altoPantalla));
-        btnAtras = new Boton(0, 0, anchoPantalla / 15, anchoPantalla / 15, Color.TRANSPARENT);
+        btnAtras = new Boton(0, 0, anchoPantalla / 15, anchoPantalla / 15, Color.TRANSPARENT, typeface1);
         vueltaAtras = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.flecha_atras);
         vueltaAtras = Bitmap.createScaledBitmap(vueltaAtras, btnAtras.getRect().width(), btnAtras.getRect().height(), false);
         btnAtras.setImg(vueltaAtras);
@@ -139,6 +144,10 @@ public class Escena {
 
     public Context getContexto() {
         return contexto;
+    }
+
+    public Typeface getTypeface1() {
+        return typeface1;
     }
 
     public void setContexto(Context contexto) {

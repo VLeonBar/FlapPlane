@@ -2,9 +2,9 @@ package com.example.vleon.profinalmovil.ObjetosJuego;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 public class Boton {
     private Paint p, pTextoBtn;
@@ -12,12 +12,14 @@ public class Boton {
     private Bitmap img;
     private String texto;
 
-    public Boton(int left, int top, int right, int bottom, int color) {
+    public Boton(int left, int top, int right, int bottom, int color, Typeface typeface) {
         this.rect = new Rect(left, top, right, bottom);
         p = new Paint();
         p.setColor(color);
+        p.setTypeface(typeface);
 
         pTextoBtn = new Paint();
+        pTextoBtn.setTypeface(typeface);
         pTextoBtn.setTextAlign(Paint.Align.CENTER);
         this.img = null;
     }
