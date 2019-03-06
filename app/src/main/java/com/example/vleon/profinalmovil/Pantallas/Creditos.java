@@ -22,40 +22,34 @@ public class Creditos extends Escena {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
-        header = new Boton(0, 0, anchoPantalla, fh.partePantalla(altoPantalla, 2), Color.LTGRAY);
+        header = new Boton(0, 0, anchoPantalla, fh.partePantalla(altoPantalla, 2), Color.TRANSPARENT);
         header.setTexto("GREEDY PILOT", fh.getDpH(150, altoPantalla), Color.BLACK);
-        for (int i = 0; i < 20; i++) {
-            texto = new Boton(0, header.getRect().bottom + fh.partePantalla(altoPantalla, 20) * i, anchoPantalla, header.getRect().bottom + fh.partePantalla(altoPantalla, 20) * (i + 1), Color.TRANSPARENT);
+        for (int i = 0; i < 14; i++) {
+            texto = new Boton(0, header.getRect().bottom + fh.partePantalla(altoPantalla, 14) * i, anchoPantalla, header.getRect().bottom + fh.partePantalla(altoPantalla, 14) * (i + 1), Color.TRANSPARENT);
             lineas.add(texto);
         }
-        lineas.get(0).setTexto("Código realizado por:", 30, Color.BLACK);
-        lineas.get(1).setTexto(" Víctor León Barciela", 30, Color.BLACK);
-        lineas.get(2).setTexto("Efectos de sonido:", 30, Color.BLACK);
-        lineas.get(3).setTexto("Víctor León Barciela - Marta Álvarez", 30, Color.BLACK);
-        lineas.get(4).setTexto("Música:", 30, Color.BLACK);
-        lineas.get(5).setTexto("soundimage.org (Música libre y sin copyright)", 30, Color.BLACK);
-        lineas.get(6).setTexto("Imágenes, Iconos y Fuentes", 30, Color.BLACK);
-        lineas.get(7).setTexto("Víctor León Barciela - gameart2d.com - craftpix.net - flaticon.es", 30, Color.BLACK);
-        lineas.get(8).setTexto("Mención especial y agradecimientos a:", 30, Color.BLACK);
-        lineas.get(9).setTexto("Marta Álvarez - Javier Conde - Hadrián Villar - Jose Villar", 30, Color.BLACK);
-        lineas.get(10).setTexto("Lucas Alonso de San Segundo - Samuel Figueirido - Francisco Bellas", 30, Color.BLACK);
-        lineas.get(11).setTexto("", 30, Color.BLACK);
-        lineas.get(12).setTexto("", 30, Color.BLACK);
-        lineas.get(13).setTexto("", 30, Color.BLACK);
-        lineas.get(14).setTexto("", 30, Color.BLACK);
-        lineas.get(15).setTexto("", 30, Color.BLACK);
-        lineas.get(16).setTexto("", 30, Color.BLACK);
-        lineas.get(17).setTexto("", 30, Color.BLACK);
-        lineas.get(18).setTexto("", 30, Color.BLACK);
-        lineas.get(19).setTexto("", 30, Color.BLACK);
+        lineas.get(0).setTexto("Código realizado por:", fh.getDpH(50,altoPantalla), Color.BLACK);
+        lineas.get(1).setTexto(" Víctor León Barciela", fh.getDpH(30,altoPantalla), Color.BLACK);
+        lineas.get(2).setTexto("Efectos de sonido:", fh.getDpH(50,altoPantalla), Color.BLACK);
+        lineas.get(3).setTexto("Víctor León Barciela - Marta Álvarez", fh.getDpH(30,altoPantalla), Color.BLACK);
+        lineas.get(4).setTexto("Música:", fh.getDpH(50,altoPantalla), Color.BLACK);
+        lineas.get(5).setTexto("soundimage.org (Música libre y sin copyright)", fh.getDpH(30,altoPantalla), Color.BLACK);
+        lineas.get(6).setTexto("Imágenes, Iconos y Fuentes", fh.getDpH(50,altoPantalla), Color.BLACK);
+        lineas.get(7).setTexto("Víctor León Barciela - gameart2d.com - craftpix.net - flaticon.es", fh.getDpH(30,altoPantalla), Color.BLACK);
+        lineas.get(8).setTexto("Mención especial y agradecimientos a:", fh.getDpH(50,altoPantalla), Color.BLACK);
+        lineas.get(9).setTexto("Marta Álvarez - Javier Conde - Hadrián Villar - Jose Villar", fh.getDpH(30,altoPantalla), Color.BLACK);
+        lineas.get(10).setTexto("Lucas Alonso de San Segundo - Samuel Figueirido - Francisco Bellas", fh.getDpH(30,altoPantalla), Color.BLACK);
+        lineas.get(11).setTexto("Hans Zimmer - Ludovico Einaudi - Mumford and Sons", fh.getDpH(30,altoPantalla), Color.BLACK);
+        lineas.get(12).setTexto("Redes Sociales:", fh.getDpH(50,altoPantalla), Color.BLACK);
+        lineas.get(13).setTexto("@VLeon__", fh.getDpH(30,altoPantalla), Color.BLACK);
     }
 
     public int actualizarFisica() {
         header.getRect().top -= velocidad;
         header.getRect().bottom -= velocidad;
         if (header.getRect().bottom <= 0) {
-            header.getRect().top = lineas.get(19).getRect().bottom;
-            header.getRect().bottom = lineas.get(19).getRect().bottom + fh.partePantalla(altoPantalla, 2);
+            header.getRect().top = lineas.get(13).getRect().bottom;
+            header.getRect().bottom = lineas.get(13).getRect().bottom + fh.partePantalla(altoPantalla, 2);
         }
         for (int i = 0; i < lineas.size(); i++) {
             lineas.get(i).getRect().top -= velocidad;
