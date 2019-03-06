@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class Barreras extends Objetos {
     Rect barreraTop, barreraBot;
     Moneda moneda;
     int randPointY, randLocY;
+
     public ArrayList<Rect> getAlBarrerasTop() {
         return alBarrerasTop;
     }
@@ -30,12 +32,12 @@ public class Barreras extends Objetos {
 
     public void mueveBarrera(ArrayList<Rect> alTop, ArrayList<Rect> alBot) {
         for (Rect barrera : alTop) {
-            barrera.left -= velocidad;
-            barrera.right -= velocidad;
+            barrera.left -= fh.getDpH(velocidad, altoPantalla);
+            barrera.right -= fh.getDpH(velocidad, altoPantalla);
         }
         for (Rect barrera : alBot) {
-            barrera.left -= velocidad;
-            barrera.right -= velocidad;
+            barrera.left -= fh.getDpH(velocidad, altoPantalla);
+            barrera.right -= fh.getDpH(velocidad, altoPantalla);
         }
     }
 
@@ -67,6 +69,7 @@ public class Barreras extends Objetos {
                 alBarrerasBot.remove(i);
                 puntuacion++;
             }
+
             c.drawBitmap(skins[indice], alBarrerasTop.get(i).left, alBarrerasTop.get(i).bottom - skins[indice].getHeight(), null);
             c.drawBitmap(skins[indice], alBarrerasBot.get(i).left, alBarrerasBot.get(i).top, null);
             //todo

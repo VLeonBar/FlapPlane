@@ -57,7 +57,7 @@ public class Nave extends Objetos {
 //            c.drawBitmap(skins[indice], posX, posY, null);
 //            c.restore();
         }
-//        c.drawRect(rect, pincel);
+        c.drawRect(rect, pincel);
         c.drawBitmap(skins[indice], this.getPosX(), this.getPosY(), null);
         c.drawText("" + puntuacion, fh.partePantalla(anchoPantalla, 8) * 4, fh.partePantalla(altoPantalla, 15) + vueltaAtras.getHeight(), pincel);
     }
@@ -77,6 +77,7 @@ public class Nave extends Objetos {
             if (rect.intersect(monedas.get(i))) {
                 puntuacion += 10;
                 monedas.remove(monedas.get(i));
+                rect = new Rect(posX, posY, posX + skins[indice].getWidth(), posY + skins[0].getHeight());
             }
         }
         return false;

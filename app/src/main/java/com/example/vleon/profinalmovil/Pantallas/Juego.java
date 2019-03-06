@@ -37,7 +37,7 @@ public class Juego extends Escena {
         //Manejo Movimiento Nave
         now = System.currentTimeMillis();
         last = System.currentTimeMillis();
-        velocidad = 15;
+        velocidad = fh.getDpH(20, altoPantalla);
         //Parallax
         parallax = new Parallax(contexto, anchoPantalla, altoPantalla, 3);
         textoCabecera = new Boton(0, fh.partePantalla(altoPantalla, 6), anchoPantalla, fh.partePantalla(altoPantalla, 6) * 2, Color.TRANSPARENT, typeface2);
@@ -56,8 +56,8 @@ public class Juego extends Escena {
 
     public int actualizarFisica() {
         now = System.currentTimeMillis();
-        if (now - last > 500) {
-            velocidad += 5;
+        if (now - last > 300) {
+            velocidad += fh.getDpH(5, altoPantalla);
         }
         sm.registerListener(proximitySensorListener, proxSensor, 1000 * 500);
         if (isSensorOn) isPlaying = false;
@@ -109,7 +109,8 @@ public class Juego extends Escena {
                     sonidos.getEfectos().play(sonidos.sonidoMotor, 1, 1, 1, 0, 1);
                 }
                 sube = true;
-                velocidad = 10;
+                velocidad = fh.getDpH(20, altoPantalla);
+                ;
                 last = System.currentTimeMillis();
             } else {
                 if (pulsa(btnReanudar.getRect(), event)) {
@@ -124,7 +125,8 @@ public class Juego extends Escena {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (isPlaying) {
                 sube = false;
-                velocidad = 20;
+                velocidad = fh.getDpH(20, altoPantalla);
+                ;
                 last = System.currentTimeMillis();
             }
         }

@@ -47,13 +47,13 @@ public class Ajustes extends Escena {
 
     public int actualizarFisica() {
         if (isSoundOn)
-            btnActivaSonido.setImg(imgSonidoOff);
-        else
             btnActivaSonido.setImg(imgSonidoOn);
-        if (isVibrationOn)
-            btnActivaVibra.setImg(imgVibraOff);
         else
+            btnActivaSonido.setImg(imgSonidoOff);
+        if (isVibrationOn)
             btnActivaVibra.setImg(imgVibraOn);
+        else
+            btnActivaVibra.setImg(imgVibraOff);
         return idEscena;
     }
 
@@ -87,7 +87,6 @@ public class Ajustes extends Escena {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 if (pulsa(btnActivaSonido.getRect(), event)) {
-                    Log.i("pepito", "AAAAAAAAAAAAA");
                     if (isSoundOn) {
                         sonidos.mediaPlayer.pause();
                         isSoundOn = false;
