@@ -33,8 +33,8 @@ public class Records extends Escena {
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
         bBorrado = new Boton(0, fh.partePantalla(altoPantalla, 12) * 11, anchoPantalla, altoPantalla, Color.TRANSPARENT, typeface2);
-        bBorrado.setTexto("BORRAR RÉCORDS", fh.getDpH(120, altoPantalla), Color.BLACK);
-        textHeader = new Boton(0, 0, anchoPantalla, fh.partePantalla(altoPantalla, 12) * 1, Color.TRANSPARENT, typeface2);
+        bBorrado.setTexto("BORRAR TODO", fh.getDpH(120, altoPantalla), Color.BLACK);
+        textHeader = new Boton(0, fh.partePantalla(altoPantalla, 40) * 1, anchoPantalla, fh.partePantalla(altoPantalla, 12) * 1, Color.TRANSPARENT, typeface2);
         textHeader.setTexto("RÉCORDS", fh.getDpH(120, altoPantalla), Color.BLACK);
         for (int i = 1; i < 11; i++) {
             bRecords = new Boton(0, fh.partePantalla(altoPantalla, 12) * i, anchoPantalla, fh.partePantalla(altoPantalla, 12) * (i + 1), Color.TRANSPARENT, typeface1);

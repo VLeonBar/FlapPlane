@@ -58,7 +58,7 @@ public class FinDeJuego extends Escena {
         btnAceptar = new Boton(fh.partePantalla(anchoPantalla, 2) - fh.partePantalla(anchoPantalla, 10),
                 fh.partePantalla(altoPantalla, 3) * 2 + fh.partePantalla(altoPantalla, 20),
                 fh.partePantalla(anchoPantalla, 2) + fh.partePantalla(anchoPantalla, 10),
-                fh.partePantalla(altoPantalla, 3) * 2 + fh.partePantalla(altoPantalla, 20) * 2, Color.CYAN, typeface2);
+                fh.partePantalla(altoPantalla, 3) * 2 + fh.partePantalla(altoPantalla, 20) * 2, Color.WHITE, typeface2);
 
         btnAceptar.setTexto("Aceptar", fh.getDpH(40, altoPantalla), Color.BLACK);
         botones.add(btnAceptar);
