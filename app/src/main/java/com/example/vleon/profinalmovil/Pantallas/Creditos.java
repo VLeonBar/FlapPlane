@@ -13,11 +13,34 @@ import com.example.vleon.profinalmovil.R;
 
 import java.util.ArrayList;
 
+/**
+ * The type Creditos.
+ */
 public class Creditos extends Escena {
-    Boton texto, header;
+    /**
+     * The Texto.
+     */
+    Boton texto, /**
+     * The Header.
+     */
+    header;
+    /**
+     * The Lineas.
+     */
     ArrayList<Boton> lineas = new ArrayList<>();
-    int velocidad = 5;
+    /**
+     * The Velocidad.
+     */
+    int velocidad = 7;
 
+    /**
+     * Instancia la clase Creditos.
+     *
+     * @param contexto      el contexto
+     * @param idEscena      el id  de la escena
+     * @param anchoPantalla el ancho pantalla
+     * @param altoPantalla  el alto pantalla
+     */
     public Creditos(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
@@ -71,7 +94,6 @@ public class Creditos extends Escena {
         try {
             //Fondo de pantalla del creditos
             c.drawBitmap(imgFondo, 0, 0, null);
-            int cont = 0;
             header.dibujar(c);
             for (Boton b : lineas) {
                 b.dibujar(c);
@@ -85,15 +107,14 @@ public class Creditos extends Escena {
     }
 
     public int onTouchEvent(MotionEvent event) {
-        int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();
         switch (accion) {
             case MotionEvent.ACTION_DOWN:
-                velocidad = 10;
+                velocidad = 1;
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
-                velocidad = 5;
+                velocidad = 7;
                 break;
         }
         int padre = super.onTouchEvent(event);

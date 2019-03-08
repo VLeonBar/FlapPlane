@@ -9,7 +9,18 @@ import android.view.MotionEvent;
 
 import com.example.vleon.profinalmovil.R;
 
+/**
+ * The type Ayuda.
+ */
 public class Ayuda extends Escena {
+    /**
+     * Instantiates a new Ayuda.
+     *
+     * @param contexto      el contexto
+     * @param idEscena      el id  de la escena
+     * @param anchoPantalla el ancho pantalla
+     * @param altoPantalla  el alto pantalla
+     */
     public Ayuda(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);

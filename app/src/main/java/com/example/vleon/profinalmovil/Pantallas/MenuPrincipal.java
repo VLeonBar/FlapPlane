@@ -11,16 +11,75 @@ import android.view.MotionEvent;
 import com.example.vleon.profinalmovil.ObjetosJuego.MonedaMenu;
 import com.example.vleon.profinalmovil.R;
 
+/**
+ * The type Menu principal.
+ */
 public class MenuPrincipal extends Escena {
-    Rect rectJugar, rectAjustes, rectCreditos, rectRecords, rectAyuda, botonPulsado = null;
+    /**
+     * The Rect jugar.
+     */
+    Rect rectJugar, /**
+     * The Rect ajustes.
+     */
+    rectAjustes, /**
+     * The Rect creditos.
+     */
+    rectCreditos, /**
+     * The Rect records.
+     */
+    rectRecords, /**
+     * The Rect ayuda.
+     */
+    rectAyuda, /**
+     * The Boton pulsado.
+     */
+    botonPulsado = null;
+    /**
+     * The Bandera.
+     */
     boolean bandera = true;
-    int anchoDecimo, altoMedio, anchoTercio, altoSexto, anchoMedio;
+    /**
+     * The Ancho decimo.
+     */
+    int anchoDecimo, /**
+     * The Alto medio.
+     */
+    altoMedio, /**
+     * The Ancho tercio.
+     */
+    anchoTercio, /**
+     * The Alto sexto.
+     */
+    altoSexto, /**
+     * The Ancho medio.
+     */
+    anchoMedio;
+    /**
+     * The Moneda menu.
+     */
     MonedaMenu monedaMenu;
+    /**
+     * The Cont.
+     */
     int cont = 0;
+    /**
+     * The Escena destino.
+     */
     int escenaDestino = idEscena;
+    /**
+     * The Mov moneda.
+     */
     boolean movMoneda = false;
 
 
+    /**
+     * Instancia la clase Menu principal.
+     *
+     * @param contexto      el contexto
+     * @param idEscena      el id  de la escena
+     * @param anchoPantalla el ancho pantalla
+     * @param altoPantalla  el alto pantalla
+     */
     public MenuPrincipal(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, altoPantalla, anchoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_main_menu);

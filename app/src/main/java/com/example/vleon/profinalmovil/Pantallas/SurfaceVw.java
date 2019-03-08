@@ -10,19 +10,42 @@ import android.view.SurfaceView;
 
 import com.example.vleon.profinalmovil.Manejadores.Sonidos;
 
+/**
+ * The type Surface vw.
+ */
 public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder surfaceHolder;
     private Context contexto;
     private Hilo hilo;
+    /**
+     * The Sonidos.
+     */
     public Sonidos sonidos;
     private boolean funcionando;
     private int altoPantalla, anchoPantalla;
     private Escena escenaActual;
-    // control de tiempo de la aplicación
-    long last, now;
+    /**
+     * The Last.
+     */
+// control de tiempo de la aplicación
+    long last, /**
+     * The Now.
+     */
+    now;
+    /**
+     * The Time x frame.
+     */
     int timeXFrame;
+    /**
+     * The Max frames.
+     */
     int maxFrames;
 
+    /**
+     * Instancia un nuevo Surface view.
+     *
+     * @param context el context
+     */
     public SurfaceVw(Context context) {
         super(context);
         now = System.currentTimeMillis();
@@ -105,7 +128,13 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    /**
+     * The type Hilo.
+     */
     class Hilo extends Thread {
+        /**
+         * Instantiates a new Hilo.
+         */
         public Hilo() {
 
         }
@@ -169,10 +198,21 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
             System.exit(0);
         }
 
+        /**
+         * Da un valor a funcionando.
+         *
+         * @param flag the flag
+         */
         void setFuncionando(boolean flag) {
             funcionando = flag;
         }
 
+        /**
+         * Da un valor a surface size.
+         *
+         * @param width  the width
+         * @param height the height
+         */
         public void setSurfaceSize(int width, int height) { // Función llamada si cambia el tamaño del view
 
         }

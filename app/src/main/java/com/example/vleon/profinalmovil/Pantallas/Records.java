@@ -17,17 +17,56 @@ import com.example.vleon.profinalmovil.R;
 
 import java.util.ArrayList;
 
+/**
+ * The type Records.
+ */
 public class Records extends Escena {
-    Boton bRecords, bBorrado, textHeader;
+    /**
+     * El botón dónde muestro los récords
+     */
+    Boton bRecords, /**
+     * El botón de borrado.
+     */
+    bBorrado, /**
+     * El texto de la cabecera.
+     */
+    textHeader;
+    /**
+     * Colección que utilizo para tener almacenados todos los botones.
+     */
     ArrayList<Boton> botones = new ArrayList<>();
-    Paint pPuntuaciones;
-    String txtRecords;
-    String query, respuestaBD;
+    /**
+     * La consulta a la base de datos
+     */
+    String query, /**
+     * La respuesta a la consulta de la base de datos.
+     */
+    respuestaBD;
+    /**
+     * El objeto de la clase de la Base de datos.
+     */
     BaseDeDatos bd;
+    /**
+     * El objeto SQLiteDatabase para utilizar la base de datos.
+     */
     SQLiteDatabase db;
+    /**
+     * El cursor para.
+     */
     Cursor c;
+    /**
+     * El array donde se almacenan los datos de la base de datos.
+     */
     ArrayList<String> infoBD = new ArrayList<>();
 
+    /**
+     * Instancia la clase Records.
+     *
+     * @param contexto      el contexto
+     * @param idEscena      el id  de la escena
+     * @param anchoPantalla el ancho pantalla
+     * @param altoPantalla  el alto pantalla
+     */
     public Records(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
@@ -69,6 +108,9 @@ public class Records extends Escena {
         }
     }
 
+    /**
+     * Borra la base de datos de puntuaciones y crea una nueva vacía.
+     */
     public void borraScores() {
         bd = new BaseDeDatos(contexto, "basededatos", null, 1);
         db = bd.getWritableDatabase();
@@ -77,6 +119,9 @@ public class Records extends Escena {
         actualizaScores();
     }
 
+    /**
+     * Actualiza las puntuaciones desde la tabla de la base de datos.
+     */
     public void actualizaScores() {
         infoBD = new ArrayList<String>();
         bd = new BaseDeDatos(contexto, "basededatos", null, 1);

@@ -19,6 +19,9 @@ import com.example.vleon.profinalmovil.R;
 
 import java.util.ArrayList;
 
+/**
+ * The type Fin de juego.
+ */
 public class FinDeJuego extends Escena {
 
     private Boton btn1Arriba, btn1Abajo, btn2Arriba, btn2Abajo, btn3Arriba, btn3Abajo, btnLetra1, btnLetra2, btnLetra3, btnAceptar, textoCabecera, textoPuntuacion;
@@ -27,12 +30,35 @@ public class FinDeJuego extends Escena {
     private char[] letras = new char[3];
     private Bitmap btnAbajo, btnArriba;
     private FrameHandler fh;
+    /**
+     * The N.
+     */
     Nave n;
+    /**
+     * The Bd.
+     */
     BaseDeDatos bd;
+    /**
+     * The Db.
+     */
     SQLiteDatabase db;
+    /**
+     * The C.
+     */
     Cursor c;
+    /**
+     * The Query.
+     */
     String query;
 
+    /**
+     * Instantiates a new Fin de juego.
+     *
+     * @param contexto      el contexto
+     * @param idEscena      el id  de la escena
+     * @param anchoPantalla el ancho pantalla
+     * @param altoPantalla  el alto pantalla
+     */
     public FinDeJuego(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         fh = new FrameHandler(contexto);
@@ -144,6 +170,12 @@ public class FinDeJuego extends Escena {
         }
     }
 
+    /**
+     * Adelante letra char.
+     *
+     * @param letra the letra
+     * @return the char
+     */
     public char adelanteLetra(char letra) {
         int i = alfabeto.indexOf(letra);
         if (i == alfabeto.size() - 1) {
@@ -155,6 +187,12 @@ public class FinDeJuego extends Escena {
         return letra;
     }
 
+    /**
+     * Atras letra char.
+     *
+     * @param letra the letra
+     * @return the char
+     */
     public char atrasLetra(char letra) {
         int i = alfabeto.indexOf(letra);
         if (i == 0) {
@@ -202,6 +240,11 @@ public class FinDeJuego extends Escena {
         return idEscena;
     }
 
+    /**
+     * Mejora puntuacion boolean.
+     *
+     * @return the boolean
+     */
     public boolean mejoraPuntuacion() {
         int lowerScore = 0;
         bd = new BaseDeDatos(contexto, "basededatos", null, 1);
@@ -220,6 +263,9 @@ public class FinDeJuego extends Escena {
         return false;
     }
 
+    /**
+     * Insert puntuacion.
+     */
     public void insertPuntuacion() {
         int maxId = 0;
         bd = new BaseDeDatos(contexto, "basededatos", null, 1);

@@ -8,20 +8,45 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+/**
+ * The type Moneda.
+ */
 public class Moneda extends Objetos {
+    /**
+     * The Al monedas.
+     */
     ArrayList<Rect> alMonedas = new ArrayList<>();
+    /**
+     * The Rect.
+     */
     Rect rect;
     private int randPointY;
 
+    /**
+     * Instantiates a new Moneda.
+     *
+     * @param contexto      the contexto
+     * @param anchoPantalla the ancho pantalla
+     * @param altoPantalla  the alto pantalla
+     * @param skins         the skins
+     */
     public Moneda(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins) {
         super(contexto, anchoPantalla, altoPantalla, skins);
         velocidad = 10;
     }
 
+    /**
+     * Devuelve al monedas.
+     *
+     * @return the al monedas
+     */
     public ArrayList<Rect> getAlMonedas() {
         return alMonedas;
     }
 
+    /**
+     * Crea moneda.
+     */
     public void creaMoneda() {
         randPointY = (int) (Math.random() * ((altoPantalla - fh.partePantalla(altoPantalla, 7)) * +1));
         posY = randPointY + fh.partePantalla(altoPantalla, 10);
@@ -32,6 +57,9 @@ public class Moneda extends Objetos {
         }
     }
 
+    /**
+     * Mueve moneda.
+     */
     public void mueveMoneda() {
         if (!alMonedas.isEmpty()) {
             for (Rect moneda : alMonedas) {
@@ -42,6 +70,9 @@ public class Moneda extends Objetos {
     }
 
 
+    /**
+     * Actualizar fisica.
+     */
     public void actualizarFisica() {
         cambiaImagen();
         if (cont % 80 == 0) {
@@ -53,6 +84,11 @@ public class Moneda extends Objetos {
         }
     }
 
+    /**
+     * Dibujar.
+     *
+     * @param c el Canvas
+     */
     public void dibujar(Canvas c) {
         for (Rect moneda : alMonedas) {
 //            c.drawRect(moneda, pincel);

@@ -8,35 +8,63 @@ import android.media.SoundPool;
 
 import com.example.vleon.profinalmovil.R;
 
+/**
+ * The type Sonidos.
+ */
 public class Sonidos {
+    /**
+     * The Efectos.
+     */
     SoundPool efectos;
+    /**
+     * The Media player.
+     */
     public MediaPlayer mediaPlayer;
+    /**
+     * The V.
+     */
     int v;
+    /**
+     * The Audio manager.
+     */
     AudioManager audioManager;
+    /**
+     * The Max sonidos simultaneos.
+     */
     int maxSonidosSimultaneos = 10;
+    /**
+     * The Sound on.
+     */
     boolean soundOn;
-    public int sonidoToque, sonidoInsertCoin, sonidoExplosion, sonidoMotor;
+    /**
+     * The Sonido toque.
+     */
+    public int sonidoToque, /**
+     * The Sonido insert coin.
+     */
+    sonidoInsertCoin, /**
+     * The Sonido explosion.
+     */
+    sonidoExplosion, /**
+     * The Sonido motor.
+     */
+    sonidoMotor;
 
+    /**
+     * Gets efectos.
+     *
+     * @return the efectos
+     */
     public SoundPool getEfectos() {
         return efectos;
     }
 
-    public int getV() {
-        return v;
-    }
-
-    public void setV(int v) {
-        this.v = v;
-    }
-
-    public void setMaxSonidosSimultaneos(int maxSonidosSimultaneos) {
-        this.maxSonidosSimultaneos = maxSonidosSimultaneos;
-    }
-
-    public int getMaxSonidosSimultaneos() {
-        return maxSonidosSimultaneos;
-    }
-
+    /**
+     * Instantiates a new Sonidos.
+     *
+     * @param contexto              the contexto
+     * @param maxSonidosSimultaneos the max sonidos simultaneos
+     */
     public Sonidos(Context contexto, int maxSonidosSimultaneos) {
         this.maxSonidosSimultaneos = maxSonidosSimultaneos;
         audioManager = (AudioManager) contexto.getSystemService(Context.AUDIO_SERVICE);

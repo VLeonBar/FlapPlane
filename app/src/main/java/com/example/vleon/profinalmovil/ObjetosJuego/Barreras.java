@@ -8,26 +8,75 @@ import android.graphics.Rect;
 
 import java.util.ArrayList;
 
+/**
+ * The type Barreras.
+ */
 public class Barreras extends Objetos {
+    /**
+     * The Al barreras top.
+     */
     ArrayList<Rect> alBarrerasTop = new ArrayList<>();
+    /**
+     * The Al barreras bot.
+     */
     ArrayList<Rect> alBarrerasBot = new ArrayList<>();
-    Rect barreraTop, barreraBot;
+    /**
+     * The Barrera top.
+     */
+    Rect barreraTop, /**
+     * The Barrera bot.
+     */
+    barreraBot;
+    /**
+     * The Moneda.
+     */
     Moneda moneda;
-    int randPointY, randLocY;
+    /**
+     * The Rand point y.
+     */
+    int randPointY, /**
+     * The Rand loc y.
+     */
+    randLocY;
+
+    /**
+     * Devuelve al barreras top.
+     *
+     * @return the al barreras top
+     */
     public ArrayList<Rect> getAlBarrerasTop() {
         return alBarrerasTop;
     }
 
+    /**
+     * Devuelve al barreras bot.
+     *
+     * @return the al barreras bot
+     */
     public ArrayList<Rect> getAlBarrerasBot() {
         return alBarrerasBot;
     }
 
 
+    /**
+     * Instantiates a new Barreras.
+     *
+     * @param contexto      the contexto
+     * @param anchoPantalla the ancho pantalla
+     * @param altoPantalla  the alto pantalla
+     * @param skins         the skins
+     */
     public Barreras(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins) {
         super(contexto, anchoPantalla, altoPantalla, skins);
         velocidad = 10;
     }
 
+    /**
+     * Mueve barrera.
+     *
+     * @param alTop the al top
+     * @param alBot the al bot
+     */
     public void mueveBarrera(ArrayList<Rect> alTop, ArrayList<Rect> alBot) {
         for (Rect barrera : alTop) {
             barrera.left -= velocidad;
@@ -39,6 +88,9 @@ public class Barreras extends Objetos {
         }
     }
 
+    /**
+     * Crea barrera.
+     */
     public void creaBarrera() {
         randPointY = (int) (Math.random() * ((altoPantalla - fh.partePantalla(altoPantalla, 7)) * +1));
         randLocY = randPointY + fh.partePantalla(altoPantalla, 5);
@@ -50,6 +102,9 @@ public class Barreras extends Objetos {
         alBarrerasBot.add(barreraBot);
     }
 
+    /**
+     * Actualizar fisica.
+     */
     public void actualizarFisica() {
         cambiaImagen();
         mueveBarrera(alBarrerasTop, alBarrerasBot);
@@ -59,6 +114,11 @@ public class Barreras extends Objetos {
         cont++;
     }
 
+    /**
+     * Dibujar.
+     *
+     * @param c el Canvas
+     */
     public void dibujar(Canvas c) {
 
         for (int i = 0; i < alBarrerasTop.size(); i++) {

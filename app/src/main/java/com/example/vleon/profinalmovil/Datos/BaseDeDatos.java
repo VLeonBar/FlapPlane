@@ -4,8 +4,17 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * The type Base de datos.
+ */
 public class BaseDeDatos extends SQLiteOpenHelper {
+    /**
+     * Sentencia Create a la tabla.
+     */
     String CREA_TABLA = " CREATE TABLE scores ( id INTEGER,nick TEXT, score INTEGER)";
+    /**
+     * Sentencia Insert a la tabla.
+     */
     String INSERTA_TABLA = "INSERT INTO scores VALUES" +
             "(0,'-  -  - >',0), " +
             "(1,'-  -  - >',0), " +
@@ -18,6 +27,14 @@ public class BaseDeDatos extends SQLiteOpenHelper {
             "(8,'-  -  - >',0), " +
             "(9,'-  -  - >',0) ";
 
+    /**
+     * Constructor de la clase, inicializa las propiedades de la clase.
+     *
+     * @param contexto el contexto
+     * @param name     el nombre de la base de datos
+     * @param factory  the factory
+     * @param version  the version
+     */
     public BaseDeDatos(Context contexto, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, name, factory, version);
     }

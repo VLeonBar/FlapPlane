@@ -13,11 +13,49 @@ import com.example.vleon.profinalmovil.R;
 
 import java.util.ArrayList;
 
+/**
+ * The type Ajustes.
+ */
 public class Ajustes extends Escena {
-    Boton btnActivaSonido, btnActivaVibra, textoSonido, textoVibracion;
+    /**
+     * The Btn activa sonido.
+     */
+    Boton btnActivaSonido, /**
+     * The Btn activa vibra.
+     */
+    btnActivaVibra, /**
+     * The Texto sonido.
+     */
+    textoSonido, /**
+     * The Texto vibracion.
+     */
+    textoVibracion;
+    /**
+     * The Botones.
+     */
     ArrayList<Boton> botones = new ArrayList<>();
-    Bitmap imgSonidoOn, imgSonidoOff, imgVibraOn, imgVibraOff;
+    /**
+     * The Img sonido on.
+     */
+    Bitmap imgSonidoOn, /**
+     * The Img sonido off.
+     */
+    imgSonidoOff, /**
+     * The Img vibra on.
+     */
+    imgVibraOn, /**
+     * The Img vibra off.
+     */
+    imgVibraOff;
 
+    /**
+     * Instancia la clase Ajustes.
+     *
+     * @param contexto      el contexto
+     * @param idEscena      el id  de la escena
+     * @param anchoPantalla el ancho pantalla
+     * @param altoPantalla  el alto pantalla
+     */
     public Ajustes(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);

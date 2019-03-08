@@ -8,21 +8,80 @@ import android.graphics.Rect;
 import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
 import com.example.vleon.profinalmovil.Manejadores.Sonidos;
 
+/**
+ * The type Objetos.
+ */
 public class Objetos {
+    /**
+     * Las imagenes.
+     */
     Bitmap[] skins;
+    /**
+     * El Rectangulo que ocupa el objeto.
+     */
     Rect rect;
+    /**
+     * Objeto de la clase Sonidos.
+     */
     Sonidos sonidos;
-    int posX, posY;
-    int cont, indice;
+    /**
+     * La Posicion en el eje x.
+     */
+    int posX, /**
+     * La Posicion en el eje y.
+     */
+    posY;
+    /**
+     * El Cont.
+     */
+    int cont, /**
+     * El Indice.
+     */
+    indice;
+    /**
+     * La Velocidad.
+     */
     int velocidad;
+    /**
+     * El Tiempo frame, utilizado para el contro temporal de los sprites.
+     */
     int tiempoFrame;
+    /**
+     * El Tiempo frame auxiliar, utilizado para el contro temporal de los sprites.
+     */
     long tiempoFrameAux;
-    int altoPantalla, anchoPantalla;
+    /**
+     * El Alto pantalla.
+     */
+    int altoPantalla, /**
+     * El Ancho pantalla.
+     */
+    anchoPantalla;
+    /**
+     * El Contexto.
+     */
     Context contexto;
+    /**
+     * Objeto de la clase FrameHandler
+     */
     FrameHandler fh;
+    /**
+     * el Pincel.
+     */
     Paint pincel;
+    /**
+     * La puntuacion.
+     */
     public static int puntuacion;
 
+    /**
+     * Instancia la clase Objetos.
+     *
+     * @param contexto      el contexto
+     * @param anchoPantalla el ancho pantalla
+     * @param altoPantalla  el alto pantalla
+     * @param skins         las imagenes
+     */
     public Objetos(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins) {
         this.fh = new FrameHandler(contexto);
         this.skins = skins;
@@ -40,6 +99,9 @@ public class Objetos {
         this.pincel = new Paint();
     }
 
+    /**
+     * Cambia imagen.
+     */
     public void cambiaImagen() {
         if (System.currentTimeMillis() - tiempoFrameAux > tiempoFrame) {
             indice++;
@@ -48,6 +110,12 @@ public class Objetos {
         }
     }
 
+    /**
+     * Cambia indice int.
+     *
+     * @param tiempoFrame the tiempo frame
+     * @return the int
+     */
     @Deprecated
     public int cambiaIndice(int tiempoFrame) {
         long tiempoFrameAux = 0;
@@ -60,76 +128,49 @@ public class Objetos {
         return indice;
     }
 
-    public int getTiempoFrame() {
-        return tiempoFrame;
-    }
-
-    public void setTiempoFrame(int tiempoFrame) {
-        this.tiempoFrame = tiempoFrame;
-    }
-
-    public int getCont() {
-        return cont;
-    }
-
-    public void setCont(int cont) {
-        this.cont = cont;
-    }
-
-    public int getIndice() {
-        return indice;
-    }
-
-    public void setIndice(int indice) {
-        this.indice = indice;
-    }
-
-    public int getVelocidad() {
-        return velocidad;
-    }
-
-    public void setVelocidad(int velocidad) {
-        this.velocidad = velocidad;
-    }
-
-    public long getTiempoFrameAux() {
-        return tiempoFrameAux;
-    }
-
-    public void setTiempoFrameAux(long tiempoFrameAux) {
-        this.tiempoFrameAux = tiempoFrameAux;
-    }
-
-    public Paint getPincel() {
-        return pincel;
-    }
-
-    public void setPincel(Paint pincel) {
-        this.pincel = pincel;
-    }
-
-    public Bitmap[] getSkins() {
-        return skins;
-    }
-
+    /**
+     * Da un valor a skins.
+     *
+     * @param skins the skins
+     */
     public void setSkins(Bitmap[] skins) {
         this.skins = skins;
         this.rect.top = posY;
         this.rect.bottom = posY + skins[indice].getHeight();
     }
 
+    /**
+     * Devuelve pos x.
+     *
+     * @return the pos x
+     */
     public int getPosX() {
         return posX;
     }
 
+    /**
+     * Da un valor a pos x.
+     *
+     * @param posX the pos x
+     */
     public void setPosX(int posX) {
         this.posX = posX;
     }
 
+    /**
+     * Devuelve pos y.
+     *
+     * @return the pos y
+     */
     public int getPosY() {
         return posY;
     }
 
+    /**
+     * Da un valor a pos y.
+     *
+     * @param posY the pos y
+     */
     public void setPosY(int posY) {
         this.posY = posY;
     }
