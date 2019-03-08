@@ -18,20 +18,73 @@ import com.example.vleon.profinalmovil.R;
 
 import java.util.ArrayList;
 
+/**
+ * The type Juego.
+ */
 public class Juego extends Escena {
 
-    Boton btnReanudar, btnSalir, textoCabecera;
+    /**
+     * The Btn reanudar.
+     */
+    Boton btnReanudar, /**
+     * The Btn salir.
+     */
+    btnSalir, /**
+     * The Texto cabecera.
+     */
+    textoCabecera;
+    /**
+     * The Botones.
+     */
     ArrayList<Boton> botones = new ArrayList<>();
+    /**
+     * The Nave.
+     */
     Nave nave;
+    /**
+     * The Barrera.
+     */
     Barreras barrera;
+    /**
+     * The Moneda.
+     */
     Moneda moneda;
+    /**
+     * The Parallax.
+     */
     Parallax parallax;
+    /**
+     * The Sube.
+     */
     boolean sube = false;
+    /**
+     * The Record.
+     */
     int record = 0;
+    /**
+     * The Is playing.
+     */
     Boolean isPlaying = true;
-    long last, now;
+    /**
+     * The Last.
+     */
+    long last, /**
+     * The Now.
+     */
+    now;
+    /**
+     * The Velocidad.
+     */
     int velocidad;
 
+    /**
+     * Instantiates a new Juego.
+     *
+     * @param contexto      the contexto
+     * @param idEscena      the id escena
+     * @param anchoPantalla the ancho pantalla
+     * @param altoPantalla  the alto pantalla
+     */
     public Juego(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         //Manejo Movimiento Nave

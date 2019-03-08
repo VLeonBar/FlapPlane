@@ -13,13 +13,45 @@ import com.example.vleon.profinalmovil.R;
 
 import java.util.ArrayList;
 
+/**
+ * The type Ayuda.
+ */
 public class Ayuda extends Escena {
-    Boton textHeader, textFooter, textAyuda, frameImagenes;
+    /**
+     * The Text header.
+     */
+    Boton textHeader, /**
+     * The Text footer.
+     */
+    textFooter, /**
+     * The Text ayuda.
+     */
+    textAyuda, /**
+     * The Frame imagenes.
+     */
+    frameImagenes;
+    /**
+     * The Ventanas.
+     */
     ArrayList<Boton> ventanas = new ArrayList<>();
+    /**
+     * The Imagenes.
+     */
     Bitmap[] imagenes;
+    /**
+     * The Textos.
+     */
     String[] textos = new String[7];
     private int i = 0;
 
+    /**
+     * Instantiates a new Ayuda.
+     *
+     * @param contexto      the contexto
+     * @param idEscena      the id escena
+     * @param anchoPantalla the ancho pantalla
+     * @param altoPantalla  the alto pantalla
+     */
     public Ayuda(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
 
         super(contexto, idEscena, anchoPantalla, altoPantalla);
