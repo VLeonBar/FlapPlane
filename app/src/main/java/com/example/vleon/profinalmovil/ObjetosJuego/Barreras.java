@@ -5,92 +5,42 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.ArrayList;
 
-/**
- * The type Barreras.
- */
 public class Barreras extends Objetos {
-    /**
-     * The Al barreras top.
-     */
     ArrayList<Rect> alBarrerasTop = new ArrayList<>();
-    /**
-     * The Al barreras bot.
-     */
     ArrayList<Rect> alBarrerasBot = new ArrayList<>();
-    /**
-     * The Barrera top.
-     */
-    Rect barreraTop, /**
-     * The Barrera bot.
-     */
-    barreraBot;
-    /**
-     * The Moneda.
-     */
+    Rect barreraTop, barreraBot;
     Moneda moneda;
-    /**
-     * The Rand point y.
-     */
-    int randPointY, /**
-     * The Rand loc y.
-     */
-    randLocY;
+    int randPointY, randLocY;
 
-    /**
-     * Devuelve al barreras top.
-     *
-     * @return the al barreras top
-     */
     public ArrayList<Rect> getAlBarrerasTop() {
         return alBarrerasTop;
     }
 
-    /**
-     * Devuelve al barreras bot.
-     *
-     * @return the al barreras bot
-     */
     public ArrayList<Rect> getAlBarrerasBot() {
         return alBarrerasBot;
     }
 
 
-    /**
-     * Instantiates a new Barreras.
-     *
-     * @param contexto      the contexto
-     * @param anchoPantalla the ancho pantalla
-     * @param altoPantalla  the alto pantalla
-     * @param skins         the skins
-     */
     public Barreras(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins) {
         super(contexto, anchoPantalla, altoPantalla, skins);
         velocidad = 10;
     }
 
-    /**
-     * Mueve barrera.
-     *
-     * @param alTop the al top
-     * @param alBot the al bot
-     */
     public void mueveBarrera(ArrayList<Rect> alTop, ArrayList<Rect> alBot) {
         for (Rect barrera : alTop) {
-            barrera.left -= velocidad;
-            barrera.right -= velocidad;
+            barrera.left -= fh.getDpH(velocidad, altoPantalla);
+            barrera.right -= fh.getDpH(velocidad, altoPantalla);
         }
         for (Rect barrera : alBot) {
-            barrera.left -= velocidad;
-            barrera.right -= velocidad;
+            barrera.left -= fh.getDpH(velocidad, altoPantalla);
+            barrera.right -= fh.getDpH(velocidad, altoPantalla);
         }
     }
 
-    /**
-     * Crea barrera.
-     */
     public void creaBarrera() {
         randPointY = (int) (Math.random() * ((altoPantalla - fh.partePantalla(altoPantalla, 7)) * +1));
         randLocY = randPointY + fh.partePantalla(altoPantalla, 5);
@@ -102,9 +52,6 @@ public class Barreras extends Objetos {
         alBarrerasBot.add(barreraBot);
     }
 
-    /**
-     * Actualizar fisica.
-     */
     public void actualizarFisica() {
         cambiaImagen();
         mueveBarrera(alBarrerasTop, alBarrerasBot);
@@ -114,11 +61,6 @@ public class Barreras extends Objetos {
         cont++;
     }
 
-    /**
-     * Dibujar.
-     *
-     * @param c el Canvas
-     */
     public void dibujar(Canvas c) {
 
         for (int i = 0; i < alBarrerasTop.size(); i++) {
@@ -127,6 +69,7 @@ public class Barreras extends Objetos {
                 alBarrerasBot.remove(i);
                 puntuacion++;
             }
+
             c.drawBitmap(skins[indice], alBarrerasTop.get(i).left, alBarrerasTop.get(i).bottom - skins[indice].getHeight(), null);
             c.drawBitmap(skins[indice], alBarrerasBot.get(i).left, alBarrerasBot.get(i).top, null);
             //todo

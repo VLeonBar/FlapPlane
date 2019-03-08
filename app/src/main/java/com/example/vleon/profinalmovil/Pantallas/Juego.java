@@ -18,79 +18,26 @@ import com.example.vleon.profinalmovil.R;
 
 import java.util.ArrayList;
 
-/**
- * The type Juego.
- */
 public class Juego extends Escena {
 
-    /**
-     * The Btn reanudar.
-     */
-    Boton btnReanudar, /**
-     * The Btn salir.
-     */
-    btnSalir, /**
-     * The Texto cabecera.
-     */
-    textoCabecera;
-    /**
-     * The Botones.
-     */
+    Boton btnReanudar, btnSalir, textoCabecera;
     ArrayList<Boton> botones = new ArrayList<>();
-    /**
-     * The Nave.
-     */
     Nave nave;
-    /**
-     * The Barrera.
-     */
     Barreras barrera;
-    /**
-     * The Moneda.
-     */
     Moneda moneda;
-    /**
-     * The Parallax.
-     */
     Parallax parallax;
-    /**
-     * The Sube.
-     */
     boolean sube = false;
-    /**
-     * The Record.
-     */
     int record = 0;
-    /**
-     * The Is playing.
-     */
     Boolean isPlaying = true;
-    /**
-     * The Last.
-     */
-    long last, /**
-     * The Now.
-     */
-    now;
-    /**
-     * The Velocidad.
-     */
+    long last, now;
     int velocidad;
 
-    /**
-     * Instancia la clase Juego.
-     *
-     * @param contexto      el contexto
-     * @param idEscena      el id  de la escena
-     * @param anchoPantalla el ancho pantalla
-     * @param altoPantalla  el alto pantalla
-     */
     public Juego(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         //Manejo Movimiento Nave
         now = System.currentTimeMillis();
         last = System.currentTimeMillis();
-        velocidad = 15;
+        velocidad = fh.getDpH(20, altoPantalla);
         //Parallax
         parallax = new Parallax(contexto, anchoPantalla, altoPantalla, 3);
         textoCabecera = new Boton(0, fh.partePantalla(altoPantalla, 6), anchoPantalla, fh.partePantalla(altoPantalla, 6) * 2, Color.TRANSPARENT, typeface2);
@@ -110,7 +57,7 @@ public class Juego extends Escena {
     public int actualizarFisica() {
         now = System.currentTimeMillis();
         if (now - last > 300) {
-            velocidad += 5;
+            velocidad += fh.getDpH(5, altoPantalla);
         }
         sm.registerListener(proximitySensorListener, proxSensor, 1000 * 500);
         if (isSensorOn) isPlaying = false;
@@ -162,7 +109,8 @@ public class Juego extends Escena {
                     sonidos.getEfectos().play(sonidos.sonidoMotor, 1, 1, 1, 0, 1);
                 }
                 sube = true;
-                velocidad = 15;
+                velocidad = fh.getDpH(20, altoPantalla);
+                ;
                 last = System.currentTimeMillis();
             } else {
                 if (pulsa(btnReanudar.getRect(), event)) {
@@ -177,7 +125,8 @@ public class Juego extends Escena {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (isPlaying) {
                 sube = false;
-                velocidad = 15;
+                velocidad = fh.getDpH(20, altoPantalla);
+                ;
                 last = System.currentTimeMillis();
             }
         }

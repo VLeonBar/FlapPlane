@@ -102,6 +102,7 @@ public class Nave extends Objetos {
             if (rect.intersect(monedas.get(i))) {
                 puntuacion += 10;
                 monedas.remove(monedas.get(i));
+                rect = new Rect(posX, posY, posX + skins[indice].getWidth(), posY + skins[0].getHeight());
             }
         }
         return false;
