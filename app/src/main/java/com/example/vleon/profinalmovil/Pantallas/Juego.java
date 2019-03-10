@@ -19,79 +19,75 @@ import com.example.vleon.profinalmovil.R;
 import java.util.ArrayList;
 
 /**
- * The type Juego.
+ * La Escena de Juego, en la que se desarrollan las animaciones del juego.
+ *
+ * @author Victor Leon Barciela
  */
 public class Juego extends Escena {
 
     /**
-     * The Btn reanudar.
+     * El boton de reanudar partida.
      */
     Boton btnReanudar, /**
-     * The Btn salir.
+     * El boton de salida al menu principal.
      */
     btnSalir, /**
-     * The Texto cabecera.
+     * El texto de la cabecera.
      */
     textoCabecera;
     /**
-     * The Botones.
+     * La coleccion de botones creada para facilitar el manejo.
      */
     ArrayList<Boton> botones = new ArrayList<>();
     /**
-     * The Nave.
+     * El objeto Nave.
      */
     Nave nave;
     /**
-     * The Barrera.
+     * El objeto Barreras.
      */
     Barreras barrera;
     /**
-     * The Moneda.
+     * El objeto Moneda.
      */
     Moneda moneda;
     /**
-     * The Parallax.
+     * Objeto de clase Parallax, encargado de realizar el parallax del juego.
      */
     Parallax parallax;
     /**
-     * The Sube.
+     * Indica si la nave sube o baja.
      */
     boolean sube = false;
     /**
-     * The Record.
-     */
-    int record = 0;
-    /**
-     * The Is playing.
+     * Indica si el juego está o no en pausa.
      */
     Boolean isPlaying = true;
     /**
-     * The Last.
+     * El tiempo pasado.
      */
     long last, /**
-     * The Now.
+     * El tiempo actual.
      */
     now;
     /**
-     * The Velocidad.
+     * La velocidad de la nave.
      */
     int velocidad;
 
     /**
-     * Instantiates a new Juego.
+     * Instancia un nuevo objeto de la clase Juego.
      *
-     * @param contexto      the contexto
-     * @param idEscena      the id escena
-     * @param anchoPantalla the ancho pantalla
-     * @param altoPantalla  the alto pantalla
+     * @param contexto      el contexto
+     * @param idEscena      la id escena
+     * @param anchoPantalla el ancho pantalla
+     * @param altoPantalla  el alto pantalla
      */
     public Juego(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
-        //Manejo Movimiento Nave
         now = System.currentTimeMillis();
         last = System.currentTimeMillis();
         velocidad = fh.getDpH(20, altoPantalla);
-        //Parallax
         parallax = new Parallax(contexto, anchoPantalla, altoPantalla, 3);
         textoCabecera = new Boton(0, fh.partePantalla(altoPantalla, 6), anchoPantalla, fh.partePantalla(altoPantalla, 6) * 2, Color.TRANSPARENT, typeface2);
         textoCabecera.setTexto("PAUSA", 150, Color.BLACK);
@@ -163,7 +159,6 @@ public class Juego extends Escena {
                 }
                 sube = true;
                 velocidad = fh.getDpH(20, altoPantalla);
-                ;
                 last = System.currentTimeMillis();
             } else {
                 if (pulsa(btnReanudar.getRect(), event)) {
@@ -179,7 +174,6 @@ public class Juego extends Escena {
             if (isPlaying) {
                 sube = false;
                 velocidad = fh.getDpH(20, altoPantalla);
-                ;
                 last = System.currentTimeMillis();
             }
         }

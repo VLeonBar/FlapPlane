@@ -7,23 +7,23 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 
 /**
- * The type Boton.
+ * Una clase que permite introducir texto o una imagen a un rectángulo para poder interactuar con el, lo cual da una gran versatilidad sobre todo a la hora de ampliar funcionalidades.
  */
 public class Boton {
-    private Paint p, pTextoBtn;
+    private Paint p, pText;
     private Rect rect;
     private Bitmap img;
     private String texto;
 
     /**
-     * Instantiates a new Boton.
+     * Instancia un nuevo objeto de la clase Boton.
      *
-     * @param left     the left
-     * @param top      the top
-     * @param right    the right
-     * @param bottom   the bottom
-     * @param color    the color
-     * @param typeface the typeface
+     * @param left el punto izquierdo del rectangulo
+     * @param top el punto superior del rectangulo
+     * @param right el punto derecho del rectangulo
+     * @param bottom el punto inferior del rectangulo
+     * @param color el color del rectangulo
+     * @param typeface el typeface
      */
     public Boton(int left, int top, int right, int bottom, int color, Typeface typeface) {
         this.rect = new Rect(left, top, right, bottom);
@@ -31,29 +31,29 @@ public class Boton {
         p.setColor(color);
         p.setTypeface(typeface);
 
-        pTextoBtn = new Paint();
-        pTextoBtn.setTypeface(typeface);
-        pTextoBtn.setTextAlign(Paint.Align.CENTER);
+        pText = new Paint();
+        pText.setTypeface(typeface);
+        pText.setTextAlign(Paint.Align.CENTER);
         this.img = null;
     }
 
     /**
      * Da un valor a texto.
      *
-     * @param texto  the texto
-     * @param tamaño the tamaño
-     * @param color  the color
+     * @param texto  el texto
+     * @param size el size del texto
+     * @param color  el color del texto
      */
-    public void setTexto(String texto, int tamaño, int color) {
+    public void setTexto(String texto, int size, int color) {
         this.texto = texto;
-        pTextoBtn.setColor(color);
-        pTextoBtn.setTextSize(tamaño);
+        pText.setColor(color);
+        pText.setTextSize(size);
     }
 
     /**
      * Da un valor a color.
      *
-     * @param col the col
+     * @param col el color
      */
     public void setColor(int col) {
         p.setColor(col);
@@ -62,7 +62,7 @@ public class Boton {
     /**
      * Da un valor a img.
      *
-     * @param img the img
+     * @param img la imagen
      */
     public void setImg(Bitmap img) {
         this.img = img;
@@ -71,7 +71,7 @@ public class Boton {
     /**
      * Devuelve texto.
      *
-     * @return the texto
+     * @return el texto
      */
     public String getTexto() {
         return texto;
@@ -80,16 +80,16 @@ public class Boton {
     /**
      * Devuelve img.
      *
-     * @return the img
+     * @return la imagen
      */
     public Bitmap getImg() {
         return img;
     }
 
     /**
-     * Devuelve rect.
+     * Devuelve el rectangulo.
      *
-     * @return the rect
+     * @return el rectangulo
      */
     public Rect getRect() {
         return rect;
@@ -106,7 +106,7 @@ public class Boton {
             c.drawBitmap(img, rect.left, rect.top, null);
         }
         if (texto != null) {
-            c.drawText(texto, rect.centerX(), rect.centerY() - ((pTextoBtn.descent() + pTextoBtn.ascent()) / 2), pTextoBtn);
+            c.drawText(texto, rect.centerX(), rect.centerY() - ((pText.descent() + pText.ascent()) / 2), pText);
         }
     }
 }

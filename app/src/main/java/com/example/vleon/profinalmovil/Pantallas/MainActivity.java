@@ -8,6 +8,7 @@ import android.view.Window;
 
 /**
  * La Activity principal.
+ * @author Victor Leon Barciela
  */
 public class MainActivity extends AppCompatActivity {
     private SurfaceVw pantallaPrincipal;

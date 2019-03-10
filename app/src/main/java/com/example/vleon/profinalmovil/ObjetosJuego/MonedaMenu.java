@@ -180,7 +180,7 @@ public class MonedaMenu {
         }
     }
     /**
-     * Instantiates a new Moneda menu.
+     * Instancia un nuevo objeto de la clase MonedaMenu.
      *
      * @param posX     the pos x
      * @param posY     the pos y

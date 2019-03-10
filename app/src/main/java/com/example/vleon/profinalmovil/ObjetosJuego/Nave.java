@@ -15,29 +15,22 @@ import com.example.vleon.profinalmovil.R;
 import java.util.ArrayList;
 
 /**
- * The type Nave.
+ * La clase que gestiona el movimiento y las fisicas de la Nave.
  */
 public class Nave extends Objetos {
-    /**
-     * The Vuelta atras.
-     */
-    Bitmap vueltaAtras;
-
 
     /**
-     * Instantiates a new Nave.
+     * Instancia un nuevo objeto de la clase Nave.
      *
-     * @param contexto      the contexto
-     * @param anchoPantalla the ancho pantalla
-     * @param altoPantalla  the alto pantalla
-     * @param skins         the skins
-     * @param posX          the pos x
-     * @param posY          the pos y
+     * @param contexto      el contexto
+     * @param anchoPantalla el ancho pantalla
+     * @param altoPantalla  el alto pantalla
+     * @param skins         las imagenes
+     * @param posX          la posicion en el eje x
+     * @param posY          la posicion en el eje y
      */
     public Nave(Context contexto, int anchoPantalla, int altoPantalla, Bitmap[] skins, int posX, int posY) {
         super(contexto, anchoPantalla, altoPantalla, skins);
-        vueltaAtras = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.moneda);
-        vueltaAtras = Bitmap.createScaledBitmap(vueltaAtras, fh.partePantalla(anchoPantalla, 10), fh.partePantalla(anchoPantalla, 10), false);
         this.setPosX(posX);
         this.setPosY(posY);
         sonidos = new Sonidos(contexto, 10);
@@ -76,7 +69,7 @@ public class Nave extends Objetos {
             setSkins(fh.getFrames(1, "aviones", "baja", fh.partePantalla(anchoPantalla, 10)));
         }
         c.drawBitmap(skins[indice], this.getPosX(), this.getPosY(), null);
-        c.drawText("" + puntuacion, fh.partePantalla(anchoPantalla, 8) * 4, fh.partePantalla(altoPantalla, 15) + vueltaAtras.getHeight(), pincel);
+        c.drawText("" + puntuacion, fh.partePantalla(anchoPantalla, 8) * 4, fh.partePantalla(altoPantalla, 15), pincel);
     }
 
     /**

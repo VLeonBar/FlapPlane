@@ -75,7 +75,7 @@ public class Objetos {
     public static int puntuacion;
 
     /**
-     * Instancia la clase Objetos.
+     * Instancia un nuevo objeto de la clase Objetos.
      *
      * @param contexto      el contexto
      * @param anchoPantalla el ancho pantalla

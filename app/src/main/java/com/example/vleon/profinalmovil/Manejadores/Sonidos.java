@@ -9,61 +9,53 @@ import android.media.SoundPool;
 import com.example.vleon.profinalmovil.R;
 
 /**
- * The type Sonidos.
+ * La clase Sonidos es la cual se encarga de manejar la musica y los efectos de sonido.
  */
 public class Sonidos {
     /**
-     * The Efectos.
+     * Los Efectos.
      */
     SoundPool efectos;
     /**
-     * The Media player.
+     * El Media player.
      */
     public MediaPlayer mediaPlayer;
     /**
-     * The V.
-     */
-    int v;
-    /**
-     * The Audio manager.
+     * El Audio manager.
      */
     AudioManager audioManager;
     /**
-     * The Max sonidos simultaneos.
+     * El maximo de sonidos simultaneos.
      */
-    int maxSonidosSimultaneos = 10;
+    int maxSonidosSimultaneos;
     /**
-     * The Sound on.
-     */
-    boolean soundOn;
-    /**
-     * The Sonido toque.
+     * El Sonido de toque en la pantalla.
      */
     public int sonidoToque, /**
-     * The Sonido insert coin.
+     * El Sonido de insertar una moneda.
      */
     sonidoInsertCoin, /**
-     * The Sonido explosion.
+     * El Sonido de toque de la explosión.
      */
     sonidoExplosion, /**
-     * The Sonido motor.
+     * El Sonido del motor.
      */
     sonidoMotor;
 
     /**
-     * Gets efectos.
+     * Devuelve los efectos.
      *
-     * @return the efectos
+     * @return los efectos
      */
     public SoundPool getEfectos() {
         return efectos;
     }
 
     /**
-     * Instantiates a new Sonidos.
+     * Instancia un nuevo objeto de la clase Sonidos.
      *
-     * @param contexto              the contexto
-     * @param maxSonidosSimultaneos the max sonidos simultaneos
+     * @param contexto              el contexto
+     * @param maxSonidosSimultaneos el maximo de sonidos simultaneos
      */
     public Sonidos(Context contexto, int maxSonidosSimultaneos) {
         this.maxSonidosSimultaneos = maxSonidosSimultaneos;

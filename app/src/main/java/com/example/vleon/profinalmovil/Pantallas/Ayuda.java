@@ -14,38 +14,40 @@ import com.example.vleon.profinalmovil.R;
 import java.util.ArrayList;
 
 /**
- * The type Ayuda.
+ * La Escena de Ayuda, en la cual aparecen una serie de explicaciones de como jugar.
+ *
+ * @author Victor Leon Barciela
  */
 public class Ayuda extends Escena {
     /**
-     * The Text header.
+     * El texto de la cabecera.
      */
     Boton textHeader, /**
-     * The Text footer.
+     * El texto del pie de pagina.
      */
     textFooter, /**
-     * The Text ayuda.
+     * El texto de la ayuda.
      */
     textAyuda, /**
-     * The Frame imagenes.
+     * El marco de imagenes centrales.
      */
     frameImagenes;
     /**
-     * The Ventanas.
+     * Las diferentes ventanas de ayuda.
      */
     ArrayList<Boton> ventanas = new ArrayList<>();
     /**
-     * The Imagenes.
+     * Las imagenes que van en el marco central.
      */
     Bitmap[] imagenes;
     /**
-     * The Textos.
+     * Los textos de ayuda.
      */
     String[] textos = new String[7];
     private int i = 0;
 
     /**
-     * Instantiates a new Ayuda.
+     * Instancia un nuevo objeto de la clase Ayuda.
      *
      * @param contexto      the contexto
      * @param idEscena      the id escena
@@ -87,16 +89,11 @@ public class Ayuda extends Escena {
 
     public void dibujar(Canvas c) {
         try {
-            //Fondo de pantalla del controles
             c.drawBitmap(imgFondo, 0, 0, null);
             for (Boton b : ventanas) {
                 b.dibujar(c);
             }
-            //llama al dibujar de la clase padre para dibujar los elementos comunes a todas las clases hijas
-
             super.dibujar(c);
-
-
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
         }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 /**
  * The type Records.
+ * @author Victor Leon Barciela
  */
 public class Records extends Escena {
     /**
@@ -60,7 +61,7 @@ public class Records extends Escena {
     ArrayList<String> infoBD = new ArrayList<>();
 
     /**
-     * Instancia la clase Records.
+     * Instancia un nuevo objeto de la clase Records.
      *
      * @param contexto      el contexto
      * @param idEscena      el id  de la escena

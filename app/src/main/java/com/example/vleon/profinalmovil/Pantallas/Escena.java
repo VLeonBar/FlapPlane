@@ -13,7 +13,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.AudioManager;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -28,93 +27,90 @@ import com.example.vleon.profinalmovil.R;
 import static android.content.Context.SENSOR_SERVICE;
 
 /**
- * The type Escena.
+ * La clase Escena, de la que heredan todas las demás escenas/pantallas.
+ * @author Victor Leon Barciela
  */
 public class Escena {
 
     /**
-     * The Contexto.
+     * El Contexto.
      */
     Context contexto;
     /**
-     * The Id escena.
+     * La Id escena.
      */
     public int idEscena;
     /**
-     * The Alto pantalla.
+     * El Alto pantalla.
      */
     int altoPantalla, /**
-     * The Ancho pantalla.
+     * El Ancho pantalla.
      */
     anchoPantalla;
     /**
-     * The Img fondo.
+     * La Imagen de fondo.
      */
     Bitmap imgFondo, /**
-     * The Vuelta atras.
+     * La imagen del botón de vuelta atras.
      */
     vueltaAtras;
     /**
-     * The Btn atras.
+     * El boton de vuelta atras.
      */
     Boton btnAtras;
     /**
-     * The Pincel.
+     * El Pincel.
      */
     Paint pincel;
     /**
-     * The Fh.
+     * El objeto manejador FrameHandler.
      */
     FrameHandler fh;
     /**
-     * The Sonidos.
+     * El objeto manejador de Sonidos.
      */
     static Sonidos sonidos;
     /**
-     * The Audio manager.
-     */
-    AudioManager audioManager;
-    /**
-     * The Vibrator.
+     * El Vibrador.
      */
     Vibrator vibrator;
     /**
-     * The Typeface 1.
+     * Tipología 1.
      */
     Typeface typeface1, /**
-     * The Typeface 2.
+     * Tipología 2.
      */
     typeface2;
     /**
-     * The Sm.
+     * El manejador de sensores.
      */
     static SensorManager sm;
     /**
-     * The Prox sensor.
+     * El sensor de proximidad.
      */
     static Sensor proxSensor;
     /**
-     * The Preferencias.
+     * Las SharedPreferences.
      */
     SharedPreferences preferencias;
     /**
-     * The Editor preferencias.
+     * Editor de SharedPreferences.
      */
     SharedPreferences.Editor editorPreferencias;
     /**
-     * The Is sensor on.
+     * Booleana que indica el estado del sensor de proximidad.
      */
     static boolean isSensorOn = false, /**
-     * The Is sound on.
+     * Booleana que indica el estado del sonido.
      */
     isSoundOn, /**
-     * The Is vibration on.
+     * Booleana que indica el estado del vibrador.
      */
     isVibrationOn = true;
 
 
     /**
-     * Instancia la clase Escena.
+     * Instancia un nuevo objeto de la clase Escena.
      *
      * @param contexto      el contexto
      * @param idEscena      el id  de la escena
@@ -171,16 +167,16 @@ public class Escena {
     };
 
     /**
-     * Actualizar físicas.
+     * Actualiza las físicas.
      *
-     * @return the int
+     * @return int el id de la escena
      */
     public int actualizarFisica() {
         return idEscena;
     }
 
     /**
-     * Dibujar.
+     * Se encarga de dibujar todos los elementos que se indiquen en el lienzo.
      *
      * @param c el Canvas
      */
@@ -208,10 +204,10 @@ public class Escena {
     }
 
     /**
-     * On touch event int.
+     * Evento OnTouch, se lanza cuando se toca la pantalla.
      *
-     * @param event the event
-     * @return the int
+     * @param event el evento
+     * @return int el id de la escena.
      */
     public int onTouchEvent(MotionEvent event) {
         int pointerIndex = event.getActionIndex();
@@ -233,11 +229,11 @@ public class Escena {
     }
 
     /**
-     * Pulsa boolean.
+     * Indica si se pulsa el boton indicado.
      *
-     * @param boton the boton
-     * @param event the event
-     * @return the boolean
+     * @param boton el boton
+     * @param event el evento
+     * @return boolean
      */
     public boolean pulsa(Rect boton, MotionEvent event) {
         if (boton.contains((int) event.getX(), (int) event.getY())) {
@@ -248,54 +244,28 @@ public class Escena {
     }
 
     /**
-     * Devuelve contexto.
+     * Devuelve el contexto.
      *
-     * @return the contexto
+     * @return contexto
      */
     public Context getContexto() {
         return contexto;
     }
 
-    /**
-     * Devuelve typeface 1.
-     *
-     * @return the typeface 1
-     */
-    public Typeface getTypeface1() {
-        return typeface1;
-    }
 
     /**
      * Da un valor a contexto.
      *
-     * @param contexto the contexto
+     * @param contexto el contexto
      */
     public void setContexto(Context contexto) {
         this.contexto = contexto;
     }
 
     /**
-     * Devuelve id escena.
-     *
-     * @return the id escena
-     */
-    public int getIdEscena() {
-        return idEscena;
-    }
-
-    /**
-     * Da un valor a id escena.
-     *
-     * @param idEscena the id escena
-     */
-    public void setIdEscena(int idEscena) {
-        this.idEscena = idEscena;
-    }
-
-    /**
      * Devuelve alto pantalla.
      *
-     * @return the alto pantalla
+     * @return alto pantalla
      */
     public int getAltoPantalla() {
         return altoPantalla;
@@ -304,7 +274,7 @@ public class Escena {
     /**
      * Da un valor a alto pantalla.
      *
-     * @param altoPantalla the alto pantalla
+     * @param altoPantalla alto pantalla
      */
     public void setAltoPantalla(int altoPantalla) {
         this.altoPantalla = altoPantalla;
@@ -313,7 +283,7 @@ public class Escena {
     /**
      * Devuelve ancho pantalla.
      *
-     * @return the ancho pantalla
+     * @return ancho pantalla
      */
     public int getAnchoPantalla() {
         return anchoPantalla;
@@ -322,45 +292,10 @@ public class Escena {
     /**
      * Da un valor a ancho pantalla.
      *
-     * @param anchoPantalla the ancho pantalla
+     * @param anchoPantalla ancho pantalla
      */
     public void setAnchoPantalla(int anchoPantalla) {
         this.anchoPantalla = anchoPantalla;
     }
 
-    /**
-     * Devuelve img fondo.
-     *
-     * @return the img fondo
-     */
-    public Bitmap getImgFondo() {
-        return imgFondo;
-    }
-
-    /**
-     * Da un valor a img fondo.
-     *
-     * @param imgFondo the img fondo
-     */
-    public void setImgFondo(Bitmap imgFondo) {
-        this.imgFondo = imgFondo;
-    }
-
-    /**
-     * Devuelve pincel.
-     *
-     * @return the pincel
-     */
-    public Paint getPincel() {
-        return pincel;
-    }
-
-    /**
-     * Da un valor a pincel.
-     *
-     * @param pincel the pincel
-     */
-    public void setPincel(Paint pincel) {
-        this.pincel = pincel;
-    }
 }

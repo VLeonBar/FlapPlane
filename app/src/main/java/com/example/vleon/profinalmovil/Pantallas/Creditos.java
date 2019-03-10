@@ -13,11 +13,35 @@ import com.example.vleon.profinalmovil.R;
 
 import java.util.ArrayList;
 
+/**
+ * La Escena de Creditos, en la que se ven los créditos mediante un scroll vertical.
+ * @author Victor Leon Barciela
+ */
 public class Creditos extends Escena {
-    Boton texto, header;
+    /**
+     * El texto.
+     */
+    Boton texto, /**
+     * La cabecera.
+     */
+    header;
+    /**
+     * Coleccion de botones para facilitar el manejo.
+     */
     ArrayList<Boton> lineas = new ArrayList<>();
+    /**
+     * Velocidad del scroll
+     */
     int velocidad = fh.getDpH(7, altoPantalla);
 
+    /**
+     * Instancia un nuevo objeto de la clase Creditos.
+     *
+     * @param contexto      el contexto
+     * @param idEscena      la id escena
+     * @param anchoPantalla el ancho pantalla
+     * @param altoPantalla  el alto pantalla
+     */
     public Creditos(Context contexto, int idEscena, int anchoPantalla, int altoPantalla) {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
@@ -70,9 +94,7 @@ public class Creditos extends Escena {
 
     public void dibujar(Canvas c) {
         try {
-            //Fondo de pantalla del creditos
             c.drawBitmap(imgFondo, 0, 0, null);
-            int cont = 0;
             header.dibujar(c);
             for (Boton b : lineas) {
                 b.dibujar(c);
@@ -86,7 +108,6 @@ public class Creditos extends Escena {
     }
 
     public int onTouchEvent(MotionEvent event) {
-        int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();
         switch (accion) {
             case MotionEvent.ACTION_DOWN:

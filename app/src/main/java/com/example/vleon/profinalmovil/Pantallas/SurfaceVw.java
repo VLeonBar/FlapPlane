@@ -11,33 +11,34 @@ import android.view.SurfaceView;
 import com.example.vleon.profinalmovil.Manejadores.Sonidos;
 
 /**
- * The type Surface vw.
+ * La clase Surface View.
+ *
+ * @author Victor Leon Barciela
  */
 public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder surfaceHolder;
     private Context contexto;
     private Hilo hilo;
     /**
-     * The Sonidos.
+     * Objeto de la clase Sonidos.
      */
     public Sonidos sonidos;
     private boolean funcionando;
     private int altoPantalla, anchoPantalla;
     private Escena escenaActual;
     /**
-     * The Last.
+     * El tiempo pasado.
      */
-// control de tiempo de la aplicación
     long last, /**
-     * The Now.
+     * El tiempo actual.
      */
     now;
     /**
-     * The Time x frame.
+     * El tiempo por frame.
      */
     int timeXFrame;
     /**
-     * The Max frames.
+     * El maximo de frames.
      */
     int maxFrames;
 
@@ -50,14 +51,14 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
         now = System.currentTimeMillis();
         last = System.currentTimeMillis();
-        maxFrames = 45;                 // Número máximo de frames por segundo
-        timeXFrame = 1000 / maxFrames;    // Tasa de tiempo para dibujar un frame
+        maxFrames = 45;
+        timeXFrame = 1000 / maxFrames;
         this.surfaceHolder = getHolder();
         this.surfaceHolder.addCallback(this);
         this.contexto = context;
         sonidos = new Sonidos(contexto, 10);
         hilo = new Hilo();
-        setFocusable(true);// control de tiempo de la aplicación
+        setFocusable(true);
 
 
     }
@@ -129,14 +130,13 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     /**
-     * The type Hilo.
+     * La clase Hilo.
      */
     class Hilo extends Thread {
         /**
-         * Instantiates a new Hilo.
+         * Instancia un nuevo objeto de la clase Hilo que hereda de Thread.
          */
         public Hilo() {
-
         }
 
         @Override
@@ -144,9 +144,9 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
             Looper.prepare();
             while (funcionando) {
                 now = System.currentTimeMillis();
-                if (now - last >= timeXFrame) { // si ya paso el tiempo necesario, dibujo. Control de FramesxSegundo en funcion del tiempo
+                if (now - last >= timeXFrame) {
                     last = now;
-                    Canvas c = null; //Necesario repintar _todo el lienzo
+                    Canvas c = null;
                     try {
                         if (!surfaceHolder.getSurface().isValid())
                             continue;
@@ -189,7 +189,7 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
                     }
                 } else {
                     try {
-                        Thread.sleep((long) timeXFrame - (now - last)); // duermo el tiempo necesario para el siguiente frame
+                        Thread.sleep((long) timeXFrame - (now - last));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -201,20 +201,11 @@ public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
         /**
          * Da un valor a funcionando.
          *
-         * @param flag the flag
+         * @param flag el valor.
          */
         void setFuncionando(boolean flag) {
             funcionando = flag;
         }
 
-        /**
-         * Da un valor a surface size.
-         *
-         * @param width  the width
-         * @param height the height
-         */
-        public void setSurfaceSize(int width, int height) { // Función llamada si cambia el tamaño del view
-
-        }
     }
 }

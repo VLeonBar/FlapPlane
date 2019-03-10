@@ -4,76 +4,63 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.example.vleon.profinalmovil.ObjetosJuego.Boton;
 import com.example.vleon.profinalmovil.ObjetosJuego.MonedaMenu;
 import com.example.vleon.profinalmovil.R;
 
 /**
- * The type Menu principal.
+ * La escena del menu principal, que permite acceder al resto de las escenas e implementa una animacion de movimiento para hacerlo mas visual.
+ *
+ * @author Victor Leon Barciela
  */
 public class MenuPrincipal extends Escena {
     /**
-     * The Rect jugar.
+     * El rectangulo del boton jugar.
      */
     Rect rectJugar, /**
-     * The Rect ajustes.
+     * El rectangulo del boton ajustes.
      */
     rectAjustes, /**
-     * The Rect creditos.
+     * El rectangulo del boton creditos.
      */
     rectCreditos, /**
-     * The Rect records.
+     * El rectangulo del boton records.
      */
     rectRecords, /**
-     * The Rect ayuda.
+     * El rectangulo del boton ayuda.
      */
     rectAyuda, /**
-     * The Boton pulsado.
+     * El boton pulsado.
      */
     botonPulsado = null;
     /**
-     * The Bandera.
+     * Bandera que permite el uso de la animacion.
      */
     boolean bandera = true;
     /**
-     * The Ancho decimo.
-     */
-    int anchoDecimo, /**
-     * The Alto medio.
-     */
-    altoMedio, /**
-     * The Ancho tercio.
-     */
-    anchoTercio, /**
-     * The Alto sexto.
-     */
-    altoSexto, /**
-     * The Ancho medio.
-     */
-    anchoMedio;
-    /**
-     * The Moneda menu.
+     * Moneda que hace la animacion de moverse.
      */
     MonedaMenu monedaMenu;
     /**
-     * The Cont.
-     */
-    int cont = 0;
-    /**
-     * The Escena destino.
+     * La escena destino.
      */
     int escenaDestino = idEscena;
     /**
-     * The Mov moneda.
+     * Indica el movimiento de la moneda.
      */
     boolean movMoneda = false;
-
+    /**
+     * El icono de la aplicacion de fondo del menu.
+     */
+    Boton backgroundLogo;
 
     /**
-     * Instancia la clase Menu principal.
+     * Instancia un nuevo objeto de la clase Menu principal.
      *
      * @param contexto      el contexto
      * @param idEscena      el id  de la escena
@@ -84,27 +71,21 @@ public class MenuPrincipal extends Escena {
         super(contexto, idEscena, altoPantalla, anchoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondo_main_menu);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
-        anchoDecimo = anchoPantalla / 10;
-        anchoTercio = anchoPantalla / 3;
-        anchoMedio = anchoPantalla / 2;
-        altoMedio = altoPantalla / 2;
-        altoSexto = altoMedio / 3;
         monedaMenu = new MonedaMenu(0, 0, new BitmapFactory().decodeResource(contexto.getResources(), R.drawable.moneda));
-        monedaMenu.setImgFicha(Bitmap.createScaledBitmap(monedaMenu.getImgFicha(), altoSexto / 2, altoSexto / 2, false));
-        monedaMenu.setPosX(anchoMedio - monedaMenu.getImgFicha().getWidth() / 2);
-        monedaMenu.setPosY(altoSexto * (float) 5.5 - monedaMenu.getImgFicha().getHeight() / 2);
-        rectRecords = new Rect(0, 0, anchoTercio, altoSexto);
-        rectAjustes = new Rect(anchoTercio * 2, 0, anchoTercio * 3, altoSexto);
-        rectJugar = new Rect(0, altoSexto, anchoPantalla, altoSexto * 2);
-        rectCreditos = new Rect(0, altoSexto * 2, anchoTercio, altoSexto * 3);
-        rectAyuda = new Rect(anchoTercio * 2, altoSexto * 2, anchoPantalla, altoSexto * 3);
-//       TODO
-//        CREAR VARIABLE BOOLEANA PARA CONTROLAR ESTO
+        monedaMenu.setImgFicha(Bitmap.createScaledBitmap(monedaMenu.getImgFicha(), fh.partePantalla(altoPantalla, 6) / 2, fh.partePantalla(altoPantalla, 6) / 2, false));
+        monedaMenu.setPosX(fh.partePantalla(anchoPantalla, 2) - monedaMenu.getImgFicha().getWidth() / 2);
+        monedaMenu.setPosY(fh.partePantalla(altoPantalla, 6) * (float) 5.5 - monedaMenu.getImgFicha().getHeight() / 2);
+        rectRecords = new Rect(0, 0, fh.partePantalla(anchoPantalla, 3), fh.partePantalla(altoPantalla, 6));
+        rectAjustes = new Rect(fh.partePantalla(anchoPantalla, 3) * 2, 0, fh.partePantalla(anchoPantalla, 3) * 3, fh.partePantalla(altoPantalla, 6));
+        rectJugar = new Rect(0, fh.partePantalla(altoPantalla, 6), anchoPantalla, fh.partePantalla(altoPantalla, 6) * 2);
+        rectCreditos = new Rect(0, fh.partePantalla(altoPantalla, 6) * 2, fh.partePantalla(anchoPantalla, 3), fh.partePantalla(altoPantalla, 6) * 3);
+        rectAyuda = new Rect(fh.partePantalla(anchoPantalla, 3) * 2, fh.partePantalla(altoPantalla, 6) * 2, anchoPantalla, fh.partePantalla(altoPantalla, 6) * 3);
+        backgroundLogo = new Boton(fh.partePantalla(anchoPantalla, 3), fh.partePantalla(altoPantalla, 6) * 3, fh.partePantalla(anchoPantalla, 3) * 2, fh.partePantalla(altoPantalla, 6) * 4, Color.TRANSPARENT, typeface2);
+        backgroundLogo.setImg(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(contexto.getResources(), R.drawable.icono), fh.partePantalla(anchoPantalla, 3), fh.partePantalla(anchoPantalla, 3), false));
         if (isSoundOn)
             sonidos.mediaPlayer.start();
     }
 
-    //FÍSICAS Y DIBUJO DE LA CLASE MENÚ
     public int actualizarFisica() {
         if (movMoneda) {
             bandera = monedaMenu.mueveMoneda(botonPulsado);
@@ -117,8 +98,8 @@ public class MenuPrincipal extends Escena {
 
     public void dibujar(Canvas c) {
         try {
-            //Fondo de pantalla del menú
             c.drawBitmap(imgFondo, 0, 0, null);
+            backgroundLogo.dibujar(c);
             c.drawRect(rectRecords, pincel);
             c.drawRect(rectAjustes, pincel);
             c.drawRect(rectJugar, pincel);

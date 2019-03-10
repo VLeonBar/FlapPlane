@@ -5,27 +5,27 @@ import android.graphics.Canvas;
 import android.graphics.PointF;
 
 /**
- * The type Fondo.
+ * Clase Fondo, permite colocar una imagen y darle movimiento.
  */
 public class Fondo {
     /**
-     * The Posicion.
+     * La posicion de la imagen.
      */
     public PointF posicion, /**
-     * The Posicion 2.
+     * La segunda posicion de la misma imagen .
      */
     posicion2;
     /**
-     * The Imagen.
+     * La imagen.
      */
     public Bitmap imagen;
 
     /**
-     * Instantiates a new Fondo.
+     * Instancia un nuevo objeto de la clase Fondo.
      *
-     * @param imagen the imagen
-     * @param x      the x
-     * @param y      the y
+     * @param imagen la imagen
+     * @param x      la posicion x
+     * @param y      la posicion y
      */
     public Fondo(Bitmap imagen, float x, float y) { // Constructores
         this.imagen = imagen;
@@ -34,10 +34,10 @@ public class Fondo {
     }
 
     /**
-     * Instantiates a new Fondo.
+     * Instancia un nuevo objeto de la clase Fondo.
      *
-     * @param imagen       the imagen
-     * @param altoPantalla the alto pantalla
+     * @param imagen       la imagen
+     * @param altoPantalla el alto de pantalla
      */
     public Fondo(Bitmap imagen, int altoPantalla) {
         this(imagen, 0, altoPantalla - imagen.getHeight());
@@ -54,9 +54,9 @@ public class Fondo {
     }
 
     /**
-     * Mover.
+     * Mueve las imagenes.
      *
-     * @param velocidad the velocidad
+     * @param velocidad la velocidad
      */
     public void mover(int velocidad) { // Desplazamiento
         posicion.x -= velocidad;

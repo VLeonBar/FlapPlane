@@ -20,7 +20,9 @@ import com.example.vleon.profinalmovil.R;
 import java.util.ArrayList;
 
 /**
- * The type Fin de juego.
+ * La Escena de Fin de Juego, aparece cuando el jugador pierde y permite guardar su alias y su récord en la base de datos.
+ *
+ * @author Victor Leon Barciela
  */
 public class FinDeJuego extends Escena {
 
@@ -31,28 +33,28 @@ public class FinDeJuego extends Escena {
     private Bitmap btnAbajo, btnArriba;
     private FrameHandler fh;
     /**
-     * The N.
+     * Objeto Nave, utilizado para poder acceder a la puntuacion.
      */
     Nave n;
     /**
-     * The Bd.
+     * La base de datos.
      */
     BaseDeDatos bd;
     /**
-     * The Db.
+     * El manejador SQLite para la base de datos.
      */
     SQLiteDatabase db;
     /**
-     * The C.
+     * El cursor.
      */
     Cursor c;
     /**
-     * The Query.
+     * La consulta.
      */
     String query;
 
     /**
-     * Instantiates a new Fin de juego.
+     * Instancia un nuevo objeto de la clase Fin de juego.
      *
      * @param contexto      el contexto
      * @param idEscena      el id  de la escena
@@ -64,15 +66,12 @@ public class FinDeJuego extends Escena {
         fh = new FrameHandler(contexto);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
-        //Relleno el AL de la A a la Z
         for (char i = 'A'; i <= 'Z'; i++) {
             alfabeto.add(i);
         }
-        //Inicializo las 3 posiciones del array de letras
         for (int i = 0; i < letras.length; i++) {
             letras[i] = 'A';
         }
-        //Textos de información de pantalla
         textoCabecera = new Boton(0, 0, anchoPantalla, fh.partePantalla(altoPantalla, 5), Color.TRANSPARENT, typeface2);
         textoCabecera.setTexto("¡HAS PERDIDO!", 150, Color.BLACK);
         botones.add(textoCabecera);
@@ -97,44 +96,43 @@ public class FinDeJuego extends Escena {
         btnArriba = Bitmap.createScaledBitmap(btnArriba, anchoPantalla / 10, anchoPantalla / 10, true);
 
         btn1Arriba = new Boton(anchoPantalla / 20 + btnArriba.getWidth() / 2,
-                altoPantalla / 2 - altoPantalla / 50 - btnArriba.getHeight() / 2,
-                anchoPantalla / 20 + btnArriba.getWidth() + btnArriba.getWidth() / 2,
-                altoPantalla / 2 - altoPantalla / 50 + btnArriba.getHeight() / 2, Color.TRANSPARENT, typeface2);
+                fh.partePantalla(altoPantalla, 2) - fh.partePantalla(altoPantalla, 50) - btnArriba.getHeight() / 2,
+                fh.partePantalla(anchoPantalla, 20) + btnArriba.getWidth() + btnArriba.getWidth() / 2,
+                fh.partePantalla(altoPantalla, 2) - fh.partePantalla(altoPantalla, 50) + btnArriba.getHeight() / 2, Color.TRANSPARENT, typeface2);
         btn1Arriba.setImg(btnArriba);
         botones.add(btn1Arriba);
 
-        btn1Abajo = new Boton(anchoPantalla / 20 + btnArriba.getWidth() / 2,
-                altoPantalla / 3 * 2 - altoPantalla / 100 - btnArriba.getHeight(),
-                anchoPantalla / 20 + btnArriba.getWidth() + btnArriba.getWidth() / 2,
-                altoPantalla / 3 * 2 - altoPantalla / 100, Color.TRANSPARENT, typeface2);
+        btn1Abajo = new Boton(fh.partePantalla(anchoPantalla, 20) + btnArriba.getWidth() / 2,
+                fh.partePantalla(altoPantalla, 3) * 2 - fh.partePantalla(altoPantalla, 100) - btnArriba.getHeight(),
+                fh.partePantalla(anchoPantalla, 20) + btnArriba.getWidth() + btnArriba.getWidth() / 2,
+                fh.partePantalla(altoPantalla, 3) * 2 - fh.partePantalla(altoPantalla, 100), Color.TRANSPARENT, typeface2);
         btn1Abajo.setImg(btnAbajo);
         botones.add(btn1Abajo);
 
-        btn2Arriba = new Boton(anchoPantalla / 2 - btnArriba.getWidth() / 2,
-                altoPantalla / 2 - altoPantalla / 50 - btnArriba.getHeight() / 2,
-                anchoPantalla / 2 + btnArriba.getWidth() / 2,
-                altoPantalla / 2 - altoPantalla / 50 + btnArriba.getHeight() / 2, Color.TRANSPARENT, typeface2);
+        btn2Arriba = new Boton(fh.partePantalla(anchoPantalla, 2) - btnArriba.getWidth() / 2,
+                fh.partePantalla(altoPantalla, 2) - fh.partePantalla(altoPantalla, 50) - btnArriba.getHeight() / 2,
+                fh.partePantalla(anchoPantalla, 2) + btnArriba.getWidth() / 2,
+                fh.partePantalla(altoPantalla, 2) - fh.partePantalla(altoPantalla, 50) + btnArriba.getHeight() / 2, Color.TRANSPARENT, typeface2);
         btn2Arriba.setImg(btnArriba);
         botones.add(btn2Arriba);
 
-        btn2Abajo = new Boton(anchoPantalla / 2 - btnArriba.getWidth() / 2,
-                altoPantalla / 3 * 2 - altoPantalla / 100 - btnArriba.getHeight(),
-                anchoPantalla / 2 + btnArriba.getWidth() / 2,
-                altoPantalla / 3 * 2 - altoPantalla / 100, Color.TRANSPARENT, typeface2);
+        btn2Abajo = new Boton(fh.partePantalla(anchoPantalla, 2) - btnArriba.getWidth() / 2,
+                fh.partePantalla(altoPantalla, 3) * 2 - fh.partePantalla(altoPantalla, 100) - btnArriba.getHeight(),
+                fh.partePantalla(anchoPantalla, 2) + btnArriba.getWidth() / 2,
+                fh.partePantalla(altoPantalla, 3) * 2 - fh.partePantalla(altoPantalla, 100), Color.TRANSPARENT, typeface2);
         btn2Abajo.setImg(btnAbajo);
         botones.add(btn2Abajo);
 
         btn3Arriba = new Boton(anchoPantalla - btnArriba.getWidth() * 2,
-                altoPantalla / 2 - altoPantalla / 50 - btnArriba.getHeight() / 2,
-                anchoPantalla - btnArriba.getWidth(),
-                altoPantalla / 2 - altoPantalla / 50 + btnArriba.getHeight() / 2, Color.TRANSPARENT, typeface2);
+                fh.partePantalla(altoPantalla, 2) - fh.partePantalla(altoPantalla, 50) - btnArriba.getHeight() / 2, anchoPantalla - btnArriba.getWidth(),
+                fh.partePantalla(altoPantalla, 2) - fh.partePantalla(altoPantalla, 50) + btnArriba.getHeight() / 2, Color.TRANSPARENT, typeface2);
         btn3Arriba.setImg(btnArriba);
         botones.add(btn3Arriba);
 
         btn3Abajo = new Boton(anchoPantalla - btnArriba.getWidth() * 2,
-                altoPantalla / 3 * 2 - altoPantalla / 100 - btnArriba.getHeight(),
+                fh.partePantalla(altoPantalla, 3) * 2 - fh.partePantalla(altoPantalla, 100) - btnArriba.getHeight(),
                 anchoPantalla - btnArriba.getWidth(),
-                altoPantalla / 3 * 2 - altoPantalla / 100, Color.TRANSPARENT, typeface2);
+                fh.partePantalla(altoPantalla, 3) * 2 - fh.partePantalla(altoPantalla, 100), Color.TRANSPARENT, typeface2);
         btn3Abajo.setImg(btnAbajo);
         botones.add(btn3Abajo);
 
@@ -171,10 +169,10 @@ public class FinDeJuego extends Escena {
     }
 
     /**
-     * Adelante letra char.
+     * Mueve adelante en el array de letras.
      *
-     * @param letra the letra
-     * @return the char
+     * @param letra la letra
+     * @return char
      */
     public char adelanteLetra(char letra) {
         int i = alfabeto.indexOf(letra);
@@ -188,10 +186,10 @@ public class FinDeJuego extends Escena {
     }
 
     /**
-     * Atras letra char.
+     * Mueve atrás en el array de letras.
      *
-     * @param letra the letra
-     * @return the char
+     * @param letra la letra
+     * @return char
      */
     public char atrasLetra(char letra) {
         int i = alfabeto.indexOf(letra);
@@ -205,7 +203,6 @@ public class FinDeJuego extends Escena {
     }
 
     public int onTouchEvent(MotionEvent event) {
-        int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();
         switch (accion) {
             case MotionEvent.ACTION_UP:
@@ -241,9 +238,9 @@ public class FinDeJuego extends Escena {
     }
 
     /**
-     * Mejora puntuacion boolean.
+     * Revisa si la puntuacion del jugador mejora la peor puntuacion de la base de datos.
      *
-     * @return the boolean
+     * @return el boolean, true si mejora, false sino.
      */
     public boolean mejoraPuntuacion() {
         int lowerScore = 0;
@@ -264,7 +261,7 @@ public class FinDeJuego extends Escena {
     }
 
     /**
-     * Insert puntuacion.
+     * Inserta la puntuacion en la base de datos.
      */
     public void insertPuntuacion() {
         int maxId = 0;

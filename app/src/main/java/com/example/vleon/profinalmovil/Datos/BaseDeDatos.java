@@ -5,7 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * The type Base de datos.
+ * Clase Base de Datos, gestiona la base de datos de los récords.
+ *
  */
 public class BaseDeDatos extends SQLiteOpenHelper {
     /**
@@ -28,12 +29,12 @@ public class BaseDeDatos extends SQLiteOpenHelper {
             "(9,'-  -  - >',0) ";
 
     /**
-     * Constructor de la clase, inicializa las propiedades de la clase.
+     * Instancia un nuevo objeto de la clase BaseDeDatos.
      *
      * @param contexto el contexto
      * @param name     el nombre de la base de datos
-     * @param factory  the factory
-     * @param version  the version
+     * @param factory  el objeto factory
+     * @param version  la version
      */
     public BaseDeDatos(Context contexto, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, name, factory, version);

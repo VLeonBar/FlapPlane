@@ -14,42 +14,42 @@ import com.example.vleon.profinalmovil.R;
 import java.util.ArrayList;
 
 /**
- * The type Ajustes.
+ * La Escena de Ajustes, en la cual permite activar o desactivar el sonido o la vibracion.
  */
 public class Ajustes extends Escena {
     /**
-     * The Btn activa sonido.
+     * El boton de activar sonido.
      */
     Boton btnActivaSonido, /**
-     * The Btn activa vibra.
+     * El boton de activar vibracion.
      */
     btnActivaVibra, /**
-     * The Texto sonido.
+     * El texto sonido
      */
     textoSonido, /**
-     * The Texto vibracion.
+     * El texto vibracion.
      */
     textoVibracion;
     /**
-     * The Botones.
+     * Coleccion de botones para gestionar de manera mas comoda.
      */
     ArrayList<Boton> botones = new ArrayList<>();
     /**
-     * The Img sonido on.
+     * La imagen para sonido activado.
      */
     Bitmap imgSonidoOn, /**
-     * The Img sonido off.
+     * La imagen para sonido desactivado.
      */
     imgSonidoOff, /**
-     * The Img vibra on.
+     * La imagen para vibracion activada.
      */
     imgVibraOn, /**
-     * The Img vibra off.
+     * La imagen para vibracion activada.
      */
     imgVibraOff;
 
     /**
-     * Instancia la clase Ajustes.
+     * Instancia un nuevo objeto de la clase Ajustes.
      *
      * @param contexto      el contexto
      * @param idEscena      el id  de la escena
@@ -60,9 +60,6 @@ public class Ajustes extends Escena {
         super(contexto, idEscena, anchoPantalla, altoPantalla);
         imgFondo = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.fondopantallas);
         imgFondo = Bitmap.createScaledBitmap(imgFondo, anchoPantalla, altoPantalla, false);
-
-        //todo
-        //Dar imagen a estos botones.
         textoSonido = new Boton(0, fh.partePantalla(altoPantalla, 10) * 2, fh.partePantalla(anchoPantalla, 10) * 7, fh.partePantalla(altoPantalla, 10) * 3, Color.TRANSPARENT, typeface2);
         textoSonido.setTexto("Sonido", fh.getDpH(120, altoPantalla), Color.BLACK);
         botones.add(textoSonido);
@@ -97,15 +94,11 @@ public class Ajustes extends Escena {
 
     public void dibujar(Canvas c) {
         try {
-            //Fondo de pantalla de ajustes
             c.drawBitmap(imgFondo, 0, 0, null);
             for (Boton b : botones) {
                 b.dibujar(c);
             }
-            //llama al dibujar de la clase padre para dibujar los elementos comunes a todas las clases hijas
             super.dibujar(c);
-
-
         } catch (Exception e) {
             Log.i("Error al dibujar", e.getLocalizedMessage());
         }

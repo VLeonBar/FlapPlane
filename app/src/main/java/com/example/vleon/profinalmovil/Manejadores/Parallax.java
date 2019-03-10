@@ -9,33 +9,33 @@ import com.example.vleon.profinalmovil.ObjetosJuego.Fondo;
 import java.util.ArrayList;
 
 /**
- * The type Parallax.
+ * La clase Parallax se encarga de mover las imagenes que se le pasan creando un efecto Parallax.
  */
 public class Parallax {
 
     /**
-     * The Fondos.
+     * El ArrayList de objetos Fondo.
      */
     ArrayList<Fondo> fondos = new ArrayList<>();
     /**
-     * The Fh.
+     * El objeto FrameHandler.
      */
     FrameHandler fh;
     /**
-     * The Anchopantalla.
+     * El Ancho de la pantalla.
      */
     int anchopantalla, /**
-     * The Altopantalla.
+     * El  Alto de la pantalla.
      */
     altopantalla;
 
     /**
-     * Instantiates a new Parallax.
+     * Instancia un nuevo objeto de la clase Parallax.
      *
-     * @param contexto          the contexto
-     * @param anchoPantalla     the ancho pantalla
-     * @param altoPantalla      the alto pantalla
-     * @param cantImagenesFondo the cant imagenes fondo
+     * @param contexto          el contexto
+     * @param anchoPantalla     el ancho pantalla
+     * @param altoPantalla      el alto pantalla
+     * @param cantImagenesFondo la cantidad de imagenes fondo
      */
     public Parallax(Context contexto, int anchoPantalla, int altoPantalla, int cantImagenesFondo) {
         this.anchopantalla = anchoPantalla;
@@ -45,10 +45,10 @@ public class Parallax {
     }
 
     /**
-     * Crea fondos array list.
+     * Crea el array list de fondos.
      *
-     * @param imagenes the imagenes
-     * @return the array list
+     * @param imagenes las imagenes
+     * @return el arraylist
      */
     public ArrayList<Fondo> creaFondos(Bitmap[] imagenes) {
         this.fondos.add((new Fondo(imagenes[0], 0, 0)));
@@ -69,7 +69,7 @@ public class Parallax {
     /**
      * Dibuja.
      *
-     * @param c the c
+     * @param c el Canvas
      */
     public void dibuja(Canvas c) {
         for (Fondo fondo : fondos)

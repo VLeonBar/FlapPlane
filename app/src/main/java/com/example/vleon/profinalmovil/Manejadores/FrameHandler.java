@@ -10,19 +10,19 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * The type Frame handler.
+ * La clase Frame Handler es la que contiene los métodos para controlar lo que sale por pantalla, la densidad de pantalla así como metodos manejadores para imagenes y recursos.
  */
 public class FrameHandler {
 
     /**
-     * The Context.
+     * El Context.
      */
     Context context;
 
     /**
-     * Instantiates a new Frame handler.
+     * Instancia un nuevo objeto de la clase Frame handler.
      *
-     * @param context the context
+     * @param context el context
      */
     public FrameHandler(Context context) {
         this.context = context;
@@ -31,9 +31,9 @@ public class FrameHandler {
     /**
      * Devuelve una fracción de la pantalla.
      *
-     * @param regionpantalla the regionpantalla
-     * @param fraccion       the fraccion
-     * @return the int
+     * @param regionpantalla la region de pantalla
+     * @param fraccion       la fraccion
+     * @return int
      */
     public int partePantalla(int regionpantalla, int fraccion) {
         return regionpantalla / fraccion;
@@ -42,9 +42,9 @@ public class FrameHandler {
     /**
      * Escala anchura bitmap.
      *
-     * @param fichero    the fichero
-     * @param nuevoAncho the nuevo ancho
-     * @return the bitmap
+     * @param fichero    el fichero
+     * @param nuevoAncho el nuevo ancho
+     * @return bitmap
      */
     public Bitmap escalaAnchura(String fichero, int nuevoAncho) {
         Bitmap bitmapAux = getBitmapFromAssets(fichero);
@@ -55,9 +55,9 @@ public class FrameHandler {
     /**
      * Escala altura bitmap.
      *
-     * @param fichero   the fichero
-     * @param nuevoAlto the nuevo alto
-     * @return the bitmap
+     * @param fichero   el fichero
+     * @param nuevoAlto el nuevo alto
+     * @return el bitmap
      */
     public Bitmap escalaAltura(String fichero, int nuevoAlto) {
         Bitmap bitmapAux = getBitmapFromAssets(fichero);
@@ -68,11 +68,11 @@ public class FrameHandler {
     /**
      * Devuelve frames bitmap [ ].
      *
-     * @param numImg the num img
-     * @param dir    the dir
-     * @param tag    the tag
-     * @param heigth the heigth
-     * @return the bitmap [ ]
+     * @param numImg el numero de imagenes
+     * @param dir    el directorio
+     * @param tag    el tag
+     * @param heigth la altura
+     * @return el bitmap [ ]
      */
     public Bitmap[] getFrames(int numImg, String dir, String tag, int heigth) {
         Bitmap[] aux = new Bitmap[numImg];
@@ -84,8 +84,8 @@ public class FrameHandler {
     /**
      * Devuelve bitmap de la carpeta assets.
      *
-     * @param fichero the fichero
-     * @return the bitmap from assets
+     * @param fichero el fichero
+     * @return el bitmap de assets
      */
     public Bitmap getBitmapFromAssets(String fichero) {
         try {
@@ -97,11 +97,11 @@ public class FrameHandler {
     }
 
     /**
-     * Devuelve dp h.
+     * Devuelve los pixeles segun la densidad de cada pantalla.
      *
-     * @param pixels       the pixels
-     * @param altoPantalla the alto pantalla
-     * @return the dp h
+     * @param pixels       los pixels
+     * @param altoPantalla el alto pantalla
+     * @return la dp h
      */
     public int getDpH(int pixels, int altoPantalla) {
         return (int) ((pixels / 19.2) * altoPantalla) / 100;

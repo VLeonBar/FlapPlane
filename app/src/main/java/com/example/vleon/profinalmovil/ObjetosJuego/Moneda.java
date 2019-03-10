@@ -9,21 +9,21 @@ import android.util.Log;
 import java.util.ArrayList;
 
 /**
- * The type Moneda.
+ * La clase Moneda.
  */
 public class Moneda extends Objetos {
     /**
-     * The Al monedas.
+     * La colecicon de monedas.
      */
     ArrayList<Rect> alMonedas = new ArrayList<>();
     /**
-     * The Rect.
+     * El rectangulo de la moneda.
      */
     Rect rect;
     private int randPointY;
 
     /**
-     * Instantiates a new Moneda.
+     * Instancia un nuevo objeto de la clase Moneda.
      *
      * @param contexto      the contexto
      * @param anchoPantalla the ancho pantalla
@@ -36,7 +36,7 @@ public class Moneda extends Objetos {
     }
 
     /**
-     * Devuelve al monedas.
+     * Devuelve la coleccion de monedas.
      *
      * @return the al monedas
      */
@@ -45,7 +45,7 @@ public class Moneda extends Objetos {
     }
 
     /**
-     * Crea moneda.
+     * Crea la moneda.
      */
     public void creaMoneda() {
         randPointY = (int) (Math.random() * ((altoPantalla - fh.partePantalla(altoPantalla, 7)) * +1));
@@ -58,7 +58,7 @@ public class Moneda extends Objetos {
     }
 
     /**
-     * Mueve moneda.
+     * Mueve la moneda.
      */
     public void mueveMoneda() {
         if (!alMonedas.isEmpty()) {
@@ -91,7 +91,6 @@ public class Moneda extends Objetos {
      */
     public void dibujar(Canvas c) {
         for (Rect moneda : alMonedas) {
-//            c.drawRect(moneda, pincel);
             c.drawBitmap(skins[indice], moneda.left, moneda.top, null);
         }
     }
