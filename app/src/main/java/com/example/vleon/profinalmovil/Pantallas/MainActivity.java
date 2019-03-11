@@ -1,6 +1,7 @@
 package com.example.vleon.profinalmovil.Pantallas;
 
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
         pantallaPrincipal = new SurfaceVw(this);
         pantallaPrincipal.setKeepScreenOn(true);
-
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         setContentView(pantallaPrincipal);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         if (pausa) {
             pantallaPrincipal.sonidos.mediaPlayer.start();
         }

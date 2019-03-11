@@ -131,9 +131,6 @@ public class Juego extends Escena {
 
     public void dibujar(Canvas c) {
         try {
-            pincel = new Paint();
-            pincel.setColor(Color.BLACK);
-            pincel.setAlpha(100);
             parallax.dibuja(c);
             moneda.dibujar(c);
             barrera.dibujar(c);

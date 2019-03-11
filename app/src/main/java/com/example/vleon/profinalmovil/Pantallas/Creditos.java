@@ -55,13 +55,13 @@ public class Creditos extends Escena {
         lineas.get(0).setTexto("Código realizado por:", fh.getDpH(50, altoPantalla), Color.BLACK);
         lineas.get(1).setTexto(" Víctor León Barciela", fh.getDpH(30, altoPantalla), Color.BLACK);
         lineas.get(2).setTexto("Efectos de sonido:", fh.getDpH(50, altoPantalla), Color.BLACK);
-        lineas.get(3).setTexto("Víctor León Barciela - Marta Álvarez", fh.getDpH(30, altoPantalla), Color.BLACK);
+        lineas.get(3).setTexto("Victor Leon Barciela - Marta Alvarez", fh.getDpH(30, altoPantalla), Color.BLACK);
         lineas.get(4).setTexto("Música:", fh.getDpH(50, altoPantalla), Color.BLACK);
         lineas.get(5).setTexto("soundimage.org (Música libre y sin copyright)", fh.getDpH(30, altoPantalla), Color.BLACK);
         lineas.get(6).setTexto("Imágenes, Iconos y Fuentes", fh.getDpH(50, altoPantalla), Color.BLACK);
-        lineas.get(7).setTexto("Víctor León Barciela - gameart2d.com - craftpix.net - flaticon.es - 1001fonts.com", fh.getDpH(30, altoPantalla), Color.BLACK);
+        lineas.get(7).setTexto("Victor Leon Barciela - gameart2d.com - craftpix.net - flaticon.es - 1001fonts.com", fh.getDpH(30, altoPantalla), Color.BLACK);
         lineas.get(8).setTexto("Mención especial y agradecimientos a:", fh.getDpH(50, altoPantalla), Color.BLACK);
-        lineas.get(9).setTexto("Marta Álvarez - Javier Conde - Hadrián Villar - Jose Villar", fh.getDpH(30, altoPantalla), Color.BLACK);
+        lineas.get(9).setTexto("Marta Alvarez - Javier Conde - Hadrian Villar - Jose Villar", fh.getDpH(30, altoPantalla), Color.BLACK);
         lineas.get(10).setTexto("Lucas Alonso - Samuel Figueirido - Curro Bellas", fh.getDpH(30, altoPantalla), Color.BLACK);
         lineas.get(11).setTexto("Nieves Barciela - Pablo León B - Pablo León H", fh.getDpH(30, altoPantalla), Color.BLACK);
         lineas.get(12).setTexto("Hans Zimmer - Ludovico Einaudi - Mumford and Sons", fh.getDpH(30, altoPantalla), Color.BLACK);
