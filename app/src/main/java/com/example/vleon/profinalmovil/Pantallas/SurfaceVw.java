@@ -16,15 +16,36 @@ import com.example.vleon.profinalmovil.Manejadores.Sonidos;
  * @author Victor Leon Barciela
  */
 public class SurfaceVw extends SurfaceView implements SurfaceHolder.Callback {
+    /**
+     * El objeto SurfaceHolder.
+     */
     private SurfaceHolder surfaceHolder;
+    /**
+     * El contexto.
+     */
     private Context contexto;
+    /**
+     * Se encarga de gestionar el lanzamiento de un nuevo hilo.
+     */
     private Hilo hilo;
     /**
      * Objeto de la clase Sonidos.
      */
     public Sonidos sonidos;
+    /**
+     * Indica si el hilo está en funcionamiento.
+     */
     private boolean funcionando;
-    private int altoPantalla, anchoPantalla;
+    /**
+     * El el alto de la pantalla.
+     */
+    private int altoPantalla, /**
+     * El ancho de la pantalla.
+     */
+    anchoPantalla;
+    /**
+     * La escena actual en la que se encuentra.
+     */
     private Escena escenaActual;
     /**
      * El tiempo pasado.

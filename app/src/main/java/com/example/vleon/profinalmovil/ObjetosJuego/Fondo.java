@@ -44,7 +44,7 @@ public class Fondo {
     }
 
     /**
-     * Dibujar.
+     * Dibuja las imagenes.
      *
      * @param c el Canvas
      */

@@ -9,33 +9,33 @@ import android.util.Log;
 import java.util.ArrayList;
 
 /**
- * The type Moneda menu.
+ * La clase que gestiona la moneda que sale en el menu.
  */
 public class MonedaMenu {
     /**
-     * The Img ficha.
+     * La imagen de la moneda.
      */
     Bitmap imgFicha;
     /**
-     * The Pos x.
+     * La Pos x.
      */
     float posX, /**
-     * The Pos y.
+     * La Pos y.
      */
     posY;
     /**
-     * The Cont.
+     * El Cont.
      */
     int cont;
     /**
-     * The Bandera.
+     * La Bandera.
      */
     boolean bandera;
     /**
-     * The Centro moneda x.
+     * El Centro de la moneda en x.
      */
     float centroMonedaX, /**
-     * The Centro moneda y.
+     * El Centro de la moneda en y.
      */
     centroMonedaY;
     //Debe tener una hitbox determinada por un circulo.
@@ -43,7 +43,7 @@ public class MonedaMenu {
     /**
      * Devuelve img ficha.
      *
-     * @return the img ficha
+     * @return la img ficha
      */
     public Bitmap getImgFicha() {
         return imgFicha;
@@ -52,7 +52,7 @@ public class MonedaMenu {
     /**
      * Da un valor a img ficha.
      *
-     * @param imgFicha the img ficha
+     * @param imgFicha la img ficha
      */
     public void setImgFicha(Bitmap imgFicha) {
         this.imgFicha = imgFicha;
@@ -61,7 +61,7 @@ public class MonedaMenu {
     /**
      * Devuelve pos x.
      *
-     * @return the pos x
+     * @return la pos x
      */
     public float getPosX() {
         return posX;
@@ -70,7 +70,7 @@ public class MonedaMenu {
     /**
      * Da un valor a pos x.
      *
-     * @param posX the pos x
+     * @param posX la pos x
      */
     public void setPosX(float posX) {
         this.posX = posX;
@@ -79,7 +79,7 @@ public class MonedaMenu {
     /**
      * Devuelve pos y.
      *
-     * @return the pos y
+     * @return la pos y
      */
     public float getPosY() {
         return posY;
@@ -88,7 +88,7 @@ public class MonedaMenu {
     /**
      * Da un valor a pos y.
      *
-     * @param posY the pos y
+     * @param posY la pos y
      */
     public void setPosY(float posY) {
         this.posY = posY;
@@ -97,9 +97,9 @@ public class MonedaMenu {
     /**
      * Crea recta array list.
      *
-     * @param inicio the inicio
-     * @param fin    the fin
-     * @return the array list
+     * @param inicio el punto de inicio de la recta
+     * @param fin    el punto final de la recta
+     * @return array list recta
      */
     public ArrayList<PointF> creaRecta(PointF inicio, PointF fin) {
         ArrayList<PointF> recta = new ArrayList<>();
@@ -147,10 +147,10 @@ public class MonedaMenu {
     }
 
     /**
-     * Mueve moneda boolean.
+     * Mueve la moneda.
      *
-     * @param boton the boton
-     * @return the boolean
+     * @param boton el boton pulsado
+     * @return boolean
      */
     public boolean mueveMoneda(Rect boton) {
         float posCentroFichaX = this.getPosX() + this.getImgFicha().getWidth() / 2;
@@ -168,7 +168,7 @@ public class MonedaMenu {
     }
 
     /**
-     * Dibujar.
+     * Dibuja la moneda.
      *
      * @param c el Canvas
      */
@@ -182,9 +182,9 @@ public class MonedaMenu {
     /**
      * Instancia un nuevo objeto de la clase MonedaMenu.
      *
-     * @param posX     the pos x
-     * @param posY     the pos y
-     * @param imgFicha the img ficha
+     * @param posX     la posicion en x
+     * @param posY     la posicion en y
+     * @param imgFicha la imagen de la moneda
      */
     public MonedaMenu(int posX, int posY, Bitmap imgFicha) {
         this.imgFicha = imgFicha;

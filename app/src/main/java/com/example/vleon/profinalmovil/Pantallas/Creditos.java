@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 /**
  * La Escena de Creditos, en la que se ven los créditos mediante un scroll vertical.
+ *
  * @author Victor Leon Barciela
  */
 public class Creditos extends Escena {
@@ -69,6 +70,11 @@ public class Creditos extends Escena {
         lineas.get(14).setTexto("@VLeon__", fh.getDpH(30, altoPantalla), Color.BLACK);
     }
 
+    /**
+     * Actualiza las físicas, se encarga de realizar el movimiento de scroll vertical de los textos.
+     *
+     * @return int el id de la escena
+     */
     public int actualizarFisica() {
         header.getRect().top -= fh.getDpH(velocidad, altoPantalla);
         header.getRect().bottom -= fh.getDpH(velocidad, altoPantalla);
@@ -92,6 +98,11 @@ public class Creditos extends Escena {
         return idEscena;
     }
 
+    /**
+     * Se encarga de dibujar todos los elementos que se indiquen en el lienzo.
+     *
+     * @param c el Canvas
+     */
     public void dibujar(Canvas c) {
         try {
             c.drawBitmap(imgFondo, 0, 0, null);
@@ -107,6 +118,12 @@ public class Creditos extends Escena {
         }
     }
 
+    /**
+     * Evento OnTouch, se lanza cuando se toca la pantalla.
+     *
+     * @param event el evento
+     * @return int el id de la escena.
+     */
     public int onTouchEvent(MotionEvent event) {
         int accion = event.getActionMasked();
         switch (accion) {

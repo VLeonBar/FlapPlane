@@ -104,7 +104,7 @@ public class Barreras extends Objetos {
     }
 
     /**
-     * Actualizar fisica.
+     * Actualizar fisica, mueve las barreras.
      */
     public void actualizarFisica() {
         cambiaImagen();
@@ -116,7 +116,7 @@ public class Barreras extends Objetos {
     }
 
     /**
-     * Dibujar.
+     * Dibuja las barreras.
      *
      * @param c el Canvas
      */

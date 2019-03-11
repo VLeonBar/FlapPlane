@@ -79,7 +79,11 @@ public class Ajustes extends Escena {
         imgVibraOff = Bitmap.createScaledBitmap(imgVibraOff, btnActivaSonido.getRect().width(), btnActivaSonido.getRect().height(), false);
         botones.add(btnActivaVibra);
     }
-
+    /**
+     * Actualiza las físicas, cambia las imagenes de los botones de vibracion y sonido segun su estado.
+     *
+     * @return int el id de la escena
+     */
     public int actualizarFisica() {
         if (isSoundOn)
             btnActivaSonido.setImg(imgSonidoOn);
@@ -91,7 +95,11 @@ public class Ajustes extends Escena {
             btnActivaVibra.setImg(imgVibraOff);
         return idEscena;
     }
-
+    /**
+     * Se encarga de dibujar todos los elementos que se indiquen en el lienzo.
+     *
+     * @param c el Canvas
+     */
     public void dibujar(Canvas c) {
         try {
             c.drawBitmap(imgFondo, 0, 0, null);
@@ -103,7 +111,12 @@ public class Ajustes extends Escena {
             Log.i("Error al dibujar", e.getLocalizedMessage());
         }
     }
-
+    /**
+     * Evento OnTouch, se lanza cuando se toca la pantalla.
+     *
+     * @param event el evento
+     * @return int el id de la escena.
+     */
     public int onTouchEvent(MotionEvent event) {
         int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();

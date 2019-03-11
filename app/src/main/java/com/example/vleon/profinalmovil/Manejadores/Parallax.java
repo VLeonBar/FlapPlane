@@ -58,7 +58,7 @@ public class Parallax {
     }
 
     /**
-     * Actualizar fisica.
+     * Actualizar fisica, mueve los fondos con una velocidad aleatoria entre 4 y 10.
      */
     public void actualizarFisica() {
         for (Fondo fondo : fondos)
@@ -67,7 +67,7 @@ public class Parallax {
 
 
     /**
-     * Dibuja.
+     * Dibuja los fondos.
      *
      * @param c el Canvas
      */

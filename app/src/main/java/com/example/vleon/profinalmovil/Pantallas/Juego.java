@@ -102,7 +102,11 @@ public class Juego extends Escena {
         nave = new Nave(contexto, anchoPantalla, altoPantalla, fh.getFrames(2, "aviones", "sube", fh.partePantalla(anchoPantalla, 10)), fh.partePantalla(anchoPantalla, 8), fh.partePantalla(altoPantalla, 2));
         barrera = new Barreras(contexto, anchoPantalla, altoPantalla, fh.getFrames(2, "barreras", "barrera", altoPantalla));
     }
-
+    /**
+     * Actualiza las físicas, se encarga de actualizar el estado de todos los elementos que salen por pantalla tanto como otros elementos como sonido y vibracion.
+     *
+     * @return int el id de la escena
+     */
     public int actualizarFisica() {
         now = System.currentTimeMillis();
         if (now - last > 300) {
@@ -128,7 +132,11 @@ public class Juego extends Escena {
         }
         return idEscena;
     }
-
+    /**
+     * Se encarga de dibujar todos los elementos que se indiquen en el lienzo.
+     *
+     * @param c el Canvas
+     */
     public void dibujar(Canvas c) {
         try {
             parallax.dibuja(c);
@@ -146,7 +154,12 @@ public class Juego extends Escena {
             Log.i("Error al dibujar", e.getLocalizedMessage());
         }
     }
-
+    /**
+     * Evento OnTouch, se lanza cuando se toca la pantalla.
+     *
+     * @param event el evento
+     * @return int el id de la escena.
+     */
     public int onTouchEvent(MotionEvent event) {
         Log.i("pepe", "" + event);
         if (event.getAction() == MotionEvent.ACTION_DOWN) {

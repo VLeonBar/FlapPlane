@@ -82,11 +82,19 @@ public class Records extends Escena {
         }
         actualizaScores();
     }
-
+    /**
+     * Actualiza las físicas.
+     *
+     * @return int el id de la escena
+     */
     public int actualizarFisica() {
         return idEscena;
     }
-
+    /**
+     * Se encarga de dibujar todos los elementos que se indiquen en el lienzo.
+     *
+     * @param c el Canvas
+     */
     public void dibujar(Canvas c) {
         try {
             try {
@@ -139,7 +147,12 @@ public class Records extends Escena {
         c.close();
         db.close();
     }
-
+    /**
+     * Evento OnTouch, se lanza cuando se toca la pantalla.
+     *
+     * @param event el evento
+     * @return int el id de la escena.
+     */
     public int onTouchEvent(MotionEvent event) {
         int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();

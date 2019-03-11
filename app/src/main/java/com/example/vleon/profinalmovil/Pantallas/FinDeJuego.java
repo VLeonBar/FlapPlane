@@ -147,7 +147,11 @@ public class FinDeJuego extends Escena {
         botones.add(btnLetra3);
 
     }
-
+    /**
+     * Actualiza las físicas, actualiza el texto de las letras de elección de nombre que salen por pantalla.
+     *
+     * @return int el id de la escena
+     */
     public int actualizarFisica() {
         btnLetra1.setTexto("" + letras[0], fh.getDpH(100, altoPantalla), Color.BLACK);
         btnLetra2.setTexto("" + letras[1], fh.getDpH(100, altoPantalla), Color.BLACK);
@@ -155,7 +159,11 @@ public class FinDeJuego extends Escena {
 
         return idEscena;
     }
-
+    /**
+     * Se encarga de dibujar todos los elementos que se indiquen en el lienzo.
+     *
+     * @param c el Canvas
+     */
     public void dibujar(Canvas c) {
         try {
             c.drawBitmap(imgFondo, 0, 0, null);
@@ -201,7 +209,12 @@ public class FinDeJuego extends Escena {
         letra = alfabeto.get(i);
         return letra;
     }
-
+    /**
+     * Evento OnTouch, se lanza cuando se toca la pantalla.
+     *
+     * @param event el evento
+     * @return int el id de la escena.
+     */
     public int onTouchEvent(MotionEvent event) {
         int accion = event.getActionMasked();
         switch (accion) {

@@ -40,7 +40,7 @@ public class Nave extends Objetos {
     }
 
     /**
-     * Actualizar fisica.
+     * Actualizar fisica, actualiza la posicion de la nave.
      *
      * @param sube      indica si la nave sube
      * @param velocidad indica la velocidad de la nave
@@ -57,7 +57,7 @@ public class Nave extends Objetos {
     }
 
     /**
-     * Dibujar.
+     * Dibuja la nave.
      *
      * @param c    el Canvas
      * @param sube indica si la nave sube o baja

@@ -81,12 +81,20 @@ public class Ayuda extends Escena {
         ventanas.add(textAyuda);
         ventanas.add(textFooter);
     }
-
+    /**
+     * Actualiza las físicas.
+     *
+     * @return int el id de la escena
+     */
     public int actualizarFisica() {
         return idEscena;
 
     }
-
+    /**
+     * Se encarga de dibujar todos los elementos que se indiquen en el lienzo.
+     *
+     * @param c el Canvas
+     */
     public void dibujar(Canvas c) {
         try {
             c.drawBitmap(imgFondo, 0, 0, null);
@@ -98,7 +106,12 @@ public class Ayuda extends Escena {
             Log.i("Error al dibujar", e.getLocalizedMessage());
         }
     }
-
+    /**
+     * Evento OnTouch, se lanza cuando se toca la pantalla.
+     *
+     * @param event el evento
+     * @return int el id de la escena.
+     */
     public int onTouchEvent(MotionEvent event) {
         int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();

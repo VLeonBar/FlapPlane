@@ -10,19 +10,34 @@ import android.graphics.Typeface;
  * Una clase que permite introducir texto o una imagen a un rectángulo para poder interactuar con el, lo cual da una gran versatilidad sobre todo a la hora de ampliar funcionalidades.
  */
 public class Boton {
-    private Paint p, pText;
+    /**
+     * El pincel para el rectangulo.
+     */
+    private Paint p, /**
+     * El pincel para el texto.
+     */
+    pText;
+    /**
+     * El rectangulo.
+     */
     private Rect rect;
+    /**
+     * La imagen.
+     */
     private Bitmap img;
+    /**
+     * El texto.
+     */
     private String texto;
 
     /**
      * Instancia un nuevo objeto de la clase Boton.
      *
-     * @param left el punto izquierdo del rectangulo
-     * @param top el punto superior del rectangulo
-     * @param right el punto derecho del rectangulo
-     * @param bottom el punto inferior del rectangulo
-     * @param color el color del rectangulo
+     * @param left     el punto izquierdo del rectangulo
+     * @param top      el punto superior del rectangulo
+     * @param right    el punto derecho del rectangulo
+     * @param bottom   el punto inferior del rectangulo
+     * @param color    el color del rectangulo
      * @param typeface el typeface
      */
     public Boton(int left, int top, int right, int bottom, int color, Typeface typeface) {
@@ -40,9 +55,9 @@ public class Boton {
     /**
      * Da un valor a texto.
      *
-     * @param texto  el texto
-     * @param size el size del texto
-     * @param color  el color del texto
+     * @param texto el texto
+     * @param size  el size del texto
+     * @param color el color del texto
      */
     public void setTexto(String texto, int size, int color) {
         this.texto = texto;

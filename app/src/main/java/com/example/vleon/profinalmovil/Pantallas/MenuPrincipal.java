@@ -85,7 +85,11 @@ public class MenuPrincipal extends Escena {
         if (isSoundOn)
             sonidos.mediaPlayer.start();
     }
-
+    /**
+     * Actualiza las físicas, encargado de realizar la animacion de movimiento de la moneda del menu.
+     *
+     * @return int el id de la escena
+     */
     public int actualizarFisica() {
         if (movMoneda) {
             bandera = monedaMenu.mueveMoneda(botonPulsado);
@@ -95,7 +99,11 @@ public class MenuPrincipal extends Escena {
         }
         return idEscena;
     }
-
+    /**
+     * Se encarga de dibujar todos los elementos que se indiquen en el lienzo.
+     *
+     * @param c el Canvas
+     */
     public void dibujar(Canvas c) {
         try {
             c.drawBitmap(imgFondo, 0, 0, null);
@@ -112,7 +120,12 @@ public class MenuPrincipal extends Escena {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Evento OnTouch, se lanza cuando se toca la pantalla.
+     *
+     * @param event el evento
+     * @return int el id de la escena.
+     */
     public int onTouchEvent(MotionEvent event) {
         int pointerIndex = event.getActionIndex();
         int accion = event.getActionMasked();

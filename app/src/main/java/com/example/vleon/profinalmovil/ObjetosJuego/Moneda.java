@@ -20,6 +20,9 @@ public class Moneda extends Objetos {
      * El rectangulo de la moneda.
      */
     Rect rect;
+    /**
+     * El punto en el eje Y aleatorio dónde se empieza a dibujar la moneda.
+     */
     private int randPointY;
 
     /**
@@ -71,7 +74,7 @@ public class Moneda extends Objetos {
 
 
     /**
-     * Actualizar fisica.
+     * Actualizar fisica, gira la imagen de la moneda y la mueve.
      */
     public void actualizarFisica() {
         cambiaImagen();
@@ -85,7 +88,7 @@ public class Moneda extends Objetos {
     }
 
     /**
-     * Dibujar.
+     * Dibuja la moneda.
      *
      * @param c el Canvas
      */

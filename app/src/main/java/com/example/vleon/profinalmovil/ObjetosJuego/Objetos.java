@@ -9,7 +9,7 @@ import com.example.vleon.profinalmovil.Manejadores.FrameHandler;
 import com.example.vleon.profinalmovil.Manejadores.Sonidos;
 
 /**
- * The type Objetos.
+ * La clase genérica utilizada para la mayoria de objetos.
  */
 public class Objetos {
     /**
